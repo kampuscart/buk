@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KAMPUS CART BUK</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+    }
+
+    /* HEADER */
+    .header {
+      background: #ffffff;
+      padding: 15px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid #eee;
+    }
+
+    .header img {
+      width: 28px;
+      height: 28px;
+    }
+
+    /* SELL BUTTON */
+    .sell-btn {
+      background: #00a62e;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      font-size: 17px;
+      font-weight: bold;
+      margin: 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* POPUP OVERLAY */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* POPUP BOX */
+    .popup {
+      background: white;
+      width: 80%;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      background: #ff3333;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* PRODUCTS GRID */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      padding: 15px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .product img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
+
+    .product .info {
+      padding: 10px;
+    }
+
+    .info h4 {
+      margin: 0;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .info p {
+      margin: 5px 0;
+      color: #0072ff;
+      font-weight: bold;
+    }
+
+    /* SELLER BOX */
+    .seller-box {
+      background: #f7f7f7;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-top: 5px;
+      line-height: 16px;
+    }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 62px;
+      background: #ffffff;
+      border-top: 1px solid #ccc;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      font-size: 14px;
+    }
+
+    .nav-item {
+      text-align: center;
+      padding: 5px;
+      cursor: pointer;
+    }
+
+    /* SERVICES PAGE */
+    .services {
+      padding: 15px;
+      display: none;
+    }
+
+    .service-box {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+
+  <script>
+    function openPopup() {
+      document.getElementById("popupOverlay").style.display = "flex";
+    }
+
+    function closePopup() {
+      document.getElementById("popupOverlay").style.display = "none";
+    }
+
+    function switchTab(tab) {
+      document.getElementById("homePage").style.display = tab === "home" ? "block" : "none";
+      document.getElementById("servicesPage").style.display = tab === "services" ? "block" : "none";
+    }
+  </script>
+
+</head>
+<body>
+
+  <!-- HEADER -->
+  <div class="header">
+    <span>KAMPUS CART BUK</span>
+    <img src="https://cdn-icons-png.flaticon.com/512/3737/3737372.png">
+  </div>
+
+  <!-- POPUP OVERLAY -->
+  <div class="overlay" id="popupOverlay">
+    <div class="popup">
+      If you want to sell a product kindly contact:<br><br>
+      <b style="font-size:20px;">Manager Abdallah</b><br>
+      <b style="font-size:20px;">📞 07052418840</b>
+      <div class="close-btn" onclick="closePopup()">Close</div>
+    </div>
+  </div>
+
+  <!-- MAIN HOME PAGE -->
+  <div id="homePage">
+
+    <!-- SELL BUTTON -->
+    <div class="sell-btn" onclick="openPopup()">SELL A PRODUCT</div>
+
+    <!-- PRODUCT LIST -->
+    <div class="products">
+
+      <!-- SAMPLE PRODUCT 1 -->
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad">
+        <div class="info">
+          <h4>Wireless Earbuds</h4>
+          <p>₦4,500</p>
+
+          <div class="seller-box">
+            Seller: Musa Ibrahim<br>
+            Phone: 08123456789<br>
+            Hostel: Amina Hall<br>
+            Condition: New<br>
+            Small description: Quality bass sound.
+          </div>
+        </div>
+      </div>
+
+      <!-- SAMPLE PRODUCT 2 -->
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8">
+        <div class="info">
+          <h4>HP Laptop</h4>
+          <p>₦120,000</p>
+
+          <div class="seller-box">
+            Seller: Sadiq Umar<br>
+            Phone: 09099887766<br>
+            Hostel: Danfodiyo Hall<br>
+            Condition: Fairly Used<br>
+            Description: Battery lasts 5 hours.
+          </div>
+        </div>
+      </div>
+
+      <!-- SAMPLE PRODUCT 3 -->
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1536840362362-9567c5b4340b">
+        <div class="info">
+          <h4>BUK Hoodie</h4>
+          <p>₦8,000</p>
+
+          <div class="seller-box">
+            Seller: Aisha Bello<br>
+            Phone: 08155667788<br>
+            Hostel: Maryam Hall<br>
+            Condition: New<br>
+            Description: Thick and warm.
+          </div>
+        </div>
+      </div>
+
+      <!-- SAMPLE PRODUCT 4 -->
+      <div class="product">
+        <img src="https://images.unsplash.com/photo-1600181951377-f4e7c2a46f85">
+        <div class="info">
+          <h4>School Backpack</h4>
+          <p>₦6,500</p>
+
+          <div class="seller-box">
+            Seller: Hafsat Ali<br>
+            Phone: 08033445566<br>
+            Hostel: Ramat Hall<br>
+            Condition: New<br>
+            Description: Waterproof material.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SERVICES PAGE -->
+  <div id="servicesPage" class="services">
+    <div class="service-box">📦 Delivery Support (Coming Soon)</div>
+    <div class="service-box">🔧 Gadget Repairs (Coming Soon)</div>
+    <div class="service-box">🛍 Campus Personal Shopper</div>
+    <div class="service-box">📚 Book & Stationery Finder</div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <div class="nav-item" onclick="switchTab('home')">Home</div>
+    <div class="nav-item" onclick="switchTab('services')">Services</div>
+    <div class="nav-item" onclick="openPopup()" style="font-weight:bold; color:green;">SELL</div>
+  </div>
+
+</body>
+</html>
