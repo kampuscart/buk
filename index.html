@@ -1,300 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Kampus Cart BUK</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kampus Cart</title>
 
 <style>
-  body {
-    margin: 0;
-    background: #f5f5f5;
+body {
     font-family: Arial, sans-serif;
-  }
-
-  /* HEADER */
-  .header {
-    background: white;
-    padding: 16px;
+    margin: 0; padding: 0;
+    background: #f5f5f5;
+    transition: 0.3s;
+}
+header {
+    background: #0B7A4B;
+    color: white;
+    padding: 18px;
+    text-align: center;
     font-size: 22px;
     font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid #ddd;
-  }
+}
 
-  /* SEARCH SECTION */
-  .search-section {
+/* Search bar */
+.search-container {
+    display: flex;
+    padding: 10px;
     background: white;
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-    display: flex;
     gap: 10px;
-    align-items: center;
-  }
-
-  .search-input {
+}
+.search-container input {
     flex: 1;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #bbb;
-    font-size: 15px;
-  }
-
-  .category-btn {
-    padding: 12px 16px;
-    background: #00a62e;
+    padding: 10px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+.category-btn {
+    padding: 10px 15px;
+    background: #0B7A4B;
     color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-  }
+    border-radius: 6px;
+    border: none;
+}
 
-  /* CATEGORY DROPDOWN */
-  .category-box {
+/* Category dropdown */
+#categoryMenu {
     display: none;
     background: white;
+    padding: 10px;
+}
+#categoryMenu button {
+    width: 100%;
     padding: 12px;
-    border-bottom: 1px solid #ddd;
-  }
-  .category-box div {
-    padding: 10px 5px;
-    font-size: 15px;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-  }
+    margin-top: 5px;
+    border: none;
+    background: #eee;
+    border-radius: 5px;
+}
 
-  /* PRODUCTS */
-  .products {
-    padding: 15px;
+/* Product grid */
+.products {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-  }
-
-  .product-card {
+    gap: 12px;
+    padding: 12px;
+}
+.product {
     background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
-  }
-
-  .product-card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-  }
-
-  .product-info {
+    border-radius: 10px;
     padding: 10px;
-  }
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.13);
+    cursor: pointer;
+}
+.product img {
+    width: 100%;
+    border-radius: 10px;
+}
 
-  .product-title {
-    font-size: 15px;
-    font-weight: bold;
-  }
-
-  .product-price {
-    color: #00a62e;
-    font-size: 15px;
-    font-weight: bold;
-    margin: 6px 0;
-  }
-
-  .seller-box {
-    font-size: 12px;
-    background: #f3f3f3;
-    padding: 6px;
-    border-radius: 6px;
-    line-height: 16px;
-  }
-
-  /* POPUP */
-  .overlay {
+/* Popup modal */
+#popup {
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.5);
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.55);
     display: none;
     justify-content: center;
     align-items: center;
-  }
-
-  .popup {
+}
+.popup-box {
+    width: 88%;
     background: white;
-    width: 80%;
-    padding: 20px;
-    border-radius: 12px;
-    text-align: center;
-    font-size: 18px;
-    box-shadow: 0px 6px 20px rgba(0,0,0,0.3);
-  }
-
-  .close-btn {
-    margin-top: 15px;
-    background: #ff3333;
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  /* SELL BUTTON */
-  .sell-btn {
-    position: fixed;
-    bottom: 85px;
-    right: 20px;
-    background: #00a62e;
-    color: white;
-    padding: 15px 20px;
-    border-radius: 50px;
-    font-weight: bold;
-    box-shadow: 0px 5px 12px rgba(0,0,0,0.2);
-    cursor: pointer;
-  }
-
-  /* BOTTOM NAV */
-  .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0; right: 0;
-    height: 65px;
-    background: white;
-    border-top: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 10px;
+}
+.slider-img {
+    width: 100%;
+    border-radius: 10px;
+}
+.slider-btns {
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 14px;
-  }
+    justify-content: center;
+    gap: 10px;
+}
+.slider-btns button {
+    padding: 5px 10px;
+    border: none;
+    background: #0B7A4B;
+    color: white;
+    border-radius: 5px;
+}
 
-  .nav-item {
-    text-align: center;
+/* Floating Sell Button */
+.sell-btn {
+    position: fixed;
+    bottom: 20px; right: 20px;
+    background: #0B7A4B;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    font-size: 22px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.3);
     cursor: pointer;
-  }
+}
+
+/* Light / Dark Mode */
+.dark {
+    background: #1c1c1c;
+    color: white;
+}
+.dark .product,
+.dark #categoryMenu,
+.dark .popup-box {
+    background: #2b2b2b;
+    color: white;
+}
 </style>
-
-<script>
-  function toggleCategories() {
-    let box = document.getElementById("categoryBox");
-    box.style.display = box.style.display === "block" ? "none" : "block";
-  }
-
-  function openPopup() {
-    document.getElementById("popupOverlay").style.display = "flex";
-  }
-
-  function closePopup() {
-    document.getElementById("popupOverlay").style.display = "none";
-  }
-</script>
 </head>
+
 
 <body>
 
-<!-- HEADER -->
-<div class="header">🛒 KAMPUS CART BUK</div>
+<header>
+    Kampus Cart
+</header>
 
-<!-- SEARCH + CATEGORIES -->
-<div class="search-section">
-  <input type="text" class="search-input" placeholder="Search for anything...">
-  <div class="category-btn" onclick="toggleCategories()">Categories</div>
+<!-- SEARCH & CATEGORY -->
+<div class="search-container">
+    <input id="searchInput" type="text" placeholder="Search products...">
+    <button class="category-btn" onclick="toggleCategory()">Categories</button>
 </div>
 
-<!-- CATEGORY DROPDOWN -->
-<div class="category-box" id="categoryBox">
-  <div>📱 Phones</div>
-  <div>👕 Clothing</div>
-  <div>🎒 Bags</div>
-  <div>💻 Gadgets</div>
-  <div>📚 Books</div>
-  <div>🍔 Food Items</div>
+<!-- CATEGORY MENU -->
+<div id="categoryMenu">
+    <button onclick="filterCategory('cloth')">Clothing</button>
+    <button onclick="filterCategory('perfume')">Perfume</button>
+    <button onclick="filterCategory('textbook')">Books</button>
+    <button onclick="filterCategory('food')">Food</button>
+    <button onclick="filterCategory('all')">All</button>
 </div>
+
+<!-- PRODUCT GRID -->
+<div id="productList" class="products"></div>
 
 <!-- POPUP -->
-<div class="overlay" id="popupOverlay">
-  <div class="popup">
-    ⭐ Ready to sell on Kampus Cart? ⭐<br><br>
-    Contact our Manager:<br><br>
-    <b>Manager</b><br>
-    <b>📞 07052418840</b><br><br>
-    We’ll help you list your product fast!
-    <div class="close-btn" onclick="closePopup()">Close</div>
-  </div>
+<div id="popup">
+    <div class="popup-box">
+        <img id="popupImg" class="slider-img">
+        <div class="slider-btns" id="sliderBtns"></div>
+        <h3 id="popupName"></h3>
+        <p id="popupPrice"></p>
+        <p id="popupInfo"></p>
+        <p id="popupPhone"></p>
+        <button onclick="closePopup()">Close</button>
+    </div>
 </div>
 
 <!-- SELL BUTTON -->
-<div class="sell-btn" onclick="openPopup()">+ Sell Item</div>
-
-<!-- PRODUCT LIST -->
-<div class="products">
-
-  <!-- KCID-111 -->
-  <div class="product-card">
-    <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4715.jpeg">
-    <div class="product-info">
-      <div class="product-title">Florida Wool (High Quality)</div>
-      <div class="product-price">₦5000 / yard</div>
-      <div class="seller-box">
-        Seller: Florida Wool<br>
-        Phone: 08128371576 / 09169517156<br>
-        Location: Ibrahim Khalil Street<br>
-        KCID-111
-      </div>
-    </div>
-  </div>
-
-  <!-- KCID-112 -->
-  <div class="product-card">
-    <img src="https://raw.githubusercontent.com/kampuscart/buk/main/860407a0-5864-4279-82db-564ba294feb6.jpeg">
-    <div class="product-info">
-      <div class="product-title">Dubai & Egyptian Abaya</div>
-      <div class="product-price">₦20,000</div>
-      <div class="seller-box">
-        Phone: 07064180465<br>
-        High quality fabric<br>
-        KCID-112
-      </div>
-    </div>
-  </div>
-
-  <!-- KCID-113 -->
-  <div class="product-card">
-    <img src="https://raw.githubusercontent.com/kampuscart/buk/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg">
-    <div class="product-info">
-      <div class="product-title">Tailoredbynana (Abayas & Gowns)</div>
-      <div class="product-price">₦8,000 - ₦20,000</div>
-      <div class="seller-box">
-        Phone: 08130530595<br>
-        Hijabs, gowns, cut & sew<br>
-        KCID-113
-      </div>
-    </div>
-  </div>
-
-  <!-- KCID-114 -->
-  <div class="product-card">
-    <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4717.jpeg">
-    <div class="product-info">
-      <div class="product-title">BUK Bookshop</div>
-      <div class="product-price">Contact for prices</div>
-      <div class="seller-box">
-        Textbooks & reference books<br>
-        Phone: 07066460111<br>
-        KCID-114
-      </div>
-    </div>
-  </div>
-
+<div class="sell-btn" onclick="alert('Message: 📢 Want to sell? Contact Manager Abdullahi at 09021683981')">
+    +
 </div>
 
-<!-- BOTTOM NAV -->
-<div class="bottom-nav">
-  <div class="nav-item">Home</div>
-  <div class="nav-item">Services</div>
-  <div class="nav-item" onclick="openPopup()">Sell</div>
-</div>
+
+<script>
+/* PRODUCT DATA */
+const products = [
+    {
+        kcid: "111",
+        name: "FLORIDA WOOL",
+        price: "₦5000 / yard",
+        phone: "08128371576 / 09169517156",
+        images: [
+            "https://github.com/kampuscart/buk/blob/main/IMG_4717.jpeg?raw=1"
+        ],
+        cat: "cloth"
+    },
+    {
+        kcid: "112",
+        name: "Abaya Dubai/Egyptian",
+        price: "₦20,000",
+        phone: "07064180465",
+        images: [
+            "https://github.com/kampuscart/buk/blob/main/860407a0-5864-4279-82db-564ba294feb6.jpeg?raw=1"
+        ],
+        cat: "cloth"
+    },
+    {
+        kcid: "113",
+        name: "Natural Body Perfume Spray",
+        price: "₦5,000",
+        phone: "08130530595",
+        images: [
+            "https://github.com/kampuscart/buk/blob/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg?raw=1"
+        ],
+        cat: "perfume"
+    },
+    {
+        kcid: "113B",
+        name: "Abaya",
+        price: "₦7,000",
+        phone: "08130530595",
+        images: [
+            "https://github.com/kampuscart/buk/blob/main/a5511486-ef55-4fe1-bf0d-a0d03d5c0265.jpeg?raw=1"
+        ],
+        cat: "cloth"
+    },
+    {
+        kcid: "Victorian",
+        name: "Victorian Yard",
+        price: "₦10,000 / yard",
+        phone: "08128371576 / 09169517156",
+        images: [
+            "https://github.com/kampuscart/buk/blob/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg?raw=1",
+            "https://github.com/kampuscart/buk/blob/main/4f691b91-b66f-4b87-ab90-3e75b92c5888.jpeg?raw=1"
+        ],
+        cat: "cloth"
+    },
+];
+
+/* DISPLAY PRODUCTS */
+function loadProducts(list) {
+    const box = document.getElementById("productList");
+    box.innerHTML = "";
+    list.forEach(p => {
+        box.innerHTML += `
+        <div class="product" onclick='openPopup(${JSON.stringify(p)})'>
+            <img src="${p.images[0]}">
+            <h4>${p.name}</h4>
+            <p>${p.price}</p>
+        </div>`;
+    });
+}
+loadProducts(products);
+
+/* CATEGORY */
+function toggleCategory() {
+    const menu = document.getElementById("categoryMenu");
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+}
+function filterCategory(cat) {
+    if (cat === "all") loadProducts(products);
+    else loadProducts(products.filter(p => p.cat === cat));
+}
+
+/* SEARCH */
+document.getElementById("searchInput").oninput = function () {
+    const q = this.value.toLowerCase();
+    const filtered = products.filter(p => p.name.toLowerCase().includes(q));
+    loadProducts(filtered);
+};
+
+/* POPUP */
+function openPopup(p) {
+    document.getElementById("popupName").innerText = p.name;
+    document.getElementById("popupPrice").innerText = p.price;
+    document.getElementById("popupPhone").innerText = "Contact: " + p.phone;
+
+    let current = 0;
+    const popupImg = document.getElementById("popupImg");
+    popupImg.src = p.images[0];
+
+    const btns = document.getElementById("sliderBtns");
+    btns.innerHTML = "";
+
+    // only show slider if more than 1 image
+    if (p.images.length > 1) {
+        p.images.forEach((img, i) => {
+            btns.innerHTML += `<button onclick="changeSlide('${img}')">${i+1}</button>`;
+        });
+    }
+
+    document.getElementById("popup").style.display = "flex";
+}
+
+function changeSlide(img) {
+    document.getElementById("popupImg").src = img;
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+</script>
 
 </body>
 </html>
