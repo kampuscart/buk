@@ -1,371 +1,100 @@
-DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KAMPUS CART BUK</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f5f5;
-      -webkit-font-smoothing:antialiased;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kampus Cart</title>
 
-    /* HEADER */
-    .header {
-      background: #ffffff;
-      padding: 12px 16px;
-      display:flex;
-      align-items:center;
-      justify-content: center;
-      gap:10px;
-      border-bottom:1px solid #eee;
-      position: sticky;
-      top:0;
-      z-index: 30;
-    }
-    .header .title {
-      font-size:20px;
-      font-weight:700;
-      letter-spacing:0.6px;
-    }
-    .header img.logo {
-      width:28px;
-      height:28px;
-    }
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f6f6f6;
+}
 
-    /* SELL BUTTON */
-    .sell-btn {
-      background: #00a62e;
-      color: white;
-      padding: 10px 14px;
-      text-align: center;
-      font-size: 15px;
-      font-weight: 700;
-      margin: 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      display:inline-block;
-    }
+/* BOTTOM NAV */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    border-top: 1px solid #ddd;
+}
 
-    /* OVERLAYS */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.45);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 60;
-      padding: 20px;
-    }
-    .popup, .product-modal {
-      background: #fff;
-      width: 92%;
-      max-width: 520px;
-      padding: 18px;
-      border-radius: 10px;
-      box-shadow: 0 6px 22px rgba(0,0,0,0.18);
-      text-align: left;
-    }
-    .popup h3 { margin: 0 0 8px 0; font-size:18px; }
-    .popup p { margin: 6px 0; font-size:15px; }
-    .close-btn {
-      margin-top: 12px;
-      background: #ff3333;
-      color: white;
-      padding: 8px 12px;
-      border-radius: 8px;
-      cursor: pointer;
-      display:inline-block;
-      font-weight:700;
-    }
+.bottom-nav div {
+    text-align: center;
+    font-size: 14px;
+}
 
-    /* PRODUCTS GRID */
-    .products {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      padding: 14px;
-      max-width: 980px;
-      margin: 12px auto 90px auto;
-    }
-    @media (max-width:640px) {
-      .products { grid-template-columns: 1fr; padding:12px; }
-      .popup, .product-modal { width: 96%; }
-    }
+/* PRODUCT GRID */
+.products {
+    padding: 15px;
+    margin-bottom: 70px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
 
-    .product {
-      background: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      cursor: pointer;
-      transition: transform .12s ease, box-shadow .12s ease;
-      display:flex;
-      flex-direction: column;
-    }
-    .product:hover { transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+.product-card {
+    background: white;
+    border-radius: 14px;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
 
-    .product .thumb {
-      width:100%;
-      height:150px;
-      object-fit: cover;
-      background: #eee;
-    }
-    .product .info {
-      padding: 10px;
-      flex:1;
-      display:flex;
-      flex-direction: column;
-    }
-    .info h4 { margin:0 0 6px 0; font-size:15px; font-weight:700; }
-    .info p.price { margin:0 0 8px 0; color:#0072ff; font-weight:800; }
-    .seller-box {
-      background: #f7f7f7;
-      padding: 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      margin-top: auto;
-      line-height: 16px;
-      color:#333;
-    }
+.product-card img {
+    width: 100%;
+    border-radius: 12px;
+    height: 150px;
+    object-fit: cover;
+}
 
-    /* BOTTOM NAV */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 62px;
-      background: #ffffff;
-      border-top: 1px solid #ddd;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      font-size: 14px;
-      z-index: 40;
-    }
-    .nav-item { text-align:center; cursor:pointer; padding:6px 8px; }
+.product-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 8px;
+}
 
-    /* SERVICE PAGE */
-    .services { padding: 16px; display:none; max-width:980px; margin:12px auto 90px auto; }
-    .service-box { background:#fff; padding:12px; border-radius:10px; margin-bottom:12px; box-shadow: 0 2px 6px rgba(0,0,0,0.06); }
+.product-price {
+    font-size: 14px;
+    color: green;
+    font-weight: bold;
+}
 
-    /* PRODUCT MODAL LAYOUT */
-    .product-modal .large-img { width:100%; height:220px; object-fit:cover; border-radius:8px; background:#eee; }
-    .product-modal .details { margin-top:10px; font-size:14px; }
-    .product-modal .details b { display:block; margin-bottom:6px; font-size:15px; }
-    .product-modal .actions { margin-top:12px; display:flex; gap:8px; }
-    .btn-green { background:#00a62e; color:#fff; padding:8px 12px; border-radius:8px; font-weight:700; cursor:pointer; }
-    .btn-outline { background:#fff; border:1px solid #ccc; padding:8px 12px; border-radius:8px; cursor:pointer; }
+/* SELL POPUP */
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    width: 85%;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.25);
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
 
-    /* small helper */
-    .muted { color:#666; font-size:13px; }
-  </style>
-</head>
-<body>
+@keyframes fadeIn {
+    from {opacity: 0; transform: translate(-50%, -45%);}
+    to   {opacity: 1; transform: translate(-50%, -50%);}
+}
 
-  <!-- HEADER -->
-  <div class="header">
-    <img class="logo" src="https://cdn-icons-png.flaticon.com/512/3737/3737372.png" alt="cart icon">
-    <div class="title">KAMPUS CART BUK</div>
-  </div>
+.popup h2 {
+    text-align: center;
+    font-size: 20px;
+}
 
-  <!-- SELL POPUP OVERLAY (Manager contact) -->
-  <div class="overlay" id="sellOverlay">
-    <div class="popup" role="dialog" aria-modal="true">
-      <h3>Sell a product</h3>
-      <p>If you want to sell a product kindly contact:</p>
-      <p style="font-size:18px; font-weight:800;">Manager</p>
-      <p style="font-size:18px; font-weight:800;">📞 07052418840</p>
-      <div style="text-align:right;">
-        <div class="close-btn" onclick="closeSell()">Close</div>
-      </div>
-    </div>
-  </div>
+.info-big {
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 10px;
+}
 
-  <!-- PRODUCT DETAIL MODAL (reusable) -->
-  <div class="overlay" id="productOverlay">
-    <div class="product-modal" role="dialog" aria-modal="true">
-      <img id="modalImg" class="large-img" src="" alt="product image">
-      <div class="details">
-        <b id="modalTitle">Product name</b>
-        <div id="modalPrice" style="color:#0072ff; font-weight:800; margin-bottom:8px;">₦0</div>
-        <div class="seller-box" id="modalSeller">
-          <!-- seller details injected here -->
-        </div>
-
-        <div style="margin-top:8px;" id="modalExtra"></div>
-
-        <div class="actions">
-          <div class="btn-green" id="modalCall">Call Seller</div>
-          <div class="btn-outline" onclick="closeProduct()">Close</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MAIN HOME PAGE -->
-  <div id="homePage">
-
-    <!-- SELL BUTTON -->
-    <div style="display:flex; justify-content:center;">
-      <div class="sell-btn" onclick="openSell()">SELL A PRODUCT</div>
-    </div>
-
-    <!-- PRODUCT LIST -->
-    <div class="products" id="productsGrid">
-
-      <!-- KCID-111 -->
-      <div class="product" tabindex="0" onclick="openProductDetail({
-            title: 'FLORIDA WOOL (per yard)',
-            price: '₦5,000',
-            img: 'images/IMG_4715.jpeg',
-            sellerHTML: 'Seller: FLORIDA WOOL<br>Phone: 08128371576 or 09169517156<br>Address: No 370 Ibrahim Khalil Street, Rijiyar Zaki<br>Condition: New<br>Small description: Better yard with high quality.',
-            callNumber: '08128371576'
-          })">
-        <img class="thumb" src="images/IMG_4715.jpeg" alt="FLORIDA WOOL">
-        <div class="info">
-          <h4>FLORIDA WOOL</h4>
-          <p class="price">₦5,000 / yard</p>
-          <div class="seller-box">
-            Seller: FLORIDA WOOL<br>
-            Phone: 08128371576<br>
-            Address: Rijiyar Zaki<br>
-            KCID: 111
-          </div>
-        </div>
-      </div>
-
-      <!-- KCID-112 -->
-      <div class="product" tabindex="0" onclick="openProductDetail({
-            title: 'Abaya (Dubai & Egyptian)',
-            price: '₦20,000',
-            img: 'images/860407a0-5864-4279-82db-564ba294feb6.jpeg',
-            sellerHTML: 'Seller: Abaya Seller<br>Phone: 07064180465<br>Type: Dubai and Egyptian Abayas<br>Price: ₦20,000',
-            callNumber: '07064180465'
-          })">
-        <img class="thumb" src="images/860407a0-5864-4279-82db-564ba294feb6.jpeg" alt="Abaya">
-        <div class="info">
-          <h4>Abaya — Dubai / Egyptian</h4>
-          <p class="price">₦20,000</p>
-          <div class="seller-box">
-            Seller: Abaya Seller<br>
-            Phone: 07064180465<br>
-            KCID: 112
-          </div>
-        </div>
-      </div>
-
-      <!-- KCID-113 -->
-      <div class="product" tabindex="0" onclick="openProductDetail({
-            title: 'Tailoredbynana — Hijabs / Abayas / Adire',
-            price: 'Hijabs ₦8,000 • Adire ₦20,000',
-            img: 'images/96354c82-38dc-483e-b580-576825d2e2c5.jpeg',
-            sellerHTML: 'Seller: Tailoredbynana<br>Phone: 08130530595<br>Products: Abayas, Adire gowns, Cut & Sew, Hijabs<br>Hijab set: ₦8,000; Adire bubu gowns: ₦20,000',
-            callNumber: '08130530595'
-          })">
-        <img class="thumb" src="images/96354c82-38dc-483e-b580-576825d2e2c5.jpeg" alt="Tailoredbynana">
-        <div class="info">
-          <h4>Tailoredbynana</h4>
-          <p class="price">Hijab set ₦8,000</p>
-          <div class="seller-box">
-            Tailor / Designer<br>
-            Phone: 08130530595<br>
-            KCID: 113
-          </div>
-        </div>
-      </div>
-
-      <!-- KCID-114 -->
-      <div class="product" tabindex="0" onclick="openProductDetail({
-            title: 'Bayero University Kano Bookshop',
-            price: 'Textbooks & Reference Books',
-            img: 'images/IMG_4717.jpeg',
-            sellerHTML: 'Supplier: Bayero University Kano Bookshop<br>Phone: 07066460111<br>Products: Textbooks & reference books',
-            callNumber: '07066460111'
-          })">
-        <img class="thumb" src="images/IMG_4717.jpeg" alt="BUK Bookshop">
-        <div class="info">
-          <h4>BUK Bookshop</h4>
-          <p class="price">Textbooks & Ref. Books</p>
-          <div class="seller-box">
-            Suppliers of textbooks<br>
-            Phone: 07066460111<br>
-            KCID: 114
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- SERVICES PAGE -->
-  <div id="servicesPage" class="services">
-    <div class="service-box">📦 Delivery Support (Coming Soon)</div>
-    <div class="service-box">🔧 Gadget Repairs (Coming Soon)</div>
-    <div class="service-box">🛍 Campus Personal Shopper</div>
-    <div class="service-box">📚 Book & Stationery Finder</div>
-  </div>
-
-  <!-- BOTTOM NAV -->
-  <div class="bottom-nav">
-    <div class="nav-item" onclick="switchTab('home')">Home</div>
-    <div class="nav-item" onclick="switchTab('services')">Services</div>
-    <div class="nav-item" onclick="openSell()" style="font-weight:bold; color:green;">SELL</div>
-  </div>
-
-  <script>
-    /* NAV */
-    function switchTab(tab) {
-      document.getElementById("homePage").style.display = tab === "home" ? "block" : "none";
-      document.getElementById("servicesPage").style.display = tab === "services" ? "block" : "none";
-    }
-
-    /* SELL popup */
-    function openSell(){ document.getElementById('sellOverlay').style.display = 'flex'; }
-    function closeSell(){ document.getElementById('sellOverlay').style.display = 'none'; }
-
-    /* PRODUCT modal */
-    function openProductDetail(data){
-      document.getElementById('modalTitle').innerText = data.title || '';
-      document.getElementById('modalPrice').innerText = data.price || '';
-      document.getElementById('modalImg').src = data.img || '';
-      document.getElementById('modalImg').alt = data.title || 'product';
-      document.getElementById('modalSeller').innerHTML = data.sellerHTML || '';
-      // call button
-      var callBtn = document.getElementById('modalCall');
-      callBtn.onclick = function(){
-        // open phone dialer on mobile or show phone number on desktop
-        if (navigator.userAgent.match(/Mobi/)) {
-          window.location.href = 'tel:' + (data.callNumber || '');
-        } else {
-          alert('Call: ' + (data.callNumber || 'Not provided'));
-        }
-      };
-      document.getElementById('productOverlay').style.display = 'flex';
-    }
-    function closeProduct(){ document.getElementById('productOverlay').style.display = 'none'; }
-
-    // Close overlays when clicking outside box
-    document.getElementById('sellOverlay').addEventListener('click', function(e){
-      if(e.target === this) closeSell();
-    });
-    document.getElementById('productOverlay').addEventListener('click', function(e){
-      if(e.target === this) closeProduct();
-    });
-
-    // Improve accessibility: close with ESC
-    document.addEventListener('keydown', function(e){
-      if(e.key === 'Escape'){
-        closeSell();
-        closeProduct();
-      }
-    });
-  </script>
-
-  <!--
-    NOT
+.close-btn {
+    background: #ff4d4d;
+    padding:
