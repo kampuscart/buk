@@ -7,6 +7,32 @@
 
 <style>
 body {
+    <style>
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 18px 0;
+        background: #ffffff;
+        font-weight: 800;
+        font-size: 22px;
+        letter-spacing: 1px;
+        border-bottom: 1px solid #eee;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .header-icon {
+        font-size: 26px;
+    }
+</style>
+
+<div class="header">
+    <span class="header-icon">🛒</span>
+    <span>KAMPUS CART BUK</span>
+</div>
     margin: 0;
     font-family: Arial, sans-serif;
     background: #f6f6f6;
@@ -202,9 +228,8 @@ body {
 <div id="sellPopup" class="popup">
     <h2>Sell on Kampus Cart</h2>
 
-    <div class="info-big">Seller Name: Abdullahi Hassan</div>
     <div class="info-big">Manager: Kampus Cart Team</div>
-    <div class="info-big">Contact: 081 — — — —</div>
+    <div class="info-big">Contact: 07052418840</div>
 
     <button class="close-btn" onclick="closePopup()">Close</button>
 </div>
