@@ -111,30 +111,89 @@ body {
 <body>
 
 <!-- PRODUCTS SECTION -->
-<div class="products">
+<style>
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
 
-    <div class="product-card">
-        <img src="https://github.com/kampuscart/buk/blob/main/IMG_4717.jpeg?raw=1">
-        <div class="product-title">Product 111</div>
-        <div class="product-price">₦ —</div>
-    </div>
+    .product-card {
+        background: #ffffff;
+        border-radius: 18px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+        overflow: hidden;
+        padding-bottom: 15px;
+        transition: 0.2s;
+    }
 
-    <div class="product-card">
-        <img src="https://github.com/kampuscart/buk/blob/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg?raw=1">
-        <div class="product-title">Product 112</div>
-        <div class="product-price">₦ —</div>
-    </div>
+    .product-card:hover {
+        transform: scale(1.02);
+    }
 
-    <div class="product-card">
-        <img src="https://github.com/kampuscart/buk/blob/main/860407a0-5864-4279-82db-564ba294feb6.jpeg?raw=1">
-        <div class="product-title">Product 113</div>
-        <div class="product-price">₦ —</div>
-    </div>
+    .product-card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
 
+    .product-title {
+        font-size: 17px;
+        font-weight: 700;
+        padding: 10px 12px 0 12px;
+    }
+
+    .product-price {
+        color: #0a8f12;
+        font-size: 16px;
+        font-weight: 700;
+        padding: 4px 12px;
+    }
+
+    .product-info {
+        padding: 2px 12px;
+        font-size: 14px;
+        opacity: 0.75;
+    }
+</style>
+
+<div class="product-grid">
+
+    <!-- KCID 111 -->
     <div class="product-card">
         <img src="https://github.com/kampuscart/buk/blob/main/IMG_4715.jpeg?raw=1">
-        <div class="product-title">Product 114</div>
-        <div class="product-price">₦ —</div>
+        <div class="product-title">FLORIDA WOOL</div>
+        <div class="product-price">₦5,000 per yard</div>
+        <div class="product-info">📞 08128371576 / 09169517156</div>
+        <div class="product-info">📍 Rijiyar Zaki</div>
+    </div>
+
+    <!-- KCID 112 -->
+    <div class="product-card">
+        <img src="https://github.com/kampuscart/buk/blob/main/860407a0-5864-4279-82db-564ba294feb6.jpeg?raw=1">
+        <div class="product-title">Dubai & Egyptian Abayas</div>
+        <div class="product-price">₦20,000</div>
+        <div class="product-info">📞 07064180465</div>
+    </div>
+
+    <!-- KCID 113 -->
+    <div class="product-card">
+        <img src="https://github.com/kampuscart/buk/blob/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg?raw=1">
+        <div class="product-title">Tailoredbynana</div>
+        <div class="product-price">Hijab set — ₦8,000</div>
+        <div class="product-info">Adire Bubu — ₦20,000</div>
+        <div class="product-info">Cut & Sew — Depends on Style</div>
+        <div class="product-info">📞 08130530595</div>
+    </div>
+
+    <!-- KCID 114 -->
+    <div class="product-card">
+        <img src="https://github.com/kampuscart/buk/blob/main/IMG_4717.jpeg?raw=1">
+        <div class="product-title">BUK Bookshop</div>
+        <div class="product-info">Textbooks & Reference Books</div>
+        <div class="product-price">Contact Seller</div>
+        <div class="product-info">📞 07066460111</div>
     </div>
 
 </div>
