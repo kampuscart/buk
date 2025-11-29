@@ -1,259 +1,401 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KAMPUS CART BUK</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>KAMPUS CART BUK — Marketplace</title>
 
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-    }
+<style>
+  :root{
+    --bg: #f4f6f8;
+    --card: #ffffff;
+    --muted:#6b7280;
+    --accent: #06a84b;
+    --text: #0f172a;
+    --shadow: 0 8px 30px rgba(12, 24, 50, 0.06);
+  }
+  [data-theme="dark"]{
+    --bg:#0b1220;
+    --card:#071226;
+    --muted:#9aa4b2;
+    --accent:#2fd17a;
+    --text:#e6eef6;
+    --shadow: 0 10px 30px rgba(2,6,23,0.6);
+  }
 
-    /* HEADER */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 18px 0;
-      background: #ffffff;
-      font-weight: 800;
-      font-size: 22px;
-      letter-spacing: 1px;
-      border-bottom: 1px solid #eee;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+  html,body{height:100%;margin:0;font-family:Inter, system-ui, Arial, sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+  /* Top bar */
+  .topbar{
+    position:sticky;top:0;background:var(--card);display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(0,0,0,0.04);z-index:80;box-shadow:var(--shadow);
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+  .brand .logo{width:34px;height:34px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#00c66a,#01984a);color:#fff;font-weight:800}
+  .search-wrap{flex:1;display:flex;gap:8px;align-items:center}
+  .search{
+    width:100%;padding:8px 12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:transparent;color:var(--text);box-shadow:none;font-size:14px;
+  }
+  .controls{display:flex;gap:8px;align-items:center}
+  .chip{padding:8px 10px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);background:var(--card);font-size:13px;cursor:pointer}
+  .chip.active{background:linear-gradient(90deg,#e9fff0,#dffbe7);border-color:transparent}
+  .toggle{cursor:pointer;padding:6px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:transparent}
+  /* layout */
+  .container{max-width:1100px;margin:18px auto;padding:0 14px}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:18px;
+  }
 
-    .header-icon {
-      font-size: 26px;
-    }
+  /* card */
+  .card{
+    background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:transform .14s ease, box-shadow .14s ease;
+    display:flex;flex-direction:column;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:0 20px 45px rgba(2,8,23,0.18)}
+  .thumb{width:100%;height:160px;object-fit:cover;background:#e9eef2}
+  .card-body{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+  .title{font-weight:700;font-size:15px}
+  .price{color:var(--accent);font-weight:800;font-size:15px}
+  .seller{background:rgba(0,0,0,0.03);padding:10px;border-radius:10px;font-size:13px;color:var(--muted)}
+  .meta{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto}
 
-    /* SELL BUTTON POPUP */
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0,0,0,0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+  /* floating add */
+  .fab{
+    position:fixed;right:18px;bottom:88px;background:var(--accent);color:#fff;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;font-size:28px;box-shadow:0 18px 45px rgba(3,64,35,0.2);cursor:pointer;z-index:90
+  }
 
-    .popup {
-      background: white;
-      width: 85%;
-      border-radius: 12px;
-      padding: 25px;
-      text-align: center;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.25);
-    }
+  /* bottom nav */
+  .bottom-nav{
+    position:fixed;left:0;right:0;bottom:0;height:64px;background:var(--card);display:flex;justify-content:space-around;align-items:center;border-top:1px solid rgba(0,0,0,0.04);z-index:85
+  }
+  .nav-item{font-weight:700;color:var(--muted);cursor:pointer}
 
-    .popup-title {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
+  /* modal */
+  .overlay{position:fixed;inset:0;background:rgba(2,6,23,0.5);display:none;align-items:center;justify-content:center;padding:20px;z-index:200}
+  .modal{width:100%;max-width:760px;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 30px 70px rgba(2,6,23,0.4)}
+  .modal-body{display:flex;flex-wrap:wrap}
+  .modal-left{flex:1 1 360px;min-width:280px}
+  .modal-right{flex:1 1 340px;padding:18px}
+  .modal-left img{width:100%;height:420px;object-fit:cover}
+  .close-x{position:absolute;right:14px;top:12px;background:rgba(255,255,255,0.06);padding:6px;border-radius:8px;cursor:pointer}
+  .call-btn{display:inline-block;background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;font-weight:800;text-decoration:none}
 
-    .popup-number {
-      font-size: 22px;
-      font-weight: bold;
-      color: green;
-    }
+  /* services page */
+  .services{display:none;padding:20px;background:transparent}
+  .service-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+  .service-card{background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow)}
 
-    .close-btn {
-      margin-top: 18px;
-      background: #ff3333;
-      color: white;
-      padding: 12px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    /* PRODUCT GRID */
-    .products {
-      padding: 15px;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 18px;
-    }
-
-    .product-card {
-      background: white;
-      border-radius: 18px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.12);
-      overflow: hidden;
-    }
-
-    .product-card img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-    }
-
-    .product-info {
-      padding: 12px;
-    }
-
-    .product-title {
-      font-size: 17px;
-      font-weight: bold;
-    }
-
-    .product-price {
-      font-size: 18px;
-      font-weight: bold;
-      color: green;
-      margin-top: 4px;
-    }
-
-    /* SELLER BOX */
-    .seller-box {
-      margin-top: 10px;
-      background: #f7f7f7;
-      padding: 10px;
-      border-radius: 10px;
-      font-size: 13px;
-      line-height: 18px;
-    }
-
-    /* BOTTOM NAV */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 62px;
-      background: #ffffff;
-      border-top: 1px solid #ccc;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      font-size: 15px;
-      font-weight: bold;
-    }
-
-    .nav-item {
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .sell-icon {
-      font-size: 28px;
-      font-weight: bold;
-      color: green;
-    }
-  </style>
-
-  <script>
-    function openPopup() {
-      document.getElementById("popupOverlay").style.display = "flex";
-    }
-
-    function closePopup() {
-      document.getElementById("popupOverlay").style.display = "none";
-    }
-  </script>
-
+  /* small */
+  .muted{color:var(--muted);font-size:13px}
+  @media (max-width:760px){
+    .modal-left img{height:260px}
+    .modal-body{flex-direction:column}
+  }
+</style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <div class="header">
-    <span class="header-icon">🛒</span>
-    <span>KAMPUS CART BUK</span>
+<!-- Top bar -->
+<div class="topbar">
+  <div class="brand"><div class="logo">🛒</div>KAMPUS CART BUK</div>
+
+  <div class="search-wrap" style="margin-left:12px">
+    <input id="search" class="search" placeholder="Search products, e.g. hoodie, books, abaya..." oninput="applyFilters()">
   </div>
 
-  <!-- POPUP -->
-  <div class="overlay" id="popupOverlay">
-    <div class="popup">
-      <div class="popup-title">SELL A PRODUCT</div>
-      <div>Contact the Manager</div>
-      <br>
-      <div class="popup-number">📞 07052418840</div>
-      <div class="close-btn" onclick="closePopup()">Close</div>
+  <div class="controls">
+    <div id="categoryList" style="display:flex;gap:8px;align-items:center;margin-right:8px">
+      <div class="chip active" data-cat="all" onclick="selectCategory(event)">All</div>
+      <div class="chip" data-cat="Clothes" onclick="selectCategory(event)">Clothes</div>
+      <div class="chip" data-cat="Gadgets" onclick="selectCategory(event)">Gadgets</div>
+      <div class="chip" data-cat="Books" onclick="selectCategory(event)">Books</div>
+      <div class="chip" data-cat="Services" onclick="selectCategory(event)">Services</div>
+    </div>
+
+    <div class="toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle light / dark">🌓</div>
+  </div>
+</div>
+
+<!-- Main -->
+<div class="container">
+
+  <!-- HOME / PRODUCTS -->
+  <div id="homeView">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin:12px 0">
+      <h3 style="margin:0">Featured</h3>
+      <div class="muted" id="resultsCount">4 items</div>
+    </div>
+
+    <div id="grid" class="grid"></div>
+  </div>
+
+  <!-- SERVICES -->
+  <div id="servicesView" class="services">
+    <h3>Services</h3>
+    <div class="service-grid">
+      <div class="service-card">
+        <div style="font-weight:800">Delivery Support</div>
+        <div class="muted">We connect you with campus riders — coming soon.</div>
+      </div>
+      <div class="service-card">
+        <div style="font-weight:800">Gadget Repairs</div>
+        <div class="muted">Local technicians for phones & laptops.</div>
+      </div>
+      <div class="service-card">
+        <div style="font-weight:800">Campus Personal Shopper</div>
+        <div class="muted">We buy and deliver items from the market.</div>
+      </div>
+      <div class="service-card">
+        <div style="font-weight:800">Books & Stationery Finder</div>
+        <div class="muted">Suppliers and rare textbooks (BUK Bookshop).</div>
+      </div>
     </div>
   </div>
 
-  <!-- PRODUCTS GRID -->
-  <div class="products">
+</div>
 
-    <!-- KCID-111 -->
-    <div class="product-card">
-      <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4715.jpeg">
-      <div class="product-info">
-        <div class="product-title">FLORIDA WOOL</div>
-        <div class="product-price">₦5,000 / yard</div>
+<!-- Floating add button -->
+<div class="fab" title="Add / Sell" onclick="openSellModal()">＋</div>
 
-        <div class="seller-box">
-          Address: No 370 Ibrahim Khalil Street, Rijiyar Zaki<br>
-          Phone: 08128371576 / 09169517156<br>
-          KCID: 111
+<!-- Bottom nav -->
+<div class="bottom-nav">
+  <div class="nav-item" onclick="showView('home')">Home</div>
+  <div class="nav-item" onclick="showView('services')">Services</div>
+  <div class="nav-item" onclick="openSellModal()">Sell</div>
+</div>
+
+<!-- Product detail modal -->
+<div id="productOverlay" class="overlay" onclick="overlayClick(event)">
+  <div class="modal" role="dialog" aria-modal="true" onclick="event.stopPropagation()">
+    <div style="position:relative">
+      <div class="close-x" onclick="closeProduct()">✕</div>
+    </div>
+
+    <div class="modal-body">
+      <div class="modal-left">
+        <img id="modalImage" src="" alt="product image">
+      </div>
+      <div class="modal-right">
+        <h2 id="modalTitle" style="margin:0 0 6px 0"></h2>
+        <div id="modalPrice" style="font-size:18px;color:var(--accent);font-weight:800;margin-bottom:8px"></div>
+        <div id="modalDesc" class="muted" style="margin-bottom:12px"></div>
+
+        <div id="modalSeller" class="seller" style="margin-bottom:12px"></div>
+
+        <a id="modalCall" class="call-btn" href="#">Call Seller</a>
+
+        <div style="margin-top:14px">
+          <button style="background:#eee;padding:8px 12px;border-radius:8px;border:none;cursor:pointer" onclick="closeProduct()">Close</button>
         </div>
       </div>
     </div>
-
-    <!-- KCID-112 -->
-    <div class="product-card">
-      <img src="https://raw.githubusercontent.com/kampuscart/buk/main/860407a0-5864-4279-82db-564ba294feb6.jpeg">
-      <div class="product-info">
-        <div class="product-title">Abaya (Dubai & Egyptian)</div>
-        <div class="product-price">₦20,000</div>
-
-        <div class="seller-box">
-          Phone: 07064180465<br>
-          KCID: 112
-        </div>
-      </div>
-    </div>
-
-    <!-- KCID-113 -->
-    <div class="product-card">
-      <img src="https://raw.githubusercontent.com/kampuscart/buk/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg">
-      <div class="product-info">
-        <div class="product-title">Tailoredbynana</div>
-        <div class="product-price">₦8,000 (Hijab Set)</div>
-
-        <div class="seller-box">
-          Abayas, Adire Gowns, Cut & Sew, Hijabs & more<br>
-          Phone: 08130530595<br>
-          KCID: 113
-        </div>
-      </div>
-    </div>
-
-    <!-- KCID-114 -->
-    <div class="product-card">
-      <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4717.jpeg">
-      <div class="product-info">
-        <div class="product-title">BUK Bookshop</div>
-        <div class="product-price">Textbooks</div>
-
-        <div class="seller-box">
-          Suppliers of textbooks & reference books<br>
-          Phone: 07066460111<br>
-          KCID: 114
-        </div>
-      </div>
-    </div>
-
   </div>
+</div>
 
-  <!-- BOTTOM NAV -->
-  <div class="bottom-nav">
-    <div class="nav-item" onclick="location.reload()">Home</div>
-    <div class="nav-item">Services</div>
-    <div class="nav-item sell-icon" onclick="openPopup()">+</div>
+<!-- Sell / add modal (frontend only) -->
+<div id="sellOverlay" class="overlay" onclick="overlayClick(event)">
+  <div class="modal" style="max-width:520px" onclick="event.stopPropagation()">
+    <div style="padding:18px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h3 style="margin:0">Sell / Add Item</h3>
+        <div style="cursor:pointer" onclick="closeSellModal()">✕</div>
+      </div>
+
+      <div style="margin-top:12px">
+        <label class="muted">Product name</label><br>
+        <input id="newName" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
+
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <input id="newPrice" placeholder="Price" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
+          <input id="newPhone" placeholder="Phone" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
+        </div>
+
+        <label class="muted" style="margin-top:10px;display:block">Image filename (upload to your repo and enter filename)</label>
+        <input id="newImage" placeholder="e.g. IMG_4720.jpeg" style="width:100%;padding:8px;margin-top:6px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
+
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <button onclick="addNewProduct()" style="flex:1;background:var(--accent);color:#fff;padding:10px;border-radius:10px;border:none;font-weight:800;cursor:pointer">Add (local)</button>
+          <button onclick="closeSellModal()" style="flex:1;background:#eee;padding:10px;border-radius:10px;border:none;cursor:pointer">Cancel</button>
+        </div>
+
+        <div class="muted" style="margin-top:8px;font-size:12px">
+          Note: This add form is frontend-only. After adding, copy the new product block into your index.html to persist it permanently.
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+
+<script>
+/* ---------- initial data ---------- */
+/* Products array — update or add new entries when needed */
+let products = [
+  {
+    id: '111',
+    title: 'FLORIDA WOOL',
+    priceLabel: '₦5,000 / yard',
+    img: 'https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4715.jpeg',
+    seller: 'FLORIDA WOOL • No 370 Ibrahim Khalil Street, Rijiyar Zaki',
+    phone: '08128371576 / 09169517156',
+    category: 'Clothes',
+    desc: 'Better yard with high quality'
+  },
+  {
+    id: '112',
+    title: 'Abaya (Dubai & Egyptian)',
+    priceLabel: '₦20,000',
+    img: 'https://raw.githubusercontent.com/kampuscart/buk/main/860407a0-5864-4279-82db-564ba294feb6.jpeg',
+    seller: 'Dubai & Egyptian Abayas',
+    phone: '07064180465',
+    category: 'Clothes',
+    desc: 'Elegant abayas in different designs'
+  },
+  {
+    id: '113',
+    title: 'Tailoredbynana',
+    priceLabel: 'Hijab set — ₦8,000',
+    img: 'https://raw.githubusercontent.com/kampuscart/buk/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg',
+    seller: 'Tailoredbynana — Abayas, Adire, Cut & Sew',
+    phone: '08130530595',
+    category: 'Clothes',
+    desc: 'Adire bubu gowns ₦20,000. Cut & sew depends on style.'
+  },
+  {
+    id: '114',
+    title: 'BUK Bookshop',
+    priceLabel: 'Textbooks & reference books',
+    img: 'https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4717.jpeg',
+    seller: 'BUK Bookshop — Suppliers of textbooks & reference books',
+    phone: '07066460111',
+    category: 'Books',
+    desc: 'Wide selection of textbooks and reference materials'
+  }
+];
+
+/* ---------- rendering ---------- */
+const grid = document.getElementById('grid');
+const resultsCount = document.getElementById('resultsCount');
+
+function renderProducts(list){
+  grid.innerHTML = '';
+  list.forEach(p=>{
+    const el = document.createElement('div');
+    el.className = 'card';
+    el.innerHTML = `
+      <img class="thumb" src="${p.img}" alt="${escapeHtml(p.title)}">
+      <div class="card-body">
+        <div class="title">${escapeHtml(p.title)}</div>
+        <div class="price">${escapeHtml(p.priceLabel)}</div>
+        <div class="seller">${escapeHtml(p.seller)}<br><strong>📞</strong> ${escapeHtml(p.phone)}<br><span class="muted">KCID: ${escapeHtml(p.id)}</span></div>
+        <div class="meta">
+          <div class="muted">${escapeHtml(p.category)}</div>
+          <div style="display:flex;gap:8px">
+            <button onclick="openProduct('${p.id}')" style="background:transparent;border:1px solid rgba(0,0,0,0.06);padding:6px;border-radius:8px;cursor:pointer">View</button>
+          </div>
+        </div>
+      </div>
+    `;
+    grid.appendChild(el);
+  });
+  resultsCount.innerText = list.length + ' items';
+}
+
+/* ---------- filters ---------- */
+let selectedCategory = 'all';
+function selectCategory(e){
+  const chips = document.querySelectorAll('.chip');
+  chips.forEach(c=>c.classList.remove('active'));
+  e.currentTarget.classList.add('active');
+  selectedCategory = e.currentTarget.dataset.cat;
+  applyFilters();
+}
+
+function applyFilters(){
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  const filtered = products.filter(p=>{
+    const matchesCat = selectedCategory === 'all' || p.category === selectedCategory;
+    const matchesText = q === '' || (p.title + ' ' + p.seller + ' ' + p.desc + ' ' + p.id).toLowerCase().includes(q);
+    return matchesCat && matchesText;
+  });
+  renderProducts(filtered);
+}
+
+/* ---------- product detail ---------- */
+function openProduct(id){
+  const p = products.find(x=>x.id===id);
+  if(!p) return;
+  document.getElementById('modalImage').src = p.img;
+  document.getElementById('modalTitle').innerText = p.title;
+  document.getElementById('modalPrice').innerText = p.priceLabel;
+  document.getElementById('modalDesc').innerText = p.desc;
+  document.getElementById('modalSeller').innerHTML = `<strong>Seller</strong><br>${p.seller}<br><strong>📞</strong> ${p.phone}<br><span class="muted">KCID: ${p.id}</span>`;
+  const callLink = 'tel:' + (p.phone.split(' ')[0].replace(/[^0-9+]/g,''));
+  document.getElementById('modalCall').href = callLink;
+  showOverlay('productOverlay');
+}
+
+/* ---------- overlay helpers ---------- */
+function showOverlay(id){
+  document.getElementById(id).style.display = 'flex';
+}
+function closeProduct(){ document.getElementById('productOverlay').style.display = 'none'; }
+function openSellModal(){ document.getElementById('sellOverlay').style.display = 'flex'; }
+function closeSellModal(){ document.getElementById('sellOverlay').style.display = 'none'; }
+function overlayClick(e){
+  if(e.target.classList.contains('overlay')){ e.target.style.display = 'none'; }
+}
+
+/* ---------- add new product (frontend only) ---------- */
+function addNewProduct(){
+  const name = document.getElementById('newName').value.trim();
+  const price = document.getElementById('newPrice').value.trim() || 'Contact for price';
+  const phone = document.getElementById('newPhone').value.trim() || 'Not provided';
+  const imgFile = document.getElementById('newImage').value.trim();
+  if(!name || !imgFile){ alert('Please enter product name and image filename (uploaded to your repo)'); return; }
+  const newId = 'temp-' + Date.now();
+  const newProduct = {
+    id: newId,
+    title: name,
+    priceLabel: price,
+    img: 'https://raw.githubusercontent.com/kampuscart/buk/main/' + imgFile,
+    seller: 'Seller (added)',
+    phone: phone,
+    category: 'Clothes',
+    desc: 'Added from frontend (copy to HTML to persist)'
+  };
+  products.unshift(newProduct);
+  applyFilters();
+  closeSellModal();
+  alert('Added locally. To keep this product permanently, paste the product data into your index.html products array.');
+}
+
+/* ---------- navigation ---------- */
+function showView(v){ document.getElementById('homeView').style.display = v==='home' ? 'block' : 'none'; document.getElementById('servicesView').style.display = v==='services' ? 'block' : 'none'; }
+
+/* ---------- theme toggle ---------- */
+function toggleTheme(){
+  const root = document.documentElement;
+  const cur = root.getAttribute('data-theme');
+  const next = cur === 'dark' ? '' : 'dark';
+  if(next) root.setAttribute('data-theme','dark'); else root.removeAttribute('data-theme');
+  localStorage.setItem('kc_theme', next);
+}
+(function restoreTheme(){
+  const t = localStorage.getItem('kc_theme') || '';
+  if(t==='dark') document.documentElement.setAttribute('data-theme','dark');
+})();
+
+/* ---------- util ---------- */
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, (m)=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m])); }
+
+/* ---------- init ---------- */
+renderProducts(products);
+
+/* allow keyboard ESC to close modals */
+document.addEventListener('keydown', (e)=>{
+  if(e.key==='Escape'){ closeProduct(); closeSellModal(); }
+});
+</script>
 
 </body>
 </html>
