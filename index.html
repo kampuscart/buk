@@ -97,4 +97,75 @@ body {
 
 .close-btn {
     background: #ff4d4d;
-    padding:
+    padding: 10px;
+    width: 100%;
+    margin-top: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    color: white;
+}
+</style>
+
+</head>
+<body>
+
+<!-- PRODUCTS SECTION -->
+<div class="products">
+
+    <div class="product-card">
+        <img src="https://github.com/kampuscart/buk/blob/main/IMG_4717.jpeg?raw=1">
+        <div class="product-title">Product 111</div>
+        <div class="product-price">₦ —</div>
+    </div>
+
+    <div class="product-card">
+        <img src="https://github.com/kampuscart/buk/blob/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg?raw=1">
+        <div class="product-title">Product 112</div>
+        <div class="product-price">₦ —</div>
+    </div>
+
+    <div class="product-card">
+        <img src="https://github.com/kampuscart/buk/blob/main/860407a0-5864-4279-82db-564ba294feb6.jpeg?raw=1">
+        <div class="product-title">Product 113</div>
+        <div class="product-price">₦ —</div>
+    </div>
+
+    <div class="product-card">
+        <img src="https://github.com/kampuscart/buk/blob/main/IMG_4715.jpeg?raw=1">
+        <div class="product-title">Product 114</div>
+        <div class="product-price">₦ —</div>
+    </div>
+
+</div>
+
+<!-- POPUP FOR SELL -->
+<div id="sellPopup" class="popup">
+    <h2>Sell on Kampus Cart</h2>
+
+    <div class="info-big">Seller Name: Abdullahi Hassan</div>
+    <div class="info-big">Manager: Kampus Cart Team</div>
+    <div class="info-big">Contact: 081 — — — —</div>
+
+    <button class="close-btn" onclick="closePopup()">Close</button>
+</div>
+
+<!-- BOTTOM NAVIGATION -->
+<div class="bottom-nav">
+    <div>Home</div>
+    <div>Services</div>
+    <div onclick="openPopup()" style="font-size:30px; font-weight:bold;">+</div>
+</div>
+
+<script>
+function openPopup(){
+    document.getElementById("sellPopup").style.display = "block";
+}
+
+function closePopup(){
+    document.getElementById("sellPopup").style.display = "none";
+}
+</script>
+
+</body>
+</html>
