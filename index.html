@@ -3,131 +3,104 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>KAMPUS CART — BUK Marketplace</title>
+<title>KAMPUS CART BUK</title>
 <style>
   :root{
-    --bg: #f5f6f8;
-    --card: #ffffff;
-    --muted: #6b7280;
-    --accent: #05984a;
-    --text: #0b1220;
+    --bg:#f5f6f8;
+    --card:#ffffff;
+    --muted:#6b7280;
+    --accent:#05984a;
+    --text:#0b1220;
     --shadow: 0 12px 35px rgba(2,8,23,0.06);
-    --radius: 12px;
   }
-  *{box-sizing:border-box}
-  html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased}
-  /* TOPBAR */
+  [data-theme="dark"]{
+    --bg:#07111a;
+    --card:#0b1b26;
+    --muted:#9aa4b2;
+    --accent:#2fd17a;
+    --text:#e6eef6;
+    --shadow: 0 20px 50px rgba(0,0,0,0.6);
+  }
+  html,body{height:100%;margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
   .topbar{position:sticky;top:0;background:var(--card);display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(0,0,0,0.04);z-index:90;box-shadow:0 4px 18px rgba(0,0,0,0.04)}
   .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
   .brand .logo{width:36px;height:36px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#00c66a,#01984a);color:#fff;font-weight:800}
-  .topbar .right{margin-left:auto;display:flex;gap:8px;align-items:center}
-  .toggle{cursor:pointer;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:transparent}
-
-  /* SEARCH + CATEGORIES */
-  .search-row{background:var(--card);padding:12px 16px;border-bottom:1px solid rgba(0,0,0,0.04);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-  .search-box{flex:1;min-width:180px;display:flex;gap:8px;align-items:center}
+  .search-row{background:var(--card);padding:12px 16px;border-bottom:1px solid rgba(0,0,0,0.04);display:flex;gap:12px;align-items:center}
+  .search-box{flex:1;display:flex;gap:8px;align-items:center}
   .search-input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);font-size:15px;background:transparent}
   .cat-btn{padding:10px 12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:transparent;cursor:pointer}
-  .category-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .controls{display:flex;gap:8px;align-items:center}
   .chip{padding:8px 12px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);background:var(--card);font-size:13px;cursor:pointer}
   .chip.active{background:linear-gradient(90deg,#e9fff0,#dffbe7);border-color:transparent}
-
-  /* LAYOUT */
+  .toggle{cursor:pointer;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:transparent}
   .container{max-width:1100px;margin:14px auto;padding:0 14px}
   .results-line{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
   .muted{color:var(--muted)}
-
-  /* PRODUCTS GRID */
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-  .card{background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);transition:transform .12s ease;border:1px solid rgba(0,0,0,0.03);display:flex;flex-direction:column;cursor:pointer}
+  .card{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:transform .14s ease;border:1px solid rgba(0,0,0,0.03);display:flex;flex-direction:column;cursor:pointer}
   .card:hover{transform:translateY(-6px)}
-  .thumb{width:100%;height:360px;object-fit:cover;background:#e9eef2} /* portrait */
+  .thumb{width:100%;height:160px;object-fit:cover;background:#e9eef2}
   .card-body{padding:12px;display:flex;flex-direction:column;gap:8px}
   .title{font-weight:800;font-size:15px}
   .price{color:var(--accent);font-weight:800}
-  .seller{background:rgba(0,0,0,0.03);padding:8px;border-radius:8px;font-size:13px;color:var(--muted);margin-top:auto}
-
-  /* SERVICES */
+  .seller{background:rgba(0,0,0,0.03);padding:10px;border-radius:10px;font-size:13px;color:var(--muted)}
+  .meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+  .overlay{position:fixed;inset:0;background:rgba(2,6,23,0.5);display:none;align-items:center;justify-content:center;padding:18px;z-index:220}
+  .modal{width:100%;max-width:900px;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 30px 80px rgba(2,6,23,0.4);display:flex;flex-direction:row;gap:0}
+  .modal-left{flex:1;min-width:320px;background:#fafafa;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px}
+  .modal-right{flex:1;padding:18px;display:flex;flex-direction:column;gap:10px}
+  .modal-left img{width:100%;height:380px;object-fit:cover;border-radius:10px}
+  .thumb-row{display:flex;gap:8px;margin-top:10px}
+  .thumb-row img{width:72px;height:56px;object-fit:cover;border-radius:6px;cursor:pointer;border:1px solid rgba(0,0,0,0.06)}
+  .close-x{position:absolute;right:14px;top:12px;cursor:pointer}
   .services-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:12px}
   .service-card{background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow);display:flex;gap:12px;align-items:flex-start}
   .service-card img{width:120px;height:160px;object-fit:cover;border-radius:10px}
-
-  /* SELL FAB + BOTTOM NAV */
   .sell-fab{position:fixed;right:18px;bottom:88px;background:var(--accent);color:#fff;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-size:28px;box-shadow:0 18px 45px rgba(3,64,35,0.18);cursor:pointer;z-index:140}
   .bottom-nav{position:fixed;left:0;right:0;bottom:0;height:68px;background:var(--card);display:flex;justify-content:space-around;align-items:center;border-top:1px solid rgba(0,0,0,0.04);z-index:110}
   .nav-item{font-weight:700;color:var(--muted);cursor:pointer}
-
-  /* FOOTER */
   footer{margin-top:32px;padding:20px;background:var(--card);text-align:center;color:var(--muted);border-top:1px solid rgba(0,0,0,0.1)}
-
-  /* PRODUCT MODAL (small, same size as card) */
-  .overlay{position:fixed;inset:0;background:rgba(2,6,23,0.35);display:none;align-items:center;justify-content:center;padding:18px;z-index:220}
-  .modal{width:100%;max-width:520px;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 30px 80px rgba(2,6,23,0.4);display:flex;flex-direction:column;position:relative}
-  .modal-main{display:flex;flex-direction:column;gap:10px;padding:12px}
-  .modal-image{width:100%;height:320px;object-fit:cover;border-radius:8px;background:#f2f5f7;position:relative;touch-action:pan-y}
-  .modal-controls{display:flex;justify-content:space-between;align-items:center;gap:8px}
-  .modal-info{padding:0 12px 16px 12px;display:flex;flex-direction:column;gap:8px}
-  .thumb-row{display:flex;gap:8px;margin-top:6px}
-  .thumb-row img{width:48%;height:140px;object-fit:cover;border-radius:8px;cursor:pointer;border:1px solid rgba(0,0,0,0.06)}
-  .arrow{background:rgba(255,255,255,0.9);border-radius:8px;padding:6px 8px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;box-shadow:0 6px 18px rgba(2,8,23,0.06)}
-  .close-x{position:absolute;right:12px;top:10px;cursor:pointer;padding:6px}
-
-  /* responsive */
-  @media (max-width:760px){
-    .grid{grid-template-columns:1fr}
-    .thumb{height:320px}
-    .modal{max-width:96%;width:96%}
-    .modal-image{height:260px}
-    .thumb-row img{height:120px}
-  }
-
-  /* small helper */
-  .muted-sm{color:var(--muted);font-size:13px}
+  @media (max-width:760px){.modal{flex-direction:column}.modal-left img{height:240px}.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
 <div class="topbar">
   <div class="brand"><div class="logo">🛒</div>KAMPUS CART BUK</div>
   <div style="flex:1"></div>
-  <div class="right">
-    <div class="muted-sm">BUK Marketplace</div>
+  <div class="controls">
     <div class="toggle" id="themeToggle" onclick="toggleTheme()" title="Toggle theme">🌓</div>
   </div>
 </div>
 
-<!-- SEARCH & CATS -->
 <div class="search-row">
   <div class="search-box">
-    <input id="searchInput" class="search-input" placeholder="Search products, sellers..." oninput="applyFilters()" />
+    <input id="searchInput" class="search-input" placeholder="Search products, sellers..." oninput="applyFilters()">
   </div>
   <div>
     <button class="cat-btn" onclick="toggleCategoryMenu()">Categories ▾</button>
   </div>
+</div>
 
-  <div id="categoryMenu" style="display:none;width:100%;margin-top:10px">
-    <div class="category-chips">
+<div style="max-width:1100px;margin:6px auto 0;padding:0 14px">
+  <div id="categoryMenu" style="display:none;background:var(--card);padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.04)">
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
       <div class="chip active" data-cat="all" onclick="selectCat(this)">All</div>
-      <div class="chip" data-cat="Clothes" onclick="selectCat(this)">Clothing</div>
+      <div class="chip" data-cat="Clothes" onclick="selectCat(this)">Clothes</div>
       <div class="chip" data-cat="Fabric" onclick="selectCat(this)">Fabric</div>
       <div class="chip" data-cat="Perfume" onclick="selectCat(this)">Perfume</div>
       <div class="chip" data-cat="Books" onclick="selectCat(this)">Books</div>
       <div class="chip" data-cat="Food" onclick="selectCat(this)">Food</div>
-      <div class="chip" data-cat="Tailoring" onclick="selectCat(this)">Tailoring</div>
       <div class="chip" data-cat="Services" onclick="selectCat(this)">Services</div>
-      <div class="chip" data-cat="Others" onclick="selectCat(this)">Others</div>
     </div>
   </div>
 </div>
 
-<!-- MAIN CONTENT -->
 <div class="container">
   <div class="results-line">
     <h3 style="margin:0">Products</h3>
     <div id="resultsInfo" class="muted">—</div>
   </div>
-
   <div id="grid" class="grid"></div>
 
   <div id="services" style="margin-top:28px">
@@ -136,42 +109,30 @@
   </div>
 </div>
 
-<!-- SELL FAB -->
 <div class="sell-fab" title="Sell on Kampus Cart" onclick="openSellPopup()">＋</div>
 
-<!-- PRODUCT MODAL (small card-like) -->
 <div id="productOverlay" class="overlay" onclick="overlayClick(event)">
   <div class="modal" onclick="event.stopPropagation()">
-    <div class="close-x" onclick="closeProduct()">✕</div>
-
-    <div class="modal-main">
-      <div style="display:flex;justify-content:space-between;align-items:center" class="modal-controls">
-        <div style="font-weight:800" id="modalTitle">Product title</div>
-        <div style="display:flex;gap:8px;align-items:center">
-          <div class="arrow" id="prevBtn" onclick="prevImage(event)">◀</div>
-          <div class="arrow" id="nextBtn" onclick="nextImage(event)">▶</div>
-        </div>
-      </div>
-
-      <img id="modalImage" class="modal-image" src="" alt="product image" />
-
+    <div style="position:relative">
+      <div class="close-x" onclick="closeProduct()">✕</div>
+    </div>
+    <div class="modal-left" id="modalLeft">
+      <img id="modalMainImg" src="" alt="product image">
       <div class="thumb-row" id="modalThumbs"></div>
     </div>
-
-    <div class="modal-info">
-      <div id="modalPrice" style="color:var(--accent);font-weight:800">₦0</div>
-      <div id="modalDesc" class="muted-sm">Description</div>
-      <div id="modalSeller" class="seller" style="margin:0;padding:8px;border-radius:8px;background:rgba(0,0,0,0.03)"></div>
-      <div style="display:flex;gap:8px;margin-top:8px">
+    <div class="modal-right">
+      <h2 id="modalTitle" style="margin:0"></h2>
+      <div id="modalPrice" style="color:var(--accent);font-weight:800"></div>
+      <div id="modalDesc" class="muted"></div>
+      <div id="modalSeller" class="seller"></div>
+      <div style="margin-top:10px;display:flex;gap:8px">
         <a id="modalCall" class="nav-item" style="padding:10px 12px;border-radius:8px;background:var(--accent);color:white;text-decoration:none">Call Seller</a>
         <button onclick="closeProduct()" style="padding:10px 12px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">Close</button>
       </div>
     </div>
-
   </div>
 </div>
 
-<!-- SELL POPUP -->
 <div id="sellOverlay" class="overlay" onclick="overlayClick(event)">
   <div class="modal" style="max-width:520px;padding:18px" onclick="event.stopPropagation()">
     <div style="display:flex;justify-content:space-between;align-items:center">
@@ -187,232 +148,93 @@
   </div>
 </div>
 
-<!-- BOTTOM NAV -->
 <div class="bottom-nav">
   <div class="nav-item" onclick="scrollToTop()">Home</div>
-  <div class="nav-item" onclick="document.getElementById('categoryMenu').scrollIntoView({behavior:'smooth'})">Categories</div>
-  <div class="nav-item" onclick="openSellPopup()">Sell</div>
   <div class="nav-item" onclick="scrollToServices()">Services</div>
-  <div class="nav-item" onclick="alert('About Kampus Cart: Campus marketplace for BUK students')">About</div>
+  <div class="nav-item" onclick="openSellPopup()">Sell</div>
 </div>
 
 <footer>
-  Kampus Cart © 2025 – BUK Marketplace
+  &copy; 2025 Kampus Cart BUK — Campus Marketplace for students. All rights reserved.
 </footer>
 
 <script>
-/* -------------------------
-   Product & services data
-   (No KCIDs, only friendly fields)
-   ------------------------- */
-const products = [
-  {id:'p1', title:'FLORIDA WOOL', price:'₦5,000 / yard', images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4715.jpeg'
-    ], seller:'FLORIDA WOOL', phone:'08128371576', addr:'No 370 Ibrahim Khalil Street, Rijiyar Zaki', category:'Fabric', desc:'Better yard with high quality.'},
-  {id:'p2', title:'Victorian Yard', price:'₦10,000 / yard', images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg',
-      'https://raw.githubusercontent.com/kampuscart/buk/main/4f691b91-b66f-4b87-ab90-3e75b92c5888.jpeg'
-    ], seller:'Victorian Yard', phone:'08128371576', addr:'No 370 Ibrahim Khalil Street, Rijiyar Zaki', category:'Fabric', desc:'High quality Victorian yard.'},
-  {id:'p3', title:'GK Plain', price:'₦3,000 / yard', images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg',
-      'https://raw.githubusercontent.com/kampuscart/buk/main/4778e4df-106e-4a54-853c-d6c2fbb7e3fe.jpeg'
-    ], seller:'GK Plain', phone:'09169517156', addr:'Rijiyar Zaki', category:'Fabric', desc:'Affordable GK Plain fabric.'},
-  {id:'p4', title:'Abaya (Dubai & Egyptian)', price:'₦20,000', images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/860407a0-5864-4279-82db-564ba294feb6.jpeg'
-    ], seller:'Abaya Seller', phone:'07064180465', category:'Clothes', desc:'Dubai and Egyptian style abayas.'},
-  {id:'p5', title:'Abaya (Tailoredbynana)', price:'₦7,000', images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/a5511486-ef55-4fe1-bf0d-a0d03d5c0265.jpeg'
-    ], seller:'Tailoredbynana', phone:'08130530595', category:'Clothes', desc:'Stylish abaya — ₦7,000'},
-  {id:'p6', title:'Amber Oud Oil Perfume', price:'₦7,000', images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/7f0d0760-7750-4a44-b496-99d6467fe0d0.jpeg'
-    ], seller:'Tailoredbynana', phone:'08130530595', category:'Perfume', desc:'Amber oud oil perfume.'},
-  {id:'p7', title:'Natural Body Perfume Spray', price:'₦5,000', images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg'
-    ], seller:'Tailoredbynana', phone:'08130530595', category:'Perfume', desc:'Natural body spray.'},
-  {id:'p8', title:'Iphone XR (Used)', price:'₦190,000', images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/b02e9cea-3f61-44a1-805f-4f42c233e277.jpeg',
-      'https://raw.githubusercontent.com/kampuscart/buk/main/388e8773-c5f2-4823-af8d-54ec7bc7e027.jpeg'
-    ], seller:'Private Seller', phone:'07052418840', category:'Electronics', desc:'Used iPhone XR in good condition.'}
+const products=[
+  {id:'111',title:'FLORIDA WOOL',price:'₦5,000 / yard',images:['https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4715.jpeg'],seller:'FLORIDA WOOL',phone:'08128371576 / 09169517156',addr:'No 370 Ibrahim Khalil Street, Rijiyar Zaki',category:'Fabric',desc:'Better yard with high quality.'},
+  {id:'116',title:'Victorian Yard',price:'₦10,000 / yard',images:['https://raw.githubusercontent.com/kampuscart/buk/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg','https://raw.githubusercontent.com/kampuscart/buk/main/4f691b91-b66f-4b87-ab90-3e75b92c5888.jpeg'],seller:'Victorian Yard',phone:'08128371576 / 09169517156',addr:'No 370 Ibrahim Khalil Street, Rijiyar Zaki',category:'Fabric',desc:'High quality Victorian yard.'},
+  {id:'111-GK',title:'GK Plain',price:'₦3,000 / yard',images:['https://raw.githubusercontent.com/kampuscart/buk/main/d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg','https://raw.githubusercontent.com/kampuscart/buk/main/4778e4df-106e-4a54-853c-d6c2fbb7e3fe.jpeg'],seller:'GK Plain',phone:'08128371576 / 09169517156',addr:'Rijiyar Zaki',category:'Fabric',desc:'Affordable GK Plain fabric.'},
+  {id:'112',title:'Abaya (Dubai & Egyptian)',price:'₦20,000',images:['https://raw.githubusercontent.com/kampuscart/buk/main/860407a0-5864-4279-82db-564ba294feb6.jpeg'],seller:'Abaya Seller',phone:'07064180465',addr:'',category:'Clothes',desc:'Dubai and Egyptian style abayas.'},
+  {id:'113-ABAYA7K',title:'Abaya (KCID-113)',price:'₦7,000',images:['https://raw.githubusercontent.com/kampuscart/buk/main/a5511486-ef55-4fe1-bf0d-a0d03d5c0265.jpeg'],seller:'Tailoredbynana',phone:'08130530595',addr:'',category:'Clothes',desc:'Abaya (added via chat) — ₦7,000'},
+  {id:'115',title:'Amber Oud Oil Perfume',price:'₦7,000',images:['https://raw.githubusercontent.com/kampuscart/buk/main/7f0d0760-7750-4a44-b496-99d6467fe0d0.jpeg'],seller:'Tailoredbynana',phone:'08130530595',category:'Perfume',desc:'Amber oud oil perfume.'},
+  {id:'IPHONE-XR',title:'Iphone XR (Used)',price:'₦190,000',images:['https://raw.githubusercontent.com/kampuscart/buk/main/b02e9cea-3f61-44a1-805f-4f42c233e277.jpeg','https://raw.githubusercontent.com/kampuscart/buk/main/388e8773-c5f2-4823-af8d-54ec7bc7e027.jpeg'],seller:'Private Seller',phone:'07052418840',addr:'New Site and Old Site',category:'Electronics',desc:'Used Iphone XR in good condition.'}
 ];
 
-const services = [
-  {title:'Yamarita (Egg-coated fried yam)', price:'₦1,000', phone:'09021683981', desc:'Popular snack on campus — hot & crispy.', images:['https://raw.githubusercontent.com/kampuscart/buk/main/ae8a5695-cbda-436a-9d05-b565481221ea.jpeg']},
-  {title:'Delivery Support', price:'Coming Soon', phone:'', desc:'Campus riders who deliver orders.', images:[]},
-  {title:'Gadget Repairs', price:'Varies', phone:'', desc:'Phone & laptop repair partners on campus.', images:[]},
-  {title:'Campus Personal Shopper', price:'Varies', phone:'07052418840', desc:'We can buy and deliver from local markets.', images:['https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4786.jpeg']},
-  {title:'Book & Stationery Finder', price:'Varies', phone:'07066460111', desc:'Find textbooks or reference materials.', images:['https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4717.jpeg']}
+const services=[
+  {title:'Yamarita (Egg-coated fried yam)',price:'₦1,000',phone:'09021683981',desc:'Popular snack on campus — hot & crispy.',images:['https://raw.githubusercontent.com/kampuscart/buk/main/ae8a5695-cbda-436a-9d05-b565481221ea.jpeg']},
+  {title:'Delivery Support',price:'Coming Soon',phone:'',desc:'Campus riders who deliver orders.',images:[]},
+  {title:'Gadget Repairs',price:'Varies',phone:'',desc:'Phone & laptop repair partners on campus.',images:[]},
+  {title:'Campus Personal Shopper',price:'Varies',phone:'07052418840',desc:'We can buy and deliver from local markets.',images:['https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4786.jpeg']},
+  {title:'Book & Stationery Finder',price:'Varies',phone:'07066460111',desc:'Find textbooks or reference materials.',images:['https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4717.jpeg']}
 ];
 
-/* -------------------------
-   Rendering functions
-   ------------------------- */
-function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function escapeHtml(s){return String(s||'').replace(/[&<>"']/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]})}
 
-function renderProducts(list = products){
-  const grid = document.getElementById('grid'); grid.innerHTML = '';
-  list.forEach(p => {
-    const d = document.createElement('div'); d.className = 'card';
-    d.onclick = ()=> openProduct(p);
-    d.innerHTML = `
-      <img class="thumb" src="${p.images[0]||''}" alt="${escapeHtml(p.title)}">
-      <div class="card-body">
-        <div class="title">${escapeHtml(p.title)}</div>
-        <div class="price">${escapeHtml(p.price)}</div>
-        <div class="seller">${escapeHtml(p.seller)}</div>
-      </div>`;
-    grid.appendChild(d);
+function renderProducts(items){
+  const grid=document.getElementById('grid');grid.innerHTML='';
+  items.forEach(p=>{
+    const div=document.createElement('div');div.className='card';div.onclick=()=>openProduct(p);
+    div.innerHTML=`<img class="thumb" src="${p.images[0]}"><div class="card-body"><div class="title">${escapeHtml(p.title)}</div><div class="price">${p.price}</div></div>`;
+    grid.appendChild(div);
   });
-  document.getElementById('resultsInfo').textContent = `${list.length} result(s)`;
+  document.getElementById('resultsInfo').textContent=`${items.length} result(s)`;
 }
 
 function renderServices(){
-  const sg = document.getElementById('servicesGrid'); sg.innerHTML = '';
+  const sg=document.getElementById('servicesGrid');sg.innerHTML='';
   services.forEach(s=>{
-    const card = document.createElement('div'); card.className = 'service-card';
-    card.innerHTML = `
-      ${s.images && s.images[0] ? `<img src="${s.images[0]}" alt="${escapeHtml(s.title)}">` : ''}
-      <div>
-        <div class="title">${escapeHtml(s.title)}</div>
-        <div style="color:var(--accent);font-weight:700">${escapeHtml(s.price)}</div>
-        <div class="muted-sm" style="margin-top:6px">${escapeHtml(s.desc)}</div>
-        ${s.phone ? `<div style="margin-top:8px"><a href="tel:${s.phone}" class="nav-item" style="color:var(--accent);text-decoration:none">Call</a></div>` : ''}
-      </div>`;
-    sg.appendChild(card);
+    const div=document.createElement('div');div.className='service-card';
+    div.innerHTML=`<img src="${s.images[0]||''}"><div><h4 style="margin:0">${escapeHtml(s.title)}</h4><div class="price">${s.price}</div><p class="muted" style="margin:4px 0">${escapeHtml(s.desc)}</p><div class="seller">📞 ${s.phone||'-'}</div></div>`;
+    sg.appendChild(div);
   });
 }
 
-/* -------------------------
-   Category, Search, UI helpers
-   ------------------------- */
-function toggleCategoryMenu(){ const m = document.getElementById('categoryMenu'); m.style.display = (m.style.display==='none' || m.style.display==='' ? 'block' : 'none'); }
-function selectCat(el){
-  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
-  const cat = el.getAttribute('data-cat');
-  if(cat==='all'){ renderProducts(); return; }
-  const filtered = products.filter(p=>p.category===cat);
-  renderProducts(filtered);
-}
-function applyFilters(){
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  if(!q){ renderProducts(); return; }
-  const filtered = products.filter(p => (p.title+p.seller+p.desc).toLowerCase().includes(q));
-  renderProducts(filtered);
-}
-
-/* -------------------------
-   Modal: small, card-size gallery with prev/next and thumbnails (2-per-row)
-   ------------------------- */
-let currentProduct = null;
-let currentIndex = 0;
-
 function openProduct(p){
-  currentProduct = p;
-  currentIndex = 0;
-  document.getElementById('productOverlay').style.display = 'flex';
-  updateModal();
-}
-
-function updateModal(){
-  if(!currentProduct) return;
-  const imgEl = document.getElementById('modalImage');
-  imgEl.src = currentProduct.images[currentIndex] || '';
-  document.getElementById('modalTitle').textContent = currentProduct.title;
-  document.getElementById('modalPrice').textContent = currentProduct.price;
-  document.getElementById('modalDesc').textContent = currentProduct.desc || '';
-  const sellerText = currentProduct.addr ? `${currentProduct.seller} — ${currentProduct.addr}` : currentProduct.seller;
-  document.getElementById('modalSeller').textContent = sellerText;
-  document.getElementById('modalCall').href = currentProduct.phone ? 'tel:' + currentProduct.phone : '#';
-
-  // thumbnails: show 2 per row (rows created programmatically)
-  const thumbs = document.getElementById('modalThumbs'); thumbs.innerHTML = '';
-  const imgs = currentProduct.images || [];
-  if(imgs.length === 0) return;
-  for(let i=0;i<imgs.length;i+=2){
-    const row = document.createElement('div');
-    row.style.display = 'flex';
-    row.style.gap = '8px';
-    for(let j=i;j<i+2 && j<imgs.length;j++){
-      const t = document.createElement('img');
-      t.src = imgs[j];
-      t.alt = currentProduct.title + ' thumb';
-      t.onclick = ()=> { currentIndex = j; updateModal(); };
-      // highlight currently selected thumbnail
-      t.style.border = (j===currentIndex) ? '2px solid var(--accent)' : '1px solid rgba(0,0,0,0.06)';
-      row.appendChild(t);
-    }
-    thumbs.appendChild(row);
+  document.getElementById('productOverlay').style.display='flex';
+  document.getElementById('modalTitle').textContent=p.title;
+  document.getElementById('modalPrice').textContent=p.price;
+  document.getElementById('modalDesc').textContent=p.desc;
+  document.getElementById('modalSeller').textContent=p.addr?`${p.seller} — ${p.addr}`:p.seller;
+  document.getElementById('modalCall').href=`tel:${p.phone}`;
+  document.getElementById('modalLeft').style.display='flex';
+  const mainImg=document.getElementById('modalMainImg');mainImg.src=p.images[0];
+  const thumbs=document.getElementById('modalThumbs');thumbs.innerHTML='';
+  if(p.images.length>1){
+    p.images.forEach(img=>{
+      const t=document.createElement('img');t.src=img;t.onclick=()=>{mainImg.src=img};thumbs.appendChild(t);
+    });
   }
 }
 
-/* arrows */
-function nextImage(e){
-  if(e) e.stopPropagation();
-  if(!currentProduct) return;
-  const len = (currentProduct.images||[]).length;
-  currentIndex = (currentIndex + 1) % Math.max(1,len);
-  updateModal();
-}
-function prevImage(e){
-  if(e) e.stopPropagation();
-  if(!currentProduct) return;
-  const len = (currentProduct.images||[]).length;
-  currentIndex = (currentIndex - 1 + len) % Math.max(1,len);
-  updateModal();
+function closeProduct(){document.getElementById('productOverlay').style.display='none'}
+function overlayClick(e){if(e.target===e.currentTarget){closeProduct();closeSellPopup()}}
+function openSellPopup(){document.getElementById('sellOverlay').style.display='flex'}
+function closeSellPopup(){document.getElementById('sellOverlay').style.display='none'}
+
+function toggleCategoryMenu(){const m=document.getElementById('categoryMenu');m.style.display=m.style.display==='none'?'block':'none'}
+function selectCat(el){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');
+  const cat=el.getAttribute('data-cat');
+  const filtered=cat==='all'?products:products.filter(p=>p.category===cat);
+  renderProducts(filtered);
 }
 
-/* touch swipe for modal image */
-(function addSwipe(){
-  const img = document.getElementById('modalImage');
-  let startX = 0, startTime = 0;
-  function start(e){
-    const t = e.touches ? e.touches[0] : e;
-    startX = t.clientX; startTime = Date.now();
-  }
-  function end(e){
-    const t = (e.changedTouches && e.changedTouches[0]) || e;
-    const dx = t.clientX - startX;
-    const dt = Date.now() - startTime;
-    if(Math.abs(dx) > 40 && dt < 600){
-      if(dx < 0) nextImage();
-      else prevImage();
-    }
-  }
-  img.addEventListener('touchstart', start, {passive:true});
-  img.addEventListener('touchend', end, {passive:true});
-  img.addEventListener('mousedown', start);
-  img.addEventListener('mouseup', end);
-})();
+function toggleTheme(){const d=document.documentElement;d.dataset.theme=d.dataset.theme==='dark'?'':'dark'}
 
-/* close overlay */
-function closeProduct(){ currentProduct = null; document.getElementById('productOverlay').style.display = 'none'; }
-function overlayClick(e){
-  if(e.target === e.currentTarget){
-    closeProduct();
-    closeSellPopup();
-  }
-}
+function applyFilters(){const q=document.getElementById('searchInput').value.toLowerCase();renderProducts(products.filter(p=>p.title.toLowerCase().includes(q)))}
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+function scrollToServices(){document.getElementById('services').scrollIntoView({behavior:'smooth'})}
 
-/* SELL popup */
-function openSellPopup(){ document.getElementById('sellOverlay').style.display = 'flex'; }
-function closeSellPopup(){ document.getElementById('sellOverlay').style.display = 'none'; }
-
-/* helpers */
-function scrollToTop(){ window.scrollTo({top:0,behavior:'smooth'}); }
-function scrollToServices(){ document.getElementById('services').scrollIntoView({behavior:'smooth'}); }
-function toggleTheme(){ const d=document.documentElement; d.dataset.theme = d.dataset.theme === 'dark' ? '' : 'dark'; }
-
-/* init */
-renderProducts();
-renderServices();
-
-/* keyboard arrows for modal */
-document.addEventListener('keydown', (e)=>{
-  if(document.getElementById('productOverlay').style.display !== 'flex') return;
-  if(e.key === 'ArrowRight') nextImage();
-  if(e.key === 'ArrowLeft') prevImage();
-  if(e.key === 'Escape') closeProduct();
-});
+renderProducts(products);renderServices();
 </script>
 
 </body>
