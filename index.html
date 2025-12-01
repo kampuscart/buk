@@ -43,7 +43,7 @@
   .muted{color:var(--muted)}
 
   /* grid */
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px} /* products 2 per line */
   .card{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:transform .14s ease;border:1px solid rgba(0,0,0,0.03);display:flex;flex-direction:column}
   .card:hover{transform:translateY(-6px)}
   .thumb{width:100%;height:160px;object-fit:cover;background:#e9eef2}
@@ -58,19 +58,13 @@
   .modal{width:100%;max-width:900px;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 30px 80px rgba(2,6,23,0.4);display:flex;flex-direction:row;gap:0}
   .modal-left{flex:1;min-width:320px;background:#fafafa;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px}
   .modal-right{flex:1;padding:18px;display:flex;flex-direction:column;gap:10px}
-  ..modal-left img {
-  width: auto;
-  max-width: 100%;
-  max-height: 380px; /* keeps modal from growing too tall */
-  object-fit: contain; /* preserve aspect ratio */
-  border-radius: 10px;
-}
+  .modal-left img{width:auto;max-width:100%;max-height:380px;object-fit:contain;border-radius:10px} /* fix portrait & multi-image */
   .thumb-row{display:flex;gap:8px;margin-top:10px}
   .thumb-row img{width:72px;height:56px;object-fit:cover;border-radius:6px;cursor:pointer;border:1px solid rgba(0,0,0,0.06)}
   .close-x{position:absolute;right:14px;top:12px;cursor:pointer}
 
   /* services */
-  .services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:12px}
+  .services-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:12px} /* services 1 per line */
   .service-card{background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow)}
 
   /* sell popup floating */
@@ -98,7 +92,7 @@
   </div>
 </div>
 
-<!-- search row (full width under header) -->
+<!-- search row -->
 <div class="search-row">
   <div class="search-box">
     <input id="searchInput" class="search-input" placeholder="Search products, sellers, KCID... (e.g. abaya, books, FLORIDA WOOL)" oninput="applyFilters()">
@@ -108,7 +102,7 @@
   </div>
 </div>
 
-<!-- category chips / dropdown -->
+<!-- category chips -->
 <div style="max-width:1100px;margin:6px auto 0;padding:0 14px">
   <div id="categoryMenu" style="display:none;background:var(--card);padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.04)">
     <div style="display:flex;gap:8px;flex-wrap:wrap">
@@ -135,9 +129,7 @@
   <!-- Services section -->
   <div id="services" style="margin-top:28px">
     <h3 style="margin-bottom:8px">Services</h3>
-    <div class="services-grid" id="servicesGrid">
-      <!-- service cards injected -->
-    </div>
+    <div class="services-grid" id="servicesGrid"></div>
   </div>
 </div>
 
@@ -192,132 +184,21 @@
 </div>
 
 <script>
-/* ---------- DATA (all products we saved earlier) ---------- */
+/* ---------- DATA (products) ---------- */
 const products = [
-  // FLORIDA WOOL (KCID-111) — main image IMG_4715.jpeg (we stored IMG_4715 earlier)
-  {
-    id:'111',
-    title:'FLORIDA WOOL (Victorian/GK variants available)',
-    price:'₦5,000 / yard',
-    images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4715.jpeg'
-    ],
-    seller:'FLORIDA WOOL',
-    phone:'08128371576 / 09169517156',
-    addr:'No 370 Ibrahim Khalil Street, Rijiyar Zaki',
-    category:'Fabric',
-    desc:'Better yard with high quality.'
-  },
-
-  // Victorian yard (KCID-116) — two images
-  {
-    id:'116',
-    title:'Victorian Yard',
-    price:'₦10,000 / yard',
-    images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg',
-      'https://raw.githubusercontent.com/kampuscart/buk/main/4f691b91-b66f-4b87-ab90-3e75b92c5888.jpeg'
-    ],
-    seller:'Victorian Yard',
-    phone:'08128371576 / 09169517156',
-    addr:'No 370 Ibrahim Khalil Street, Rijiyar Zaki',
-    category:'Fabric',
-    desc:'High quality Victorian yard.'
-  },
-
-  // GK Plain (from KCID-111 grouping) — two images
-  {
-    id:'111-GK',
-    title:'GK Plain',
-    price:'₦3,000 / yard',
-    images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg',
-      'https://raw.githubusercontent.com/kampuscart/buk/main/4778e4df-106e-4a54-853c-d6c2fbb7e3fe.jpeg'
-    ],
-    seller:'GK Plain',
-    phone:'08128371576 / 09169517156',
-    addr:'Rijiyar Zaki',
-    category:'Fabric',
-    desc:'Affordable GK Plain fabric.'
-  },
-
-  // Abaya (KCID-112)
-  {
-    id:'112',
-    title:'Abaya (Dubai & Egyptian)',
-    price:'₦20,000',
-    images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/860407a0-5864-4279-82db-564ba294feb6.jpeg'
-    ],
-    seller:'Abaya Seller',
-    phone:'07064180465',
-    addr:'',
-    category:'Clothes',
-    desc:'Dubai and Egyptian style abayas.'
-  },
-
-  // Tailoredbynana (KCID-113) — main items
-  {
-    id:'113',
-    title:'Tailoredbynana — Hijabs & Abayas',
-    price:'Hijab set ₦8,000 • Adire ₦20,000',
-    images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg'
-    ],
-    seller:'Tailoredbynana',
-    phone:'08130530595',
-    addr:'',
-    category:'Clothes',
-    desc:'Abayas, adire gowns, cut & sew, hijabs.'
-  },
-
-  // Abaya (new under KCID-113, 7k) — user added
-  {
-    id:'113-ABAYA7K',
-    title:'Abaya (KCID-113)',
-    price:'₦7,000',
-    images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/a5511486-ef55-4fe1-bf0d-a0d03d5c0265.jpeg'
-    ],
-    seller:'Tailoredbynana',
-    phone:'08130530595',
-    addr:'',
-    category:'Clothes',
-    desc:'Abaya (added via chat) — ₦7,000'
-  },
-
-  // Natural Body Perfume / Amber (KCID-115 / 113 items)
-  {
-    id:'115',
-    title:'Amber Oud Oil Perfume',
-    price:'₦7,000',
-    images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/7f0d0760-7750-4a44-b496-99d6467fe0d0.jpeg'
-    ],
-    seller:'Tailoredbynana',
-    phone:'08130530595',
-    category:'Perfume',
-    desc:'Amber oud oil perfume.'
-  },
-
-  // BUK Bookshop (KCID-114)
-  {
-    id:'114',
-    title:'BUK Bookshop — Textbooks & Reference',
-    price:'Contact seller for prices',
-    images:[
-      'https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4717.jpeg'
-    ],
-    seller:'BUK Bookshop',
-    phone:'07066460111',
-    category:'Books',
-    desc:'Suppliers of textbooks and reference books.'
-  }
+  {id:'111', title:'FLORIDA WOOL (Victorian/GK variants available)', price:'₦5,000 / yard', images:['https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4715.jpeg'], seller:'FLORIDA WOOL', phone:'08128371576 / 09169517156', addr:'No 370 Ibrahim Khalil Street, Rijiyar Zaki', category:'Fabric', desc:'Better yard with high quality.'},
+  {id:'116', title:'Victorian Yard', price:'₦10,000 / yard', images:['https://raw.githubusercontent.com/kampuscart/buk/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg','https://raw.githubusercontent.com/kampuscart/buk/main/4f691b91-b66f-4b87-ab90-3e75b92c5888.jpeg'], seller:'Victorian Yard', phone:'08128371576 / 09169517156', addr:'No 370 Ibrahim Khalil Street, Rijiyar Zaki', category:'Fabric', desc:'High quality Victorian yard.'},
+  {id:'111-GK', title:'GK Plain', price:'₦3,000 / yard', images:['https://raw.githubusercontent.com/kampuscart/buk/main/d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg','https://raw.githubusercontent.com/kampuscart/buk/main/4778e4df-106e-4a54-853c-d6c2fbb7e3fe.jpeg'], seller:'GK Plain', phone:'08128371576 / 09169517156', addr:'Rijiyar Zaki', category:'Fabric', desc:'Affordable GK Plain fabric.'},
+  {id:'112', title:'Abaya (Dubai & Egyptian)', price:'₦20,000', images:['https://raw.githubusercontent.com/kampuscart/buk/main/860407a0-5864-4279-82db-564ba294feb6.jpeg'], seller:'Abaya Seller', phone:'07064180465', addr:'', category:'Clothes', desc:'Dubai and Egyptian style abayas.'},
+  {id:'113', title:'Tailoredbynana — Hijabs & Abayas', price:'Hijab set ₦8,000 • Adire ₦20,000', images:['https://raw.githubusercontent.com/kampuscart/buk/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg'], seller:'Tailoredbynana', phone:'08130530595', addr:'', category:'Clothes', desc:'Abayas, adire gowns, cut & sew, hijabs.'},
+  {id:'113-ABAYA7K', title:'Abaya (KCID-113)', price:'₦7,000', images:['https://raw.githubusercontent.com/kampuscart/buk/main/a5511486-ef55-4fe1-bf0d-a0d03d5c0265.jpeg'], seller:'Tailoredbynana', phone:'08130530595', addr:'', category:'Clothes', desc:'Abaya (added via chat) — ₦7,000'},
+  {id:'115', title:'Amber Oud Oil Perfume', price:'₦7,000', images:['https://raw.githubusercontent.com/kampuscart/buk/main/7f0d0760-7750-4a44-b496-99d6467fe0d0.jpeg'], seller:'Tailoredbynana', phone:'08130530595', category:'Perfume', desc:'Amber oud oil perfume.'},
+  {id:'114', title:'BUK Bookshop — Textbooks & Reference', price:'Contact seller for prices', images:['https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4717.jpeg'], seller:'BUK Bookshop', phone:'07066460111', category:'Books', desc:'Suppliers of textbooks and reference books.'}
 ];
 
-/* ---------- SERVICES (improved) ---------- */
+/* ---------- SERVICES (with portrait image) ---------- */
 const services = [
-  {title:'Yamarita (Egg-coated fried yam)', price:'₦1,000', phone:'09021683981', desc:'Popular snack on campus — hot & crispy.'},
+  {title:'Yamarita (Egg-coated fried yam)', price:'₦1,000', phone:'09021683981', desc:'Popular snack on campus — hot & crispy.', img:'https://github.com/kampuscart/buk/blob/main/ae8a5695-cbda-436a-9d05-b565481221ea.jpeg'},
   {title:'Delivery Support', price:'Coming soon', phone:'', desc:'Campus riders who deliver orders.'},
   {title:'Gadget Repairs', price:'Varies', phone:'', desc:'Phone & laptop repair partners on campus.'},
   {title:'Campus Personal Shopper', price:'Varies', phone:'', desc:'We can buy and deliver from local markets.'},
@@ -332,27 +213,23 @@ const servicesGrid = document.getElementById('servicesGrid');
 function renderProducts(list){
   grid.innerHTML = '';
   if(!list || list.length === 0){
-    grid.innerHTML = '<div style="grid-column:1/-1;padding:24px;background:var(--card);border-radius:12px;text-align:center">No products found</div>';
-    resultsInfo.innerText = '0 items';
+    resultsInfo.innerText = 'No products found';
     return;
   }
+  resultsInfo.innerText = `${list.length} product(s)`;
   list.forEach(p=>{
-    const el = document.createElement('div');
-    el.className = 'card';
-    el.innerHTML = `
-      <img class="thumb" src="${p.images[0]}" alt="${escapeHtml(p.title)}" loading="lazy">
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <img class="thumb" src="${p.images[0]}" onclick="openProduct('${p.id}')" alt="product">
       <div class="card-body">
-        <div class="title">${escapeHtml(p.title)}</div>
-        <div class="price">${escapeHtml(p.price)}</div>
-        <div class="seller">${escapeHtml(p.seller)}<br><strong>📞</strong> ${escapeHtml(p.phone)}<br><span class="muted">KCID: ${escapeHtml(p.id)}</span></div>
-        <div class="meta"><div class="muted">${escapeHtml(p.category)}</div><div><button style="padding:6px 10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);cursor:pointer" onclick="openProduct('${p.id}')">View</button></div></div>
+        <div class="title">${p.title}</div>
+        <div class="price">${p.price}</div>
+        <div class="seller">${p.seller}</div>
       </div>
     `;
-    // clicking card (except View button) opens detail too
-    el.addEventListener('click', (e)=>{ if(e.target.tagName.toLowerCase() !== 'button') openProduct(p.id); });
-    grid.appendChild(el);
+    grid.appendChild(card);
   });
-  resultsInfo.innerText = list.length + ' items';
 }
 
 function renderServices(){
@@ -360,93 +237,96 @@ function renderServices(){
   services.forEach(s=>{
     const card = document.createElement('div');
     card.className = 'service-card';
-    card.innerHTML = `<div style="font-weight:800">${escapeHtml(s.title)}</div><div class="muted">${escapeHtml(s.desc)}</div><div style="margin-top:8px;font-weight:700">${escapeHtml(s.price)}</div>${s.phone?`<div class="muted" style="margin-top:6px">📞 ${escapeHtml(s.phone)}</div>`:''}`;
+    card.innerHTML = `
+      ${s.img?`<img src="${s.img}" style="width:100%;max-height:240px;object-fit:contain;border-radius:10px;margin-bottom:8px">`:''}
+      <div style="font-weight:800">${s.title}</div>
+      <div class="muted">${s.desc}</div>
+      <div style="margin-top:8px;font-weight:700">${s.price}</div>
+      ${s.phone?`<div class="muted" style="margin-top:6px">📞 ${s.phone}</div>`:''}
+    `;
     servicesGrid.appendChild(card);
   });
 }
 
-/* ---------- search & category ---------- */
-let activeCategory = 'all';
-
+/* ---------- filters ---------- */
+let currentCat = 'all';
+function selectCat(el){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  currentCat = el.dataset.cat;
+  applyFilters();
+}
 function applyFilters(){
-  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const q = document.getElementById('searchInput').value.toLowerCase();
   const filtered = products.filter(p=>{
-    const matchCat = activeCategory === 'all' || p.category === activeCategory;
-    const hay = (p.title + ' ' + p.seller + ' ' + (p.desc||'') + ' ' + p.id).toLowerCase();
-    const matchText = q === '' || hay.includes(q);
-    return matchCat && matchText;
+    const matchesCat = currentCat==='all'||p.category===currentCat;
+    const matchesSearch = p.title.toLowerCase().includes(q) || (p.seller && p.seller.toLowerCase().includes(q)) || (p.id && p.id.toLowerCase().includes(q));
+    return matchesCat && matchesSearch;
   });
   renderProducts(filtered);
 }
 
-function toggleCategoryMenu(){
-  const el = document.getElementById('categoryMenu');
-  el.style.display = el.style.display === 'block' ? 'none' : 'block';
-}
+/* ---------- modal product ---------- */
+const productOverlay = document.getElementById('productOverlay');
+const modalMainImg = document.getElementById('modalMainImg');
+const modalThumbs = document.getElementById('modalThumbs');
+const modalTitle = document.getElementById('modalTitle');
+const modalPrice = document.getElementById('modalPrice');
+const modalDesc = document.getElementById('modalDesc');
+const modalSeller = document.getElementById('modalSeller');
+const modalCall = document.getElementById('modalCall');
 
-function selectCat(el){
-  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-  el.classList.add('active');
-  activeCategory = el.getAttribute('data-cat');
-  applyFilters();
-}
-
-/* ---------- product modal (with slider only when >1 images) ---------- */
 function openProduct(id){
-  const p = products.find(x=>x.id === id);
+  const p = products.find(x=>x.id===id);
   if(!p) return;
-  document.getElementById('modalTitle').innerText = p.title;
-  document.getElementById('modalPrice').innerText = p.price;
-  document.getElementById('modalDesc').innerText = p.desc || '';
-  document.getElementById('modalSeller').innerHTML = `<strong>Seller</strong><br>${p.seller}<br><strong>📞</strong> ${p.phone}<br><span class="muted">KCID: ${p.id}</span>`;
-  document.getElementById('modalMainImg').src = p.images[0] || '';
-  // thumbs / slider
-  const thumbs = document.getElementById('modalThumbs');
-  thumbs.innerHTML = '';
-  if(p.images && p.images.length > 1){
-    p.images.forEach((img, idx)=>{
-      const t = document.createElement('img');
-      t.src = img;
-      t.alt = p.title + ' ' + (idx+1);
-      t.onclick = ()=>{ document.getElementById('modalMainImg').src = img; };
-      thumbs.appendChild(t);
+  modalTitle.innerText = p.title;
+  modalPrice.innerText = p.price;
+  modalDesc.innerText = p.desc;
+  modalSeller.innerText = p.seller + (p.addr ? ' — ' + p.addr : '');
+  modalCall.href = p.phone ? `tel:${p.phone.split(' ')[0]}` : '#';
+  modalMainImg.src = p.images[0];
+  modalThumbs.innerHTML = '';
+  if(p.images.length>1){
+    p.images.forEach((img,i)=>{
+      const thumb = document.createElement('img');
+      thumb.src = img;
+      thumb.onclick = ()=>{ modalMainImg.src = img };
+      modalThumbs.appendChild(thumb);
     });
   }
-  document.getElementById('modalCall').href = 'tel:' + (p.phone.split(' ')[0].replace(/[^0-9+]/g,''));
-  document.getElementById('productOverlay').style.display = 'flex';
+  productOverlay.style.display='flex';
 }
+function closeProduct(){productOverlay.style.display='none'}
+function overlayClick(e){ if(e.target===e.currentTarget){closeProduct();closeSellPopup()} }
 
-function closeProduct(){ document.getElementById('productOverlay').style.display = 'none'; }
-function overlayClick(e){ if(e.target.classList && e.target.classList.contains('overlay')) e.target.style.display = 'none'; }
+/* ---------- theme toggle ---------- */
+function toggleTheme(){
+  if(document.documentElement.dataset.theme==='dark'){
+    document.documentElement.dataset.theme='light';
+  } else {
+    document.documentElement.dataset.theme='dark';
+  }
+}
 
 /* ---------- sell popup ---------- */
-function openSellPopup(){ document.getElementById('sellOverlay').style.display = 'flex'; }
-function closeSellPopup(){ document.getElementById('sellOverlay').style.display = 'none'; }
+const sellOverlay = document.getElementById('sellOverlay');
+function openSellPopup(){ sellOverlay.style.display='flex' }
+function closeSellPopup(){ sellOverlay.style.display='none' }
 
-/* ---------- small helpers ---------- */
-function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+/* ---------- scroll helpers ---------- */
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+function scrollToServices(){document.getElementById('services').scrollIntoView({behavior:'smooth'})}
 
-/* ---------- theme ---------- */
-function toggleTheme(){
-  const root = document.documentElement;
-  const cur = root.getAttribute('data-theme');
-  const next = cur === 'dark' ? '' : 'dark';
-  if(next) root.setAttribute('data-theme','dark'); else root.removeAttribute('data-theme');
-  localStorage.setItem('kc_theme', next);
+/* ---------- category toggle ---------- */
+function toggleCategoryMenu(){
+  const menu = document.getElementById('categoryMenu');
+  menu.style.display = menu.style.display==='none'?'flex':'none';
 }
-(function(){ if(localStorage.getItem('kc_theme') === 'dark') document.documentElement.setAttribute('data-theme','dark'); })();
 
-/* ---------- init render ---------- */
+/* ---------- initial render ---------- */
 renderProducts(products);
 renderServices();
-
-/* ---------- navigation helpers ---------- */
-function scrollToTop(){ window.scrollTo({top:0,behavior:'smooth'}); }
-function scrollToServices(){ document.getElementById('services').scrollIntoView({behavior:'smooth'}); }
-
-/* close on ESC */
-document.addEventListener('keydown', e=>{ if(e.key === 'Escape'){ closeProduct(); closeSellPopup(); } });
-
 </script>
+
 </body>
 </html>
