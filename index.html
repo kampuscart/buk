@@ -49,8 +49,35 @@
   .modal{width:100%;max-width:900px;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 30px 80px rgba(2,6,23,0.4);display:flex;flex-direction:row;gap:0}
   .modal-left{flex:1;min-width:320px;background:#fafafa;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px}
   .modal-right{flex:1;padding:18px;display:flex;flex-direction:column;gap:10px}
-  .modal-left img{width:100%;height:380px;object-fit:cover;border-radius:10px}
-  .thumb-row{display:flex;gap:8px;margin-top:10px}
+  .modal-left img {
+  width: 100%;
+  height: 420px; /* taller portrait */
+  object-fit: cover;
+  border-radius:10px;
+}
+
+/* New scrollable thumbnail container for 2 per slide */
+.modal-thumbs-container {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-top: 10px;
+}
+.modal-thumbs-container img {
+  flex: 0 0 48%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.modal-thumbs-container::-webkit-scrollbar {
+  height: 6px;
+}
+.modal-thumbs-container::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
   .thumb-row img{width:72px;height:56px;object-fit:cover;border-radius:6px;cursor:pointer;border:1px solid rgba(0,0,0,0.06)}
   .close-x{position:absolute;right:14px;top:12px;cursor:pointer}
   .services-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:12px}
@@ -164,7 +191,6 @@ const products=[
   {id:'116',title:'Victorian Yard',price:'₦10,000 / yard',images:['https://raw.githubusercontent.com/kampuscart/buk/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg','https://raw.githubusercontent.com/kampuscart/buk/main/4f691b91-b66f-4b87-ab90-3e75b92c5888.jpeg'],seller:'Victorian Yard',phone:'08128371576 / 09169517156',addr:'No 370 Ibrahim Khalil Street, Rijiyar Zaki',category:'Fabric',desc:'High quality Victorian yard.'},
   {id:'111-GK',title:'GK Plain',price:'₦3,000 / yard',images:['https://raw.githubusercontent.com/kampuscart/buk/main/d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg','https://raw.githubusercontent.com/kampuscart/buk/main/4778e4df-106e-4a54-853c-d6c2fbb7e3fe.jpeg'],seller:'GK Plain',phone:'08128371576 / 09169517156',addr:'Rijiyar Zaki',category:'Fabric',desc:'Affordable GK Plain fabric.'},
   {id:'112',title:'Abaya (Dubai & Egyptian)',price:'₦20,000',images:['https://raw.githubusercontent.com/kampuscart/buk/main/860407a0-5864-4279-82db-564ba294feb6.jpeg'],seller:'Abaya Seller',phone:'07064180465',addr:'',category:'Clothes',desc:'Dubai and Egyptian style abayas.'},
-  {id:'113',title:'Tailoredbynana — Hijabs & Abayas',price:'Hijab set ₦8,000 • Adire ₦20,000',images:['https://raw.githubusercontent.com/kampuscart/buk/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg'],seller:'Tailoredbynana',phone:'08130530595',addr:'',category:'Clothes',desc:'Abayas, adire gowns, cut & sew, hijabs.'},
   {id:'113-ABAYA7K',title:'Abaya (KCID-113)',price:'₦7,000',images:['https://raw.githubusercontent.com/kampuscart/buk/main/a5511486-ef55-4fe1-bf0d-a0d03d5c0265.jpeg'],seller:'Tailoredbynana',phone:'08130530595',addr:'',category:'Clothes',desc:'Abaya (added via chat) — ₦7,000'},
   {id:'115',title:'Amber Oud Oil Perfume',price:'₦7,000',images:['https://raw.githubusercontent.com/kampuscart/buk/main/7f0d0760-7750-4a44-b496-99d6467fe0d0.jpeg'],seller:'Tailoredbynana',phone:'08130530595',category:'Perfume',desc:'Amber oud oil perfume.'},
   {id:'IPHONE-XR',title:'Iphone XR (Used)',price:'₦190,000',images:['https://raw.githubusercontent.com/kampuscart/buk/main/b02e9cea-3f61-44a1-805f-4f42c233e277.jpeg','https://raw.githubusercontent.com/kampuscart/buk/main/388e8773-c5f2-4823-af8d-54ec7bc7e027.jpeg'],seller:'Private Seller',phone:'07052418840',addr:'New Site and Old Site',category:'Electronics',desc:'Used Iphone XR in good condition.'}
@@ -207,15 +233,29 @@ function openProduct(p){
   document.getElementById('modalSeller').textContent=p.addr?`${p.seller} — ${p.addr}`:p.seller;
   document.getElementById('modalCall').href=`tel:${p.phone}`;
   document.getElementById('modalLeft').style.display='flex';
-  const mainImg=document.getElementById('modalMainImg');mainImg.src=p.images[0];
-  const thumbs=document.getElementById('modalThumbs');thumbs.innerHTML='';
+  
+  const mainImg=document.getElementById('modalMainImg');
+  mainImg.src=p.images[0];
+
+  const thumbs=document.getElementById('modalThumbs');
+  thumbs.innerHTML='';
   if(p.images.length>1){
-    p.images.forEach(img=>{
-      const t=document.createElement('img');t.src=img;t.onclick=()=>{mainImg.src=img};thumbs.appendChild(t);
-    });
+    thumbs.className='modal-thumbs-container'; // new scrollable container
+    for(let i=0;i<p.images.length;i+=2){ // 2 per slide
+      const row=document.createElement('div');
+      row.style.display='flex'; row.style.gap='8px';
+      for(let j=i;j<i+2 && j<p.images.length;j++){
+        const t=document.createElement('img');
+        t.src=p.images[j];
+        t.onclick=()=>{mainImg.src=p.images[j]};
+        row.appendChild(t);
+      }
+      thumbs.appendChild(row);
+    }
+  } else {
+    thumbs.className='thumb-row';
   }
 }
-
 function closeProduct(){document.getElementById('productOverlay').style.display='none'}
 function overlayClick(e){if(e.target===e.currentTarget){closeProduct();closeSellPopup()}}
 function openSellPopup(){document.getElementById('sellOverlay').style.display='flex'}
