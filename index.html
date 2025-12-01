@@ -1,145 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kampus Cart - BUK Marketplace</title>
-<link rel="stylesheet" href="styles.css">
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kampus Cart BUK</title>
+  <style>
+    :root {
+      --bg-color: #f5f6f8;
+      --card-color: #fff;
+      --accent-color: #05984a;
+      --text-color: #0b1226;
+      --muted-color: #6b7280;
+    }
 
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    header {
+      background-color: var(--accent-color);
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2em;
+    }
+
+    section {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    h2 {
+      color: var(--accent-color);
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .products-grid {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .card {
+      background-color: var(--card-color);
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .card img:hover {
+      transform: scale(1.05);
+    }
+
+    .card h3 {
+      margin: 10px 0 5px;
+    }
+
+    .card p {
+      margin: 5px 0;
+      color: var(--muted-color);
+    }
+
+    .contact {
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.7);
+    }
+
+    .modal-content {
+      background-color: var(--card-color);
+      margin: 10% auto;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-content img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      color: var(--muted-color);
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #e5e7eb;
+      margin-top: 30px;
+      color: var(--muted-color);
+    }
+
+    @media (max-width: 600px) {
+      .card img {
+        height: 150px;
+      }
+      .modal-content img {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
 <body>
 
-<!-- 🔄 Loading Animation -->
-<div id="loader">
-    <div class="spinner"></div>
-    <p>Loading KampusCart...</p>
-</div>
+  <header>
+    <h1>Kampus Cart BUK</h1>
+    <p>Your campus marketplace for products and services</p>
+  </header>
 
-<!-- 🔘 Dark Mode Toggle -->
-<button id="darkToggle" class="dark-toggle">🌙</button>
-
-<!-- 🏷️ Header -->
-<header>
-    <h1>Kampus Cart</h1>
-    <p>BUK’s No.1 Marketplace — Buy & Sell Anything on Campus</p>
-</header>
-
-<!-- 🖼️ Homepage Banner Slider -->
-<div class="slider">
-    <div class="slides">
-        <div class="slide"><img src="img/banner1.jpg" alt=""></div>
-        <div class="slide"><img src="img/banner2.jpg" alt=""></div>
-        <div class="slide"><img src="img/banner3.jpg" alt=""></div>
+  <!-- Products Section -->
+  <section>
+    <h2>Products</h2>
+    <div class="grid products-grid">
+      <div class="card">
+        <img src="IMG_4715.jpeg" alt="FLORIDA WOOL" onclick="openModal(this.src)">
+        <h3>FLORIDA WOOL</h3>
+        <p>₦5,000 per yard</p>
+        <p class="contact">08128371576 | 09169517156</p>
+      </div>
+      <div class="card">
+        <img src="https://github.com/kampuscart/buk/blob/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg" alt="Victorian yard" onclick="openModal(this.src)">
+        <h3>Victorian Yard</h3>
+        <p>₦10,000 per yard</p>
+        <p class="contact">08128371576 | 09169517156</p>
+      </div>
+      <div class="card">
+        <img src="https://github.com/kampuscart/buk/blob/main/d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg" alt="GK Plain" onclick="openModal(this.src)">
+        <h3>GK Plain</h3>
+        <p>₦3,000 per yard</p>
+        <p class="contact">08128371576 | 09169517156</p>
+      </div>
+      <div class="card">
+        <img src="https://github.com/kampuscart/buk/blob/main/a2e2ff91-3959-42f4-9374-a6bbe3de3b2a.jpeg" alt="Abaya" onclick="openModal(this.src)">
+        <h3>Abaya</h3>
+        <p>₦30,000</p>
+        <p class="contact">08130530595</p>
+      </div>
     </div>
-</div>
+  </section>
 
-<!-- 🔥 Hot Deals -->
-<section>
-    <h2 class="section-title">🔥 Hot Deals Today</h2>
-    <div class="hot-deals">
-        <div class="hot-card"><p>Victorian Yard — ₦10,000</p></div>
-        <div class="hot-card"><p>Natural Body Perfume Spray — ₦5,000</p></div>
-        <div class="hot-card"><p>Abaya — ₦30,000</p></div>
+  <!-- Services Section -->
+  <section>
+    <h2>Services</h2>
+    <div class="grid services-grid">
+      <div class="card">
+        <h3>Yamarita / Egg-coated Fried Yam</h3>
+        <p>₦1,000</p>
+        <p class="contact">09021683981</p>
+      </div>
     </div>
-</section>
+  </section>
 
-<!-- 🛒 Products Section -->
-<section>
-    <h2 class="section-title">🛍️ Products</h2>
-
-    <div class="product-grid">
-
-        <!-- FLORIDA WOOL -->
-        <div class="product-card" onclick="openModal('FLORIDA WOOL', '₦5,000 per yard', 'IMG_4715.jpeg')">
-            <img src="IMG_4715.jpeg">
-            <p>FLORIDA WOOL</p>
-            <span>₦5,000</span>
-        </div>
-
-        <!-- Victorian Yard -->
-        <div class="product-card" onclick="openModal('Victorian Yard', '₦10,000 per yard', '574a45b8.jpeg')">
-            <img src="574a45b8.jpeg">
-            <p>Victorian Yard</p>
-            <span>₦10,000</span>
-        </div>
-
-        <!-- GK Plain -->
-        <div class="product-card" onclick="openModal('GK Plain', '₦3,000 per yard', 'd88f5282.jpeg')">
-            <img src="d88f5282.jpeg">
-            <p>GK Plain</p>
-            <span>₦3,000</span>
-        </div>
-
-        <!-- Perfume Spray -->
-        <div class="product-card" onclick="openModal('Natural Body Perfume Spray', '₦5,000', '96354c82.jpeg')">
-            <img src="96354c82.jpeg">
-            <p>Perfume Spray</p>
-            <span>₦5,000</span>
-        </div>
-
-        <!-- Amber Oud Oil -->
-        <div class="product-card" onclick="openModal('Amber Oud Oil Perfume', '₦7,000', '7f0d0760.jpeg')">
-            <img src="7f0d0760.jpeg">
-            <p>Amber Oud Oil</p>
-            <span>₦7,000</span>
-        </div>
-
-        <!-- Abaya -->
-        <div class="product-card" onclick="openModal('Abaya', '₦30,000', 'a2e2ff91.jpeg')">
-            <img src="a2e2ff91.jpeg">
-            <p>Abaya</p>
-            <span>₦30,000</span>
-        </div>
-
-    </div>
-</section>
-
-<!-- 🍽️ Services -->
-<section>
-    <h2 class="section-title">🍽️ Services</h2>
-
-    <div class="service-list">
-
-        <div class="service-card" onclick="openModal('Yamarita / Egg-coated Fried Yam', '₦1,000', 'ae8a5695.jpeg')">
-            <img src="ae8a5695.jpeg">
-            <div>
-                <h3>Yamarita (Egg-coated Yam)</h3>
-                <p>₦1,000</p>
-            </div>
-        </div>
-
-        <div class="service-card" onclick="openModal('Bookshop', 'Textbooks & Supplies', 'IMG_4717.jpeg')">
-            <img src="IMG_4717.jpeg">
-            <div>
-                <h3>BUK Bookshop</h3>
-                <p>Textbooks & Academic Materials</p>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<!-- 👤 My Profile Section -->
-<section id="profile">
-    <h2 class="section-title">👤 My Profile</h2>
-
-    <div class="profile-box">
-        <h3>Abdullahi Hassan</h3>
-        <p class="profile-tag">Founder of KampusCart</p>
-        <p class="motivation">"Greatness starts with a single idea. KampusCart is yours — keep building."</p>
-    </div>
-</section>
-
-<!-- 📌 Modal -->
-<div id="modal" class="modal">
+  <!-- Modal -->
+  <div id="modal" class="modal">
     <div class="modal-content">
-        <span onclick="closeModal()" class="close">&times;</span>
-        <img id="modal-img">
-        <h3 id="modal-title"></h3>
-        <p id="modal-price"></p>
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img id="modal-img" src="" alt="Product Image">
     </div>
-</div>
+  </div>
 
-<script src="script.js"></script>
+  <footer>
+    &copy; 2025 Kampus Cart BUK. All rights reserved.
+  </footer>
+
+  <script>
+    function openModal(src) {
+      document.getElementById('modal').style.display = 'block';
+      document.getElementById('modal-img').src = src;
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('modal');
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    }
+  </script>
+
 </body>
 </html>
