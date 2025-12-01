@@ -2,352 +2,144 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>KampusCart</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background: #f3f3f3;
-        transition: 0.3s;
-    }
-
-    .header {
-        background: #2c6e49;
-        padding: 20px;
-        text-align: center;
-        color: white;
-        font-size: 30px;
-        font-weight: bold;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-
-    .top-bar {
-        display: flex;
-        padding: 10px;
-        background: white;
-        gap: 10px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-
-    #search {
-        flex: 1;
-        padding: 12px;
-        border-radius: 8px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
-    }
-
-    .cat-btn {
-        padding: 12px 15px;
-        background: #2c6e49;
-        color: white;
-        border-radius: 8px;
-        font-size: 15px;
-        cursor: pointer;
-    }
-
-    .category-box {
-        display: none;
-        padding: 15px;
-        background: white;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-
-    .category-box button {
-        display: block;
-        width: 100%;
-        padding: 12px;
-        margin-bottom: 10px;
-        border: none;
-        background: #e3e3e3;
-        border-radius: 8px;
-        font-size: 15px;
-        cursor: pointer;
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        padding: 10px;
-    }
-
-    .item {
-        background: white;
-        border-radius: 10px;
-        padding: 10px;
-        text-align: center;
-        box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-        cursor: pointer;
-    }
-
-    .item img {
-        width: 100%;
-        height: 150px;
-        border-radius: 10px;
-        object-fit: cover;
-    }
-
-    .services {
-        grid-template-columns: 1fr !important;
-    }
-
-    /* POPUP */
-    .popup-bg {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.5);
-        display: none;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .popup {
-        width: 90%;
-        background: white;
-        padding: 20px;
-        border-radius: 15px;
-        text-align: center;
-        animation: pop 0.3s ease;
-    }
-
-    @keyframes pop {
-        from { transform: scale(0.7); opacity: 0; }
-        to   { transform: scale(1); opacity: 1; }
-    }
-
-    /* Slider */
-    .slider {
-        position: relative;
-        width: 100%;
-    }
-
-    .slider img {
-        width: 100%;
-        height: 200px;
-        border-radius: 12px;
-        object-fit: cover;
-    }
-
-    .dots {
-        margin-top: 8px;
-        display: flex;
-        justify-content: center;
-        gap: 6px;
-    }
-
-    .dot {
-        width: 10px;
-        height: 10px;
-        background: #ccc;
-        border-radius: 50%;
-        cursor: pointer;
-    }
-
-    .dot.active {
-        background: #2c6e49;
-    }
-
-    /* SELL BUTTON */
-    .sell-btn {
-        position: fixed;
-        right: 20px;
-        bottom: 20px;
-        padding: 15px 18px;
-        background: #e63946;
-        color: white;
-        border-radius: 50px;
-        font-size: 18px;
-        font-weight: bold;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        cursor: pointer;
-    }
-
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kampus Cart - BUK Marketplace</title>
+<link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<div class="header">KampusCart</div>
-
-<div class="top-bar">
-    <input id="search" type="text" placeholder="Search products…">
-    <div class="cat-btn" onclick="toggleCats()">Categories</div>
+<!-- 🔄 Loading Animation -->
+<div id="loader">
+    <div class="spinner"></div>
+    <p>Loading KampusCart...</p>
 </div>
 
-<div class="category-box" id="catBox">
-    <button onclick="filterCategory('fabric')">Fabrics</button>
-    <button onclick="filterCategory('abaya')">Abayas</button>
-    <button onclick="filterCategory('perfume')">Perfumes</button>
-    <button onclick="filterCategory('books')">Books</button>
-    <button onclick="filterCategory('food')">Food</button>
-    <button onclick="filterCategory('all')">Show All</button>
+<!-- 🔘 Dark Mode Toggle -->
+<button id="darkToggle" class="dark-toggle">🌙</button>
+
+<!-- 🏷️ Header -->
+<header>
+    <h1>Kampus Cart</h1>
+    <p>BUK’s No.1 Marketplace — Buy & Sell Anything on Campus</p>
+</header>
+
+<!-- 🖼️ Homepage Banner Slider -->
+<div class="slider">
+    <div class="slides">
+        <div class="slide"><img src="img/banner1.jpg" alt=""></div>
+        <div class="slide"><img src="img/banner2.jpg" alt=""></div>
+        <div class="slide"><img src="img/banner3.jpg" alt=""></div>
+    </div>
 </div>
 
-<!-- PRODUCT LIST -->
-<div class="grid" id="productList"></div>
+<!-- 🔥 Hot Deals -->
+<section>
+    <h2 class="section-title">🔥 Hot Deals Today</h2>
+    <div class="hot-deals">
+        <div class="hot-card"><p>Victorian Yard — ₦10,000</p></div>
+        <div class="hot-card"><p>Natural Body Perfume Spray — ₦5,000</p></div>
+        <div class="hot-card"><p>Abaya — ₦30,000</p></div>
+    </div>
+</section>
 
-<!-- SERVICE LIST -->
-<h2 style="padding-left:10px;">Services</h2>
-<div class="grid services" id="serviceList"></div>
+<!-- 🛒 Products Section -->
+<section>
+    <h2 class="section-title">🛍️ Products</h2>
 
-<div class="sell-btn" onclick="openManager()">Sell 🚀</div>
+    <div class="product-grid">
 
-<!-- POPUP -->
-<div class="popup-bg" id="popupBg">
-    <div class="popup" id="popupBox"></div>
-</div>
+        <!-- FLORIDA WOOL -->
+        <div class="product-card" onclick="openModal('FLORIDA WOOL', '₦5,000 per yard', 'IMG_4715.jpeg')">
+            <img src="IMG_4715.jpeg">
+            <p>FLORIDA WOOL</p>
+            <span>₦5,000</span>
+        </div>
 
-<script>
-const products = [
-    {
-        name: "Florida Wool",
-        price: "₦5,000 per yard",
-        images: ["IMG_4715.jpeg"],
-        category: "fabric",
-        phone: "08128371576 / 09169517156"
-    },
-    {
-        name: "GK Plain",
-        price: "₦3,000 per yard",
-        images: [
-            "d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg",
-            "4778e4df-106e-4a54-853c-d6c2fbb7e3fe.jpeg"
-        ],
-        category: "fabric",
-        phone: "08128371576 / 09169517156"
-    },
-    {
-        name: "Victorian Yard",
-        price: "₦10,000 per yard",
-        images: [
-            "574a45b8-279f-42eb-8deb-215707340bf0.jpeg",
-            "4f691b91-b66f-4b87-ab90-3e75b92c5888.jpeg"
-        ],
-        category: "fabric",
-        phone: "08128371576 / 09169517156"
-    },
-    {
-        name: "Abaya (Dubai/Egyptian)",
-        price: "₦20,000",
-        images: ["860407a0-5864-4279-82db-564ba294feb6.jpeg"],
-        category: "abaya",
-        phone: "07064180465"
-    },
-    {
-        name: "Abaya (Tailoredbynana)",
-        price: "₦7,000",
-        images: ["a5511486-ef55-4fe1-bf0d-a0d03d5c0265.jpeg"],
-        category: "abaya",
-        phone: "08130530595"
-    },
-    {
-        name: "Amber Oud Perfume",
-        price: "₦7,000",
-        images: ["96354c82-38dc-483e-b580-576825d2e2c5.jpeg"],
-        category: "perfume",
-        phone: "08130530595"
-    }
-];
+        <!-- Victorian Yard -->
+        <div class="product-card" onclick="openModal('Victorian Yard', '₦10,000 per yard', '574a45b8.jpeg')">
+            <img src="574a45b8.jpeg">
+            <p>Victorian Yard</p>
+            <span>₦10,000</span>
+        </div>
 
-const services = [
-    {
-        name: "Yamarita (Egg-coated Yam)",
-        price: "₦1,000",
-        phone: "09021683981",
-        image: "ae8a5695-cbda-436a-9d05-b565481221ea.jpeg"
-    }
-];
+        <!-- GK Plain -->
+        <div class="product-card" onclick="openModal('GK Plain', '₦3,000 per yard', 'd88f5282.jpeg')">
+            <img src="d88f5282.jpeg">
+            <p>GK Plain</p>
+            <span>₦3,000</span>
+        </div>
 
-function loadProducts(list){
-    const box = document.getElementById("productList");
-    box.innerHTML = "";
-    list.forEach((p,i)=>{
-        box.innerHTML += `
-            <div class="item" onclick="openPopup(${i})">
-                <img src="${p.images[0]}">
-                <h3>${p.name}</h3>
-                <p>${p.price}</p>
+        <!-- Perfume Spray -->
+        <div class="product-card" onclick="openModal('Natural Body Perfume Spray', '₦5,000', '96354c82.jpeg')">
+            <img src="96354c82.jpeg">
+            <p>Perfume Spray</p>
+            <span>₦5,000</span>
+        </div>
+
+        <!-- Amber Oud Oil -->
+        <div class="product-card" onclick="openModal('Amber Oud Oil Perfume', '₦7,000', '7f0d0760.jpeg')">
+            <img src="7f0d0760.jpeg">
+            <p>Amber Oud Oil</p>
+            <span>₦7,000</span>
+        </div>
+
+        <!-- Abaya -->
+        <div class="product-card" onclick="openModal('Abaya', '₦30,000', 'a2e2ff91.jpeg')">
+            <img src="a2e2ff91.jpeg">
+            <p>Abaya</p>
+            <span>₦30,000</span>
+        </div>
+
+    </div>
+</section>
+
+<!-- 🍽️ Services -->
+<section>
+    <h2 class="section-title">🍽️ Services</h2>
+
+    <div class="service-list">
+
+        <div class="service-card" onclick="openModal('Yamarita / Egg-coated Fried Yam', '₦1,000', 'ae8a5695.jpeg')">
+            <img src="ae8a5695.jpeg">
+            <div>
+                <h3>Yamarita (Egg-coated Yam)</h3>
+                <p>₦1,000</p>
             </div>
-        `;
-    });
-}
-loadProducts(products);
+        </div>
 
-function loadServices(){
-    const box = document.getElementById("serviceList");
-    services.forEach(s=>{
-        box.innerHTML += `
-            <div class="item">
-                <img src="${s.image}">
-                <h3>${s.name}</h3>
-                <p>${s.price}</p>
-                <b>${s.phone}</b>
+        <div class="service-card" onclick="openModal('Bookshop', 'Textbooks & Supplies', 'IMG_4717.jpeg')">
+            <img src="IMG_4717.jpeg">
+            <div>
+                <h3>BUK Bookshop</h3>
+                <p>Textbooks & Academic Materials</p>
             </div>
-        `;
-    });
-}
-loadServices();
+        </div>
 
-function toggleCats(){
-    const box = document.getElementById("catBox");
-    box.style.display = box.style.display === "block" ? "none" : "block";
-}
+    </div>
+</section>
 
-function filterCategory(cat){
-    if(cat === "all"){ loadProducts(products); return; }
-    loadProducts(products.filter(p=>p.category === cat));
-}
+<!-- 👤 My Profile Section -->
+<section id="profile">
+    <h2 class="section-title">👤 My Profile</h2>
 
-document.getElementById("search").addEventListener("input", e=>{
-    let val = e.target.value.toLowerCase();
-    loadProducts(products.filter(p=>p.name.toLowerCase().includes(val)));
-});
+    <div class="profile-box">
+        <h3>Abdullahi Hassan</h3>
+        <p class="profile-tag">Founder of KampusCart</p>
+        <p class="motivation">"Greatness starts with a single idea. KampusCart is yours — keep building."</p>
+    </div>
+</section>
 
-function openPopup(i){
-    const p = products[i];
-    let dots = "";
-    let slides = "";
+<!-- 📌 Modal -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span onclick="closeModal()" class="close">&times;</span>
+        <img id="modal-img">
+        <h3 id="modal-title"></h3>
+        <p id="modal-price"></p>
+    </div>
+</div>
 
-    p.images.forEach((img, index)=>{
-        slides += `<img class="slide${i}" src="${img}" style="display:${index===0?'block':'none'}">`;
-        dots += `<div class="dot ${index===0?'active':''}" onclick="showSlide(${i}, ${index})"></div>`;
-    });
-
-    document.getElementById("popupBox").innerHTML = `
-        <div class="slider">${slides}</div>
-        <div class="dots">${dots}</div>
-        <h2>${p.name}</h2>
-        <p>${p.price}</p>
-        <p><b>${p.phone}</b></p>
-        <button onclick="closePopup()">Close</button>
-    `;
-    document.getElementById("popupBg").style.display = "flex";
-}
-
-function showSlide(prod, n){
-    const slides = document.querySelectorAll(".slide"+prod);
-    const dots = document.querySelectorAll(".dot");
-
-    slides.forEach(s=>s.style.display="none");
-    slides[n].style.display = "block";
-
-    dots.forEach(d=>d.classList.remove("active"));
-    dots[n].classList.add("active");
-}
-
-function closePopup(){
-    document.getElementById("popupBg").style.display = "none";
-}
-
-function openManager(){
-    alert("Ready to sell? 🚀\n\nContact Manager:\n📞 07052418840");
-}
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
