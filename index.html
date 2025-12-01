@@ -1,295 +1,177 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kampus Cart BUK</title>
-  <style>
-    :root {
-      --bg-color: #f5f6f8;
-      --card-color: #fff;
-      --accent-color: #05984a;
-      --text-color: #0b1226;
-      --muted-color: #6b7280;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kampus Cart BUK</title>
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-    }
+<style>
+  body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:#f5f6f8;
+  }
 
-    header {
-      background-color: var(--accent-color);
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-    }
+  header{
+    background:#05984a;
+    padding:15px;
+    text-align:center;
+    color:white;
+    font-size:22px;
+    font-weight:700;
+  }
 
-    header h1 {
-      margin: 0;
-      font-size: 2em;
-    }
+  /* PRODUCT GRID – 2 per line */
+  .products{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:12px;
+    padding:15px;
+  }
 
-    section {
-      padding: 20px;
-      max-width: 1200px;
-      margin: auto;
-    }
+  .product-card{
+    background:white;
+    border-radius:10px;
+    padding:10px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.08);
+  }
 
-    h2 {
-      color: var(--accent-color);
-      margin-bottom: 20px;
-    }
+  /* PRODUCT IMAGE updated to 110px */
+  .product-card img{
+    width:100%;
+    height:110px; /* UPDATED */
+    object-fit:cover;
+    border-radius:8px;
+  }
 
-    /* Filters */
-    .filters {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
+  .product-info{
+    margin-top:6px;
+    font-size:13px; /* small text */
+    color:#333;
+  }
 
-    .filters input, .filters select {
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      flex: 1;
-      min-width: 150px;
-    }
+  /* SERVICE GRID – 1 per line */
+  .services{
+    padding:15px;
+  }
 
-    .grid {
-      display: grid;
-      gap: 20px;
-    }
+  .service-card{
+    background:white;
+    border-radius:10px;
+    padding:12px;
+    box-shadow:0 2px 5px rgba(0,0,0,0.07);
+    margin-bottom:15px;
+  }
 
-    .products-grid {
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
+  .service-card img{
+    width:100%;
+    height:140px;
+    object-fit:cover;
+    border-radius:8px;
+  }
 
-    .services-grid {
-      grid-template-columns: 1fr;
-    }
+  .footer{
+    margin-top:40px;
+    padding:20px;
+    background:#05984a;
+    color:white;
+    text-align:center;
+    font-size:14px;
+  }
 
-    .card {
-      background-color: var(--card-color);
-      border-radius: 12px;
-      padding: 15px;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
-    }
-
-    .card:hover {
-      transform: scale(1.03);
-    }
-
-    .card img {
-      width: 100%;
-      object-fit: cover;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .card img:hover {
-      transform: scale(1.05);
-    }
-
-    .card h3 {
-      margin: 10px 0 5px;
-    }
-
-    .card p {
-      margin: 5px 0;
-      color: var(--muted-color);
-    }
-
-    .contact {
-      color: var(--accent-color);
-      font-weight: bold;
-    }
-
-    /* Modal */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 10;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.7);
-    }
-
-    .modal-content {
-      background-color: var(--card-color);
-      margin: 10% auto;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 500px;
-      text-align: center;
-      position: relative;
-    }
-
-    .modal-content img {
-      width: 100%;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-
-    .close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 28px;
-      cursor: pointer;
-      color: var(--muted-color);
-    }
-
-    footer {
-      text-align: center;
-      padding: 15px;
-      background-color: #e5e7eb;
-      margin-top: 30px;
-      color: var(--muted-color);
-    }
-  </style>
+  a{
+    color:#05984a;
+    text-decoration:none;
+    font-weight:600;
+  }
+</style>
 </head>
+
 <body>
 
-  <header>
-    <h1>Kampus Cart BUK</h1>
-    <p>Your campus marketplace for products and services</p>
-  </header>
+<header>Kampus Cart BUK</header>
 
-  <!-- Filters -->
-  <section>
-    <div class="filters">
-      <input id="searchInput" type="text" placeholder="Search products or services...">
-      <select id="categorySelect">
-        <option value="all">All Categories</option>
-        <option value="fabrics">Fabrics</option>
-        <option value="perfumes">Perfumes</option>
-        <option value="food">Food</option>
-        <option value="clothing">Clothing</option>
-      </select>
-    </div>
-  </section>
+<!-- PRODUCTS -->
+<div class="products">
 
-  <!-- Products Section -->
-  <section>
-    <h2>Products</h2>
-    <div class="grid products-grid" id="productsGrid"></div>
-  </section>
-
-  <!-- Services Section -->
-  <section>
-    <h2>Services</h2>
-    <div class="grid services-grid" id="servicesGrid"></div>
-  </section>
-
-  <!-- Sell Section -->
-  <section>
-    <h2>Sell Your Product/Service</h2>
-    <p>Contact <span class="contact">07052418840</span> to list your product or service on Kampus Cart.</p>
-  </section>
-
-  <!-- Modal -->
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <img id="modal-img" src="">
+  <!-- NEW PRODUCT: iPhone XR -->
+  <div class="product-card">
+    <img src="https://github.com/kampuscart/buk/blob/main/b02e9cea-3f61-44a1-805f-4f42c233e277.jpeg" alt="">
+    <img src="https://github.com/kampuscart/buk/blob/main/388e8773-c5f2-4823-af8d-54ec7bc7e027.jpeg" alt="" style="margin-top:8px;">
+    <div class="product-info">
+      <b>Iphone XR (Used)</b><br>
+      Price: <b>190,000</b><br>
+      Location: New Site / Old Site <br>
+      <a href="tel:07052418840">Call: 07052418840</a>
     </div>
   </div>
 
-  <footer>
-    &copy; 2025 Kampus Cart BUK. All rights reserved.
-  </footer>
+  <!-- Existing products -->
+  <div class="product-card">
+    <img src="IMG_4715.jpeg">
+    <div class="product-info">
+      <b>FLORIDA WOOL</b><br>
+      Price: 5,000 per yard <br>
+      <a href="tel:08128371576">Contact Seller</a>
+    </div>
+  </div>
 
-<script>
-  const products = [
-    { name: "FLORIDA WOOL", price: "₦5,000 per yard", category: "fabrics", contact: "08128371576 | 09169517156", img: "IMG_4715.jpeg" },
-    { name: "Victorian Yard", price: "₦10,000 per yard", category: "fabrics", contact: "08128371576 | 09169517156", img: "https://github.com/kampuscart/buk/blob/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg" },
-    { name: "GK Plain", price: "₦3,000 per yard", category: "fabrics", contact: "08128371576 | 09169517156", img: "https://github.com/kampuscart/buk/blob/main/d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg" },
-    { name: "Abaya", price: "₦30,000", category: "clothing", contact: "08130530595", img: "https://github.com/kampuscart/buk/blob/main/a2e2ff91-3959-42f4-9374-a6bbe3de3b2a.jpeg" },
-    { name: "Natural Body Perfume Spray", price: "₦5,000", category: "perfumes", contact: "08130530595", img: "" }
-  ];
+  <div class="product-card">
+    <img src="https://github.com/kampuscart/buk/blob/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg">
+    <div class="product-info">
+      <b>Victorian Yard</b><br>
+      Price: 10,000 per yard <br>
+      <a href="tel:08128371576">Contact Seller</a>
+    </div>
+  </div>
 
-  const services = [
-    { name: "Yamarita / Egg-coated Fried Yam", price: "₦1,000", category: "food", contact: "09021683981" }
-  ];
+  <div class="product-card">
+    <img src="https://github.com/kampuscart/buk/blob/main/d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg">
+    <div class="product-info">
+      <b>GK Plain</b><br>
+      Price: 3,000 per yard <br>
+      <a href="tel:08128371576">Call Seller</a>
+    </div>
+  </div>
 
-  const productsGrid = document.getElementById("productsGrid");
-  const servicesGrid = document.getElementById("servicesGrid");
+</div>
 
-  function renderProducts(filterText = "", filterCategory = "all") {
-    productsGrid.innerHTML = "";
-    const filtered = products.filter(p => (
-      p.name.toLowerCase().includes(filterText.toLowerCase()) &&
-      (filterCategory === "all" || p.category === filterCategory)
-    ));
+<!-- SERVICES -->
+<h2 style="padding-left:15px;">Services</h2>
+<div class="services">
 
-    filtered.forEach(p => {
-      const imgSrc = p.img || "https://via.placeholder.com/300?text=No+Image";
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <img src="${imgSrc}" onclick="openModal('${imgSrc}')">
-        <h3>${p.name}</h3>
-        <p>${p.price}</p>
-        <p class="contact">${p.contact}</p>
-      `;
-      productsGrid.appendChild(card);
-    });
-  }
+  <div class="service-card">
+    <img src="IMG_4717.jpeg">
+    <div style="font-size:14px; margin-top:6px;">
+      <b>Bayero University Bookshop</b><br>
+      Textbooks & Reference Books<br>
+      <a href="tel:07066460111">07066460111</a>
+    </div>
+  </div>
 
-  function renderServices(filterText = "", filterCategory = "all") {
-    servicesGrid.innerHTML = "";
-    const filtered = services.filter(s => (
-      s.name.toLowerCase().includes(filterText.toLowerCase()) &&
-      (filterCategory === "all" || s.category === filterCategory)
-    ));
+  <div class="service-card">
+    <img src="https://github.com/kampuscart/buk/blob/main/IMG_4793.png">
+    <div style="font-size:14px; margin-top:6px;">
+      <b>Delivery Support</b><br>
+      Fast delivery around BUK<br>
+      <a href="tel:07052418840">Call Delivery</a>
+    </div>
+  </div>
 
-    filtered.forEach(s => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <h3>${s.name}</h3>
-        <p>${s.price}</p>
-        <p class="contact">${s.contact}</p>
-      `;
-      servicesGrid.appendChild(card);
-    });
-  }
+  <div class="service-card">
+    <img src="https://github.com/kampuscart/buk/blob/main/ae8a5695-cbda-436a-9d05-b565481221ea.jpeg">
+    <div style="font-size:14px; margin-top:6px;">
+      <b>Yamarita (Egg-Coated Yam)</b><br>
+      Price: 1,000 <br>
+      <a href="tel:09021683981">09021683981</a>
+    </div>
+  </div>
 
-  document.getElementById("searchInput").addEventListener("input", () => {
-    renderProducts(searchInput.value, categorySelect.value);
-    renderServices(searchInput.value, categorySelect.value);
-  });
+</div>
 
-  document.getElementById("categorySelect").addEventListener("change", () => {
-    renderProducts(searchInput.value, categorySelect.value);
-    renderServices(searchInput.value, categorySelect.value);
-  });
-
-  function openModal(src) {
-    document.getElementById('modal').style.display = 'block';
-    document.getElementById('modal-img').src = src;
-  }
-
-  function closeModal() {
-    document.getElementById('modal').style.display = 'none';
-  }
-
-  window.onclick = function(event) {
-    if (event.target === document.getElementById('modal')) closeModal();
-  }
-
-  renderProducts();
-  renderServices();
-</script>
+<div class="footer">
+  © 2025 Kampus Cart BUK — Buy & Sell Easily on Campus
+</div>
 
 </body>
 </html>
