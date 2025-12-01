@@ -39,7 +39,7 @@
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
   .card{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:transform .14s ease;border:1px solid rgba(0,0,0,0.03);display:flex;flex-direction:column;cursor:pointer}
   .card:hover{transform:translateY(-6px)}
-  .thumb{width:100%;height:160px;object-fit:cover;background:#e9eef2}
+  .thumb{width:100%;height:220px;object-fit:cover;background:#e9eef2} /* portrait product card */
   .card-body{padding:12px;display:flex;flex-direction:column;gap:8px}
   .title{font-weight:800;font-size:15px}
   .price{color:var(--accent);font-weight:800}
@@ -50,34 +50,33 @@
   .modal-left{flex:1;min-width:320px;background:#fafafa;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px}
   .modal-right{flex:1;padding:18px;display:flex;flex-direction:column;gap:10px}
   .modal-left img {
-  width: 100%;
-  height: 420px; /* taller portrait */
-  object-fit: cover;
-  border-radius:10px;
-}
-
-/* New scrollable thumbnail container for 2 per slide */
-.modal-thumbs-container {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-top: 10px;
-}
-.modal-thumbs-container img {
-  flex: 0 0 48%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 6px;
-  cursor: pointer;
-  border: 1px solid rgba(0,0,0,0.06);
-}
-.modal-thumbs-container::-webkit-scrollbar {
-  height: 6px;
-}
-.modal-thumbs-container::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.2);
-  border-radius: 3px;
-}
+    width: 100%;
+    height: 420px; /* taller portrait */
+    object-fit: cover;
+    border-radius:10px;
+  }
+  .modal-thumbs-container {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-top: 10px;
+  }
+  .modal-thumbs-container img {
+    flex: 0 0 48%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .modal-thumbs-container::-webkit-scrollbar {
+    height: 6px;
+  }
+  .modal-thumbs-container::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.2);
+    border-radius: 3px;
+  }
+  .thumb-row{display:flex;gap:8px;margin-top:10px}
   .thumb-row img{width:72px;height:56px;object-fit:cover;border-radius:6px;cursor:pointer;border:1px solid rgba(0,0,0,0.06)}
   .close-x{position:absolute;right:14px;top:12px;cursor:pointer}
   .services-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:12px}
@@ -204,24 +203,45 @@ const services=[
   {title:'Book & Stationery Finder',price:'Varies',phone:'07066460111',desc:'Find textbooks or reference materials.',images:['https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4717.jpeg']}
 ];
 
-function escapeHtml(s){return String(s||'').replace(/[&<>"']/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]})}
+function escapeHtml(text){return text.replace(/</g,"&lt;").replace(/>/g,"&gt;")}
 
-function renderProducts(items){
-  const grid=document.getElementById('grid');grid.innerHTML='';
-  items.forEach(p=>{
-    const div=document.createElement('div');div.className='card';div.onclick=()=>openProduct(p);
-    div.innerHTML=`<img class="thumb" src="${p.images[0]}"><div class="card-body"><div class="title">${escapeHtml(p.title)}</div><div class="price">${p.price}</div></div>`;
-    grid.appendChild(div);
+function renderProducts(){
+  const grid=document.getElementById('grid');
+  grid.innerHTML='';
+  products.forEach(p=>{
+    const card=document.createElement('div');
+    card.className='card';
+    card.onclick=()=>openProduct(p);
+    const img=document.createElement('img');
+    img.src=p.images[0];
+    img.className='thumb';
+    const body=document.createElement('div');
+    body.className='card-body';
+    body.innerHTML=`<div class="title">${escapeHtml(p.title)}</div>
+                     <div class="price">${p.price}</div>
+                     <div class="seller">${p.seller}</div>`;
+    card.appendChild(img);
+    card.appendChild(body);
+    grid.appendChild(card);
   });
-  document.getElementById('resultsInfo').textContent=`${items.length} result(s)`;
+  document.getElementById('resultsInfo').textContent=`${products.length} items`;
 }
 
 function renderServices(){
-  const sg=document.getElementById('servicesGrid');sg.innerHTML='';
+  const grid=document.getElementById('servicesGrid');
+  grid.innerHTML='';
   services.forEach(s=>{
-    const div=document.createElement('div');div.className='service-card';
-    div.innerHTML=`<img src="${s.images[0]||''}"><div><h4 style="margin:0">${escapeHtml(s.title)}</h4><div class="price">${s.price}</div><p class="muted" style="margin:4px 0">${escapeHtml(s.desc)}</p><div class="seller">📞 ${s.phone||'-'}</div></div>`;
-    sg.appendChild(div);
+    const card=document.createElement('div');
+    card.className='service-card';
+    if(s.images.length>0){
+      const img=document.createElement('img'); img.src=s.images[0]; card.appendChild(img);
+    }
+    const info=document.createElement('div'); info.innerHTML=`<div class="title">${escapeHtml(s.title)}</div>
+      <div class="price">${s.price}</div>
+      <div class="muted">${s.desc}</div>
+      ${s.phone?`<a href="tel:${s.phone}" class="nav-item" style="margin-top:6px;color:var(--accent)">Call</a>`:''}`;
+    card.appendChild(info);
+    grid.appendChild(card);
   });
 }
 
@@ -240,8 +260,8 @@ function openProduct(p){
   const thumbs=document.getElementById('modalThumbs');
   thumbs.innerHTML='';
   if(p.images.length>1){
-    thumbs.className='modal-thumbs-container'; // new scrollable container
-    for(let i=0;i<p.images.length;i+=2){ // 2 per slide
+    thumbs.className='modal-thumbs-container';
+    for(let i=0;i<p.images.length;i+=2){
       const row=document.createElement('div');
       row.style.display='flex'; row.style.gap='8px';
       for(let j=i;j<i+2 && j<p.images.length;j++){
@@ -252,30 +272,67 @@ function openProduct(p){
       }
       thumbs.appendChild(row);
     }
-  } else {
-    thumbs.className='thumb-row';
-  }
+  } else { thumbs.className='thumb-row'; }
 }
+
 function closeProduct(){document.getElementById('productOverlay').style.display='none'}
-function overlayClick(e){if(e.target===e.currentTarget){closeProduct();closeSellPopup()}}
+function overlayClick(e){if(e.target.classList.contains('overlay')){e.target.style.display='none'}}
 function openSellPopup(){document.getElementById('sellOverlay').style.display='flex'}
 function closeSellPopup(){document.getElementById('sellOverlay').style.display='none'}
 
-function toggleCategoryMenu(){const m=document.getElementById('categoryMenu');m.style.display=m.style.display==='none'?'block':'none'}
-function selectCat(el){
-  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');
-  const cat=el.getAttribute('data-cat');
-  const filtered=cat==='all'?products:products.filter(p=>p.category===cat);
-  renderProducts(filtered);
+function toggleTheme(){
+  document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'':'dark';
 }
 
-function toggleTheme(){const d=document.documentElement;d.dataset.theme=d.dataset.theme==='dark'?'':'dark'}
-
-function applyFilters(){const q=document.getElementById('searchInput').value.toLowerCase();renderProducts(products.filter(p=>p.title.toLowerCase().includes(q)))}
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
 function scrollToServices(){document.getElementById('services').scrollIntoView({behavior:'smooth'})}
 
-renderProducts(products);renderServices();
+function toggleCategoryMenu(){
+  const m=document.getElementById('categoryMenu');
+  m.style.display=(m.style.display==='flex'?'none':'flex');
+}
+
+function selectCat(el){
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  const cat=el.dataset.cat;
+  if(cat==='all'){renderProducts(); return;}
+  const filtered=products.filter(p=>p.category===cat);
+  const grid=document.getElementById('grid'); grid.innerHTML='';
+  filtered.forEach(p=>{
+    const card=document.createElement('div');
+    card.className='card'; card.onclick=()=>openProduct(p);
+    const img=document.createElement('img'); img.src=p.images[0]; img.className='thumb';
+    const body=document.createElement('div'); body.className='card-body';
+    body.innerHTML=`<div class="title">${escapeHtml(p.title)}</div>
+                     <div class="price">${p.price}</div>
+                     <div class="seller">${p.seller}</div>`;
+    card.appendChild(img); card.appendChild(body);
+    grid.appendChild(card);
+  });
+  document.getElementById('resultsInfo').textContent=`${filtered.length} items`;
+}
+
+function applyFilters(){
+  const val=document.getElementById('searchInput').value.toLowerCase();
+  const filtered=products.filter(p=>p.title.toLowerCase().includes(val)||p.seller.toLowerCase().includes(val));
+  const grid=document.getElementById('grid'); grid.innerHTML='';
+  filtered.forEach(p=>{
+    const card=document.createElement('div');
+    card.className='card'; card.onclick=()=>openProduct(p);
+    const img=document.createElement('img'); img.src=p.images[0]; img.className='thumb';
+    const body=document.createElement('div'); body.className='card-body';
+    body.innerHTML=`<div class="title">${escapeHtml(p.title)}</div>
+                     <div class="price">${p.price}</div>
+                     <div class="seller">${p.seller}</div>`;
+    card.appendChild(img); card.appendChild(body);
+    grid.appendChild(card);
+  });
+  document.getElementById('resultsInfo').textContent=`${filtered.length} items`;
+}
+
+renderProducts();
+renderServices();
 </script>
 
 </body>
