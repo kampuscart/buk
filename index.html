@@ -32,6 +32,11 @@
       font-size: 2em;
     }
 
+    header p {
+      margin: 5px 0 0 0;
+      font-size: 1em;
+    }
+
     section {
       padding: 20px;
       max-width: 1200px;
@@ -41,6 +46,22 @@
     h2 {
       color: var(--accent-color);
       margin-bottom: 20px;
+    }
+
+    /* Search & Categories */
+    .filters {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filters input, .filters select {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      flex: 1;
+      min-width: 150px;
     }
 
     .grid {
@@ -161,47 +182,40 @@
     <p>Your campus marketplace for products and services</p>
   </header>
 
+  <!-- Filters -->
+  <section>
+    <div class="filters">
+      <input type="text" id="searchInput" placeholder="Search products or services...">
+      <select id="categorySelect">
+        <option value="all">All Categories</option>
+        <option value="fabrics">Fabrics</option>
+        <option value="perfumes">Perfumes</option>
+        <option value="food">Food</option>
+        <option value="clothing">Clothing</option>
+      </select>
+    </div>
+  </section>
+
   <!-- Products Section -->
   <section>
     <h2>Products</h2>
-    <div class="grid products-grid">
-      <div class="card">
-        <img src="IMG_4715.jpeg" alt="FLORIDA WOOL" onclick="openModal(this.src)">
-        <h3>FLORIDA WOOL</h3>
-        <p>₦5,000 per yard</p>
-        <p class="contact">08128371576 | 09169517156</p>
-      </div>
-      <div class="card">
-        <img src="https://github.com/kampuscart/buk/blob/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg" alt="Victorian yard" onclick="openModal(this.src)">
-        <h3>Victorian Yard</h3>
-        <p>₦10,000 per yard</p>
-        <p class="contact">08128371576 | 09169517156</p>
-      </div>
-      <div class="card">
-        <img src="https://github.com/kampuscart/buk/blob/main/d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg" alt="GK Plain" onclick="openModal(this.src)">
-        <h3>GK Plain</h3>
-        <p>₦3,000 per yard</p>
-        <p class="contact">08128371576 | 09169517156</p>
-      </div>
-      <div class="card">
-        <img src="https://github.com/kampuscart/buk/blob/main/a2e2ff91-3959-42f4-9374-a6bbe3de3b2a.jpeg" alt="Abaya" onclick="openModal(this.src)">
-        <h3>Abaya</h3>
-        <p>₦30,000</p>
-        <p class="contact">08130530595</p>
-      </div>
+    <div class="grid products-grid" id="productsGrid">
+      <!-- Product cards dynamically added here -->
     </div>
   </section>
 
   <!-- Services Section -->
   <section>
     <h2>Services</h2>
-    <div class="grid services-grid">
-      <div class="card">
-        <h3>Yamarita / Egg-coated Fried Yam</h3>
-        <p>₦1,000</p>
-        <p class="contact">09021683981</p>
-      </div>
+    <div class="grid services-grid" id="servicesGrid">
+      <!-- Service cards dynamically added here -->
     </div>
+  </section>
+
+  <!-- Sell Section -->
+  <section>
+    <h2>Sell Your Product/Service</h2>
+    <p>Contact <span class="contact">07052418840</span> to list your product or service on Kampus Cart.</p>
   </section>
 
   <!-- Modal -->
@@ -217,6 +231,110 @@
   </footer>
 
   <script>
+    // Sample products data
+    const products = [
+      {
+        name: "FLORIDA WOOL",
+        price: "₦5,000 per yard",
+        category: "fabrics",
+        contact: "08128371576 | 09169517156",
+        img: "IMG_4715.jpeg"
+      },
+      {
+        name: "Victorian Yard",
+        price: "₦10,000 per yard",
+        category: "fabrics",
+        contact: "08128371576 | 09169517156",
+        img: "https://github.com/kampuscart/buk/blob/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg"
+      },
+      {
+        name: "GK Plain",
+        price: "₦3,000 per yard",
+        category: "fabrics",
+        contact: "08128371576 | 09169517156",
+        img: "https://github.com/kampuscart/buk/blob/main/d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg"
+      },
+      {
+        name: "Abaya",
+        price: "₦30,000",
+        category: "clothing",
+        contact: "08130530595",
+        img: "https://github.com/kampuscart/buk/blob/main/a2e2ff91-3959-42f4-9374-a6bbe3de3b2a.jpeg"
+      },
+      {
+        name: "Natural Body Perfume Spray",
+        price: "₦5,000",
+        category: "perfumes",
+        contact: "08130530595",
+        img: "" // missing image
+      }
+    ];
+
+    const services = [
+      {
+        name: "Yamarita / Egg-coated Fried Yam",
+        price: "₦1,000",
+        category: "food",
+        contact: "09021683981"
+      }
+    ];
+
+    const productsGrid = document.getElementById("productsGrid");
+    const servicesGrid = document.getElementById("servicesGrid");
+
+    function renderProducts(filterText = "", filterCategory = "all") {
+      productsGrid.innerHTML = "";
+      const filtered = products.filter(p => 
+        (p.name.toLowerCase().includes(filterText.toLowerCase())) &&
+        (filterCategory === "all" || p.category === filterCategory)
+      );
+      filtered.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "card";
+        const imgSrc = p.img || "https://via.placeholder.com/200x200?text=No+Image";
+        card.innerHTML = `
+          <img src="${imgSrc}" alt="${p.name}" onclick="openModal('${imgSrc}')">
+          <h3>${p.name}</h3>
+          <p>${p.price}</p>
+          <p class="contact">${p.contact}</p>
+        `;
+        productsGrid.appendChild(card);
+      });
+    }
+
+    function renderServices(filterText = "", filterCategory = "all") {
+      servicesGrid.innerHTML = "";
+      const filtered = services.filter(s => 
+        (s.name.toLowerCase().includes(filterText.toLowerCase())) &&
+        (filterCategory === "all" || s.category === filterCategory)
+      );
+      filtered.forEach(s => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <h3>${s.name}</h3>
+          <p>${s.price}</p>
+          <p class="contact">${s.contact}</p>
+        `;
+        servicesGrid.appendChild(card);
+      });
+    }
+
+    // Search & category
+    const searchInput = document.getElementById("searchInput");
+    const categorySelect = document.getElementById("categorySelect");
+
+    searchInput.addEventListener("input", () => {
+      renderProducts(searchInput.value, categorySelect.value);
+      renderServices(searchInput.value, categorySelect.value);
+    });
+
+    categorySelect.addEventListener("change", () => {
+      renderProducts(searchInput.value, categorySelect.value);
+      renderServices(searchInput.value, categorySelect.value);
+    });
+
+    // Modal functions
     function openModal(src) {
       document.getElementById('modal').style.display = 'block';
       document.getElementById('modal-img').src = src;
@@ -232,7 +350,10 @@
         modal.style.display = 'none';
       }
     }
-  </script>
 
+    // Initial render
+    renderProducts();
+    renderServices();
+  </script>
 </body>
 </html>
