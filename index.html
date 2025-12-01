@@ -193,49 +193,80 @@ function renderProducts(){
     card.appendChild(body);
     grid.appendChild(card);
   });
-  document.getElementById('resultsInfo').textContent=`${filtered.length} items`;
+  document.getElementById('resultsInfo').textContent=`${filtered.length} products`;
 }
 
 function renderServices(){
-  const sgrid=document.getElementById('servicesGrid'); sgrid.innerHTML='';
+  const grid=document.getElementById('servicesGrid'); grid.innerHTML='';
   services.forEach(s=>{
-    const scard=document.createElement('div'); scard.className='service-card';
-    const title=document.createElement('div'); title.className='title'; title.textContent=s.title; scard.appendChild(title);
-    const price=document.createElement('div'); price.className='price'; price.textContent=s.price; scard.appendChild(price);
-    const desc=document.createElement('div'); desc.className='muted'; desc.textContent=s.desc; scard.appendChild(desc);
-    if(s.phone){
-      const call=document.createElement('a'); call.href=`tel:${s.phone}`; call.className='nav-item'; call.textContent='Call Seller'; call.style.marginTop='6px';
-      scard.appendChild(call);
-    }
-    sgrid.appendChild(scard);
+    const card=document.createElement('div'); card.className='service-card';
+    if(s.images.length>0){ const img=document.createElement('img'); img.src=s.images[0]; img.style.width='100%'; img.style.borderRadius='10px'; card.appendChild(img); }
+    const title=document.createElement('div'); title.className='title'; title.textContent=s.title; card.appendChild(title);
+    const price=document.createElement('div'); price.className='price'; price.textContent=s.price; card.appendChild(price);
+    const desc=document.createElement('div'); desc.className='muted'; desc.textContent=s.desc; card.appendChild(desc);
+    const seller=document.createElement('div'); seller.className='seller'; seller.textContent=s.phone; card.appendChild(seller);
+    grid.appendChild(card);
   });
 }
 
-function selectCat(el){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); el.classList.add('active'); currentCat=el.dataset.cat; renderProducts();}
-
-function toggleCategoryMenu(){const m=document.getElementById('categoryMenu');m.style.display=m.style.display==='none'?'block':'none';}
-function toggleTheme(){document.body.dataset.theme=document.body.dataset.theme==='dark'?'':'dark';}
 function openProduct(p){
-  document.getElementById('productOverlay').style.display='flex';
+  const overlay=document.getElementById('productOverlay'); overlay.style.display='flex';
   document.getElementById('modalTitle').textContent=p.title;
   document.getElementById('modalPrice').textContent=p.price;
   document.getElementById('modalDesc').textContent=p.desc;
-  document.getElementById('modalSeller').textContent=p.seller+(p.addr?(' — '+p.addr):'');
-  document.getElementById('modalCall').href=`tel:${p.phone}`;
+  document.getElementById('modalSeller').textContent=p.seller + (p.addr? ' — '+p.addr:'');
+  document.getElementById('modalCall').href='tel:'+p.phone;
   const mainImg=document.getElementById('modalMainImg'); mainImg.src=p.images[0];
   const thumbs=document.getElementById('modalThumbs'); thumbs.innerHTML='';
-  p.images.forEach(imgUrl=>{
-    const timg=document.createElement('img'); timg.src=imgUrl; timg.onclick=()=>mainImg.src=imgUrl;
-    thumbs.appendChild(timg);
-  });
+  if(p.images.length>1){
+    p.images.forEach(src=>{
+      const t=document.createElement('img'); t.src=src;
+      t.onclick=()=>{ mainImg.src=src; }
+      thumbs.appendChild(t);
+    });
+  }
 }
-function closeProduct(){document.getElementById('productOverlay').style.display='none';}
-function overlayClick(e){if(e.target.classList.contains('overlay')){e.target.style.display='none';}}
-function openSellPopup(){document.getElementById('sellOverlay').style.display='flex';}
-function closeSellPopup(){document.getElementById('sellOverlay').style.display='none';}
-function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}
-function scrollToServices(){document.getElementById('services').scrollIntoView({behavior:'smooth'});}
-function applyFilters(){const val=document.getElementById('searchInput').value.toLowerCase();document.querySelectorAll('.card').forEach(c=>{const t=c.querySelector('.title').textContent.toLowerCase();c.style.display=t.includes(val)?'flex':'none'});document.querySelectorAll('.service-card').forEach(s=>{const t=s.querySelector('.title').textContent.toLowerCase();s.style.display=t.includes(val)?'flex':'none'});}
+
+function closeProduct(){document.getElementById('productOverlay').style.display='none'}
+function overlayClick(e){if(e.target.classList.contains('overlay')){closeProduct();closeSellPopup();}}
+
+function toggleTheme(){
+  const html=document.documentElement;
+  if(html.getAttribute('data-theme')==='dark'){html.removeAttribute('data-theme');}else{html.setAttribute('data-theme','dark');}
+}
+
+function toggleCategoryMenu(){
+  const menu=document.getElementById('categoryMenu');
+  menu.style.display=menu.style.display==='flex'?'none':'flex';
+}
+
+function selectCat(el){
+  currentCat=el.dataset.cat;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  renderProducts();
+}
+
+function applyFilters(){
+  const term=document.getElementById('searchInput').value.toLowerCase();
+  const filtered=products.filter(p=>p.title.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term));
+  const grid=document.getElementById('grid'); grid.innerHTML='';
+  filtered.forEach(p=>{
+    const card=document.createElement('div'); card.className='card'; card.onclick=()=>openProduct(p);
+    const img=document.createElement('img'); img.className='thumb'; img.src=p.images[0]; card.appendChild(img);
+    const body=document.createElement('div'); body.className='card-body';
+    const title=document.createElement('div'); title.className='title'; title.textContent=p.title; body.appendChild(title);
+    const price=document.createElement('div'); price.className='price'; price.textContent=p.price; body.appendChild(price);
+    card.appendChild(body);
+    grid.appendChild(card);
+  });
+  document.getElementById('resultsInfo').textContent=`${filtered.length} products`;
+}
+
+function openSellPopup(){document.getElementById('sellOverlay').style.display='flex'}
+function closeSellPopup(){document.getElementById('sellOverlay').style.display='none'}
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+function scrollToServices(){document.getElementById('services').scrollIntoView({behavior:'smooth'})}
 
 renderProducts();
 renderServices();
