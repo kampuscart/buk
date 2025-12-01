@@ -6,86 +6,96 @@
 <title>KAMPUS CART BUK</title>
 
 <style>
-  :root{
-    --bg:#f5f6f8;
-    --card:#ffffff;
-    --muted:#6b7280;
-    --accent:#05984a;
-    --text:#0b1220;
-    --shadow: 0 12px 35px rgba(2,8,23,0.06);
-  }
-  [data-theme="dark"]{
-    --bg:#07111a;
-    --card:#0b1b26;
-    --muted:#9aa4b2;
-    --accent:#2fd17a;
-    --text:#e6eef6;
-    --shadow: 0 20px 50px rgba(0,0,0,0.6);
-  }
-  html,body{height:100%;margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+:root{
+  --bg:#f5f6f8;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --accent:#05984a;
+  --text:#0b1220;
+  --shadow:0 12px 35px rgba(2,8,23,0.06);
+}
+[data-theme="dark"]{
+  --bg:#07111a;
+  --card:#0b1b26;
+  --muted:#9aa4b2;
+  --accent:#2fd17a;
+  --text:#e6eef6;
+  --shadow:0 20px 50px rgba(0,0,0,0.6);
+}
+html,body{
+  height:100%;
+  margin:0;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+}
 
-  .topbar{position:sticky;top:0;background:var(--card);display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(0,0,0,0.04);z-index:90;box-shadow:0 4px 18px rgba(0,0,0,0.04)}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
-  .brand .logo{width:36px;height:36px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#00c66a,#01984a);color:#fff;font-weight:800}
-  .search-row{background:var(--card);padding:12px 16px;border-bottom:1px solid rgba(0,0,0,0.04);display:flex;gap:12px;align-items:center}
-  .search-box{flex:1;display:flex;gap:8px;align-items:center}
-  .search-input{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);font-size:15px;background:transparent}
-  .cat-btn{padding:10px 12px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:transparent;cursor:pointer}
-  .controls{display:flex;gap:8px;align-items:center}
-  .chip{padding:8px 12px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);background:var(--card);font-size:13px;cursor:pointer}
-  .chip.active{background:linear-gradient(90deg,#e9fff0,#dffbe7);border-color:transparent}
-  .toggle{cursor:pointer;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:transparent}
-  .container{max-width:1100px;margin:14px auto;padding:0 14px}
-  .results-line{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-  .muted{color:var(--muted)}
+/* Image styling */
+.thumb,
+.service-card img{
+  aspect-ratio:3 / 4;
+  width:100%;
+  height:auto;
+  object-fit:cover;
+}
+.modal-left img{
+  width:100%;
+  max-height:350px; /* smaller modal image */
+  aspect-ratio:3 / 4;
+  object-fit:cover;
+}
+.thumb-row img{
+  width:60px;
+  aspect-ratio:3 / 4;
+  object-fit:cover;
+  cursor:pointer;
+  border:1px solid rgba(0,0,0,0.06);
+  border-radius:6px;
+}
 
-  /* GRID 2 PER ROW */
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-  }
-  @media (max-width:760px){
-    .grid {grid-template-columns: 1fr;}
-  }
+/* Top bar and layout */
+.topbar{position:sticky;top:0;background:var(--card);display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(0,0,0,0.04);z-index:90;box-shadow:0 4px 18px rgba(0,0,0,0.04)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+.brand .logo{width:36px;height:36px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#00c66a,#01984a);color:#fff;font-weight:800}
+.search-row{background:var(--card);padding:12px 16px;border-bottom:1px solid rgba(0,0,0,0.04);display:flex;gap:12px;align-items:center}
+.search-box{flex:1;display:flex;gap:8px;align-items:center}
+.search-input{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);font-size:14px;background:transparent}
+.cat-btn{padding:8px 10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:transparent;cursor:pointer}
+.controls{display:flex;gap:8px;align-items:center}
+.chip{padding:6px 10px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);background:var(--card);font-size:12px;cursor:pointer}
+.chip.active{background:linear-gradient(90deg,#e9fff0,#dffbe7);border-color:transparent}
+.toggle{cursor:pointer;padding:6px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);background:transparent}
+.container{max-width:1100px;margin:14px auto;padding:0 14px}
+.results-line{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.card{background:var(--card);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);transition:transform .14s ease;border:1px solid rgba(0,0,0,0.03);display:flex;flex-direction:column;cursor:pointer}
+.card:hover{transform:translateY(-4px)}
+.card-body{padding:8px;display:flex;flex-direction:column;gap:4px;font-size:13px}
+.title{font-weight:700;font-size:13px}
+.price{color:var(--accent);font-weight:700;font-size:12px}
+.seller{background:rgba(0,0,0,0.03);padding:6px;border-radius:8px;font-size:11px;color:var(--muted)}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
 
-  .card{background:var(--card);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:transform .14s ease;border:1px solid rgba(0,0,0,0.03);display:flex;flex-direction:column;cursor:pointer}
-  .card:hover{transform:translateY(-6px)}
-  .card-body{padding:12px;display:flex;flex-direction:column;gap:8px}
-  .title{font-weight:800;font-size:15px}
-  .price{color:var(--accent);font-weight:800}
-  .seller{background:rgba(0,0,0,0.03);padding:10px;border-radius:10px;font-size:13px;color:var(--muted)}
-  .meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto}
+/* Modal overlay */
+.overlay{position:fixed;inset:0;background:rgba(2,6,23,0.5);display:none;align-items:center;justify-content:center;padding:18px;z-index:220}
+.modal{width:100%;max-width:900px;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 30px 80px rgba(2,6,23,0.4);display:flex;flex-direction:row;gap:0}
+.modal-left{flex:1;min-width:320px;background:#fafafa;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px}
+.modal-right{flex:1;padding:18px;display:flex;flex-direction:column;gap:8px}
+.thumb-row{display:flex;gap:6px;margin-top:8px}
+.close-x{position:absolute;right:14px;top:12px;cursor:pointer}
 
-  /* PORTRAIT IMAGES */
-  .thumb, .modal-left img, .service-card img {
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-  }
-  .thumb-row img {
-    width: 70px;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-    cursor:pointer;
-    border:1px solid rgba(0,0,0,0.06);
-    border-radius:6px;
-  }
+.services-grid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
+.service-card{background:var(--card);padding:12px;border-radius:12px;box-shadow:var(--shadow);display:flex;gap:10px;align-items:flex-start}
+.service-card img{width:80px;height:auto;border-radius:8px;object-fit:cover}
 
-  .overlay{position:fixed;inset:0;background:rgba(2,6,23,0.5);display:none;align-items:center;justify-content:center;padding:18px;z-index:220}
-  .modal{width:100%;max-width:900px;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 30px 80px rgba(2,6,23,0.4);display:flex;flex-direction:row;gap:0}
-  .modal-left{flex:1;min-width:320px;background:#fafafa;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px}
-  .modal-right{flex:1;padding:18px;display:flex;flex-direction:column;gap:10px}
+.sell-fab{position:fixed;right:18px;bottom:88px;background:var(--accent);color:#fff;width:60px;height:60px;border-radius:50%;display:grid;place-items:center;font-size:28px;box-shadow:0 18px 45px rgba(3,64,35,0.18);cursor:pointer;z-index:140}
+.bottom-nav{position:fixed;left:0;right:0;bottom:0;height:68px;background:var(--card);display:flex;justify-content:space-around;align-items:center;border-top:1px solid rgba(0,0,0,0.04);z-index:110}
+.nav-item{font-weight:700;color:var(--muted);cursor:pointer}
 
-  .services-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:12px}
-  .service-card{background:var(--card);padding:14px;border-radius:12px;box-shadow:var(--shadow);display:flex;gap:12px;align-items:flex-start}
-
-  .sell-fab{position:fixed;right:18px;bottom:88px;background:var(--accent);color:#fff;width:62px;height:62px;border-radius:50%;display:grid;place-items:center;font-size:28px;box-shadow:0 18px 45px rgba(3,64,35,0.18);cursor:pointer;z-index:140}
-  .bottom-nav{position:fixed;left:0;right:0;bottom:0;height:68px;background:var(--card);display:flex;justify-content:space-around;align-items:center;border-top:1px solid rgba(0,0,0,0.04);z-index:110}
-  .nav-item{font-weight:700;color:var(--muted);cursor:pointer}
-
-  footer{margin-top:32px;padding:20px;background:var(--card);text-align:center;color:var(--muted);border-top:1px solid rgba(0,0,0,0.1)}
-  @media (max-width:760px){.modal{flex-direction:column}}
+footer{margin-top:32px;padding:20px;background:var(--card);text-align:center;color:var(--muted);border-top:1px solid rgba(0,0,0,0.1)}
+@media (max-width:760px){.modal{flex-direction:column}.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -107,7 +117,7 @@
 
 <div style="max-width:1100px;margin:6px auto 0;padding:0 14px">
   <div id="categoryMenu" style="display:none;background:var(--card);padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.04)">
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
       <div class="chip active" data-cat="all" onclick="selectCat(this)">All</div>
       <div class="chip" data-cat="Clothes" onclick="selectCat(this)">Clothes</div>
       <div class="chip" data-cat="Fabric" onclick="selectCat(this)">Fabric</div>
@@ -215,7 +225,7 @@ function renderProducts(items){
   const grid=document.getElementById('grid');grid.innerHTML='';
   items.forEach(p=>{
     const div=document.createElement('div');div.className='card';div.onclick=()=>openProduct(p);
-    div.innerHTML=`<img class="thumb" src="${p.images[0]}"><div class="card-body"><div class="title">${escapeHtml(p.title)}</div><div class="price">${p.price}</div></div>`;
+    div.innerHTML=`<img class="thumb" src="${p.images[0]}"><div class="card-body"><div class="title">${escapeHtml(p.title)}</div><div class="price">${p.price}</div><div class="seller">${p.seller}</div></div>`;
     grid.appendChild(div);
   });
   document.getElementById('resultsInfo').textContent=`${items.length} result(s)`;
@@ -225,7 +235,7 @@ function renderServices(){
   const sg=document.getElementById('servicesGrid');sg.innerHTML='';
   services.forEach(s=>{
     const div=document.createElement('div');div.className='service-card';
-    div.innerHTML=`<img src="${s.images[0]||''}"><div><h4 style="margin:0">${escapeHtml(s.title)}</h4><div class="price">${s.price}</div><p class="muted">${escapeHtml(s.desc)}</p><div class="seller">📞 ${s.phone||'-'}</div></div>`;
+    div.innerHTML=`<img src="${s.images[0]||''}"><div><h4 style="margin:0;font-size:14px">${escapeHtml(s.title)}</h4><div class="price">${s.price}</div><p class="muted" style="font-size:12px">${escapeHtml(s.desc)}</p><div class="seller">${s.phone?`📞 <a href="tel:${s.phone}" style="color:var(--accent);text-decoration:none">${s.phone}</a>`:'-'}</div></div>`;
     sg.appendChild(div);
   });
 }
@@ -236,18 +246,18 @@ function openProduct(p){
   document.getElementById('modalPrice').textContent=p.price;
   document.getElementById('modalDesc').textContent=p.desc;
   document.getElementById('modalSeller').textContent=p.addr?`${p.seller} — ${p.addr}`:p.seller;
+  document.getElementById('modalMainImg').src=p.images[0];
 
-  const mainImg=document.getElementById('modalMainImg');mainImg.src=p.images[0];
   const thumbs=document.getElementById('modalThumbs');thumbs.innerHTML='';
   if(p.images.length>1){
     p.images.forEach(img=>{
-      const t=document.createElement('img');
-      t.src=img;
-      t.onclick=()=>mainImg.src=img;
-      thumbs.appendChild(t);
+      const t=document.createElement('img'); t.src=img; t.onclick=()=>document.getElementById('modalMainImg').src=img; thumbs.appendChild(t);
     });
   }
-  document.getElementById('modalCall').href=`tel:${p.phone}`;
+
+  const callLink=document.getElementById('modalCall');
+  callLink.href=`tel:${p.phone}`;
+  callLink.textContent=`Call Seller (${p.phone})`;
 }
 
 function closeProduct(){document.getElementById('productOverlay').style.display='none'}
@@ -255,9 +265,9 @@ function overlayClick(e){if(e.target===e.currentTarget){closeProduct();closeSell
 function openSellPopup(){document.getElementById('sellOverlay').style.display='flex'}
 function closeSellPopup(){document.getElementById('sellOverlay').style.display='none'}
 function toggleCategoryMenu(){const m=document.getElementById('categoryMenu');m.style.display=m.style.display==='none'?'block':'none'}
-function selectCat(el){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');const cat=el.getAttribute('data-cat');const filtered=cat==='all'?products:products.filter(p=>p.category===cat);renderProducts(filtered);}
-function toggleTheme(){const d=document.documentElement;d.dataset.theme=d.dataset.theme==='dark'?'':'dark'}
-function applyFilters(){const q=document.getElementById('searchInput').value.toLowerCase();renderProducts(products.filter(p=>p.title.toLowerCase().includes(q)))}
+function selectCat(el){document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active')); el.classList.add('active'); const cat=el.getAttribute('data-cat'); renderProducts(cat==='all'?products:products.filter(p=>p.category===cat))}
+function toggleTheme(){document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'':'dark'}
+function applyFilters(){const q=document.getElementById('searchInput').value.toLowerCase(); renderProducts(products.filter(p=>p.title.toLowerCase().includes(q)))}
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
 function scrollToServices(){document.getElementById('services').scrollIntoView({behavior:'smooth'})}
 
