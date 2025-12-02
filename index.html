@@ -95,19 +95,21 @@
     }
     /* THEME SWITCH */
     .theme-toggle{
-      position:fixed;bottom:80px;right:20px;
+      position:fixed;top:20px;right:20px;
       background:var(--accent);color:white;border:none;
-      padding:10px 14px;border-radius:50%;font-size:18px;
-      cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.2);
+      width:45px;height:45px;border-radius:50%;
+      font-size:20px;cursor:pointer;
+      display:flex;justify-content:center;align-items:center;
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
     }
     /* FLOATING PLUS BUTTON */
     .floating-plus{
       position:fixed;bottom:20px;right:20px;
       background:var(--accent);color:white;border:none;
-      width:45px;height:45px;border-radius:50%;
-      font-size:28px;cursor:pointer;
+      width:55px;height:55px;border-radius:50%;
+      font-size:32px;cursor:pointer;
       display:flex;justify-content:center;align-items:center;
-      box-shadow:0 2px 8px rgba(0,0,0,0.25);
+      box-shadow:0 3px 10px rgba(0,0,0,0.3);
     }
     /* CATEGORY BAR */
     .category-bar{
@@ -133,9 +135,9 @@
   <div style='font-size:13px;margin-top:3px;'>Your Campus Marketplace — Fast & Reliable</div>
 </header>
 
-<div class="search-bar">
-  <input type="text" id="search" placeholder="Search..." oninput="filterItems()" style="width:78%;padding:8px;border-radius:8px;border:1px solid #ccc;display:inline-block;" />
-  <button onclick="filterItems()" style="padding:8px 12px;border:none;border-radius:8px;background:var(--accent);color:white;cursor:pointer;">Search</button>
+<div class="search-bar" style="display:flex;align-items:center;gap:10px;padding:10px;position:sticky;top:0;background:var(--bg);z-index:50;">
+  <input type="text" id="search" placeholder="Search..." oninput="filterItems()" style="flex:1;padding:10px;border-radius:10px;border:1px solid #ccc;" />
+  <button class='theme-toggle' onclick='toggleTheme()'>🌓</button>
 </div>
 
 <!-- PRODUCTS SECTION -->
@@ -149,7 +151,47 @@
 </div>
 
 <div class="section-title">Products</div>
-<div class="products fade" id="productList">[PRODUCTS_HERE]</div>
+<div class="products fade" id="productList">  <div class="card" data-name="FLORIDA WOOL" data-cat="clothes">
+    <img src="IMG_4715.jpeg" onclick="openModal(this.src)" />
+    <div class="name">FLORIDA WOOL</div>
+    <div class="price">₦5000 / yard</div>
+    <div>Call: 08128371576</div>
+  </div>
+
+  <div class="card" data-name="Victorian Yard" data-cat="clothes">
+    <img src="574a45b8-279f-42eb-8deb-215707340bf0.jpeg" onclick="openModal(this.src)" />
+    <div class="name">Victorian Yard</div>
+    <div class="price">₦10000 / yard</div>
+    <div>Call: 08128371576</div>
+  </div>
+
+  <div class="card" data-name="GK Plain" data-cat="clothes">
+    <img src="d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg" onclick="openModal(this.src)" />
+    <div class="name">GK Plain</div>
+    <div class="price">₦3000 / yard</div>
+    <div>Call: 09169517156</div>
+  </div>
+
+  <div class="card" data-name="Natural Body Perfume Spray" data-cat="perfume">
+    <img src="96354c82-38dc-483e-b580-576825d2e2c5.jpeg" onclick="openModal(this.src)" />
+    <div class="name">Natural Body Perfume Spray</div>
+    <div class="price">₦5000</div>
+    <div>Call: 08130530595</div>
+  </div>
+
+  <div class="card" data-name="Amber Oud Oil Perfume" data-cat="perfume">
+    <img src="7f0d0760-7750-4a44-b496-99d6467fe0d0.jpeg" onclick="openModal(this.src)" />
+    <div class="name">Amber Oud Oil Perfume</div>
+    <div class="price">₦7000</div>
+    <div>Call: 08130530595</div>
+  </div>
+
+  <div class="card" data-name="Abaya" data-cat="clothes">
+    <img src="a2e2ff91-3959-42f4-9374-a6bbe3de3b2a.jpeg" onclick="openModal(this.src)" />
+    <div class="name">Abaya</div>
+    <div class="price">₦30000</div>
+    <div>Call: 08130530595</div>
+  </div></div>
 
 <hr style="margin:25px 0;border:none;height:1px;background:#ccc;">
 <div class="section-title">Services</div></div>
