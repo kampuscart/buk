@@ -27,7 +27,6 @@
       font-weight: bold;
     }
 
-    /* SEARCH + THEME */
     .search-bar {
       padding: 10px;
       margin: 10px;
@@ -39,14 +38,12 @@
       border: 1px solid #ccc;
     }
 
-    /* TITLES */
     .section-title {
       margin: 20px 10px 10px;
       font-size: 18px;
       font-weight: bold;
     }
 
-    /* GRID */
     .products {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -60,7 +57,6 @@
       padding: 10px;
     }
 
-    /* CARDS */
     .card {
       background: var(--card);
       padding: 10px;
@@ -83,7 +79,6 @@
       font-weight: bold;
     }
 
-    /* SERVICE CARD DIFFERENCE */
     .service-card {
       border-left: 4px solid var(--accent);
       padding: 10px;
@@ -98,7 +93,6 @@
       margin-bottom: 6px;
     }
 
-    /* MODAL */
     .modal {
       display: none;
       position: fixed;
@@ -114,7 +108,6 @@
       border-radius: 10px;
     }
 
-    /* THEME SWITCH */
     .theme-toggle{
       position:fixed;top:20px;right:20px;
       background:var(--accent);color:white;border:none;
@@ -124,7 +117,6 @@
       box-shadow:0 2px 6px rgba(0,0,0,0.25);
     }
 
-    /* FLOATING PLUS */
     .floating-plus{
       position:fixed;bottom:20px;right:20px;
       background:var(--accent);color:white;border:none;
@@ -132,25 +124,40 @@
       font-size:32px;cursor:pointer;
       display:flex;justify-content:center;align-items:center;
       box-shadow:0 3px 10px rgba(0,0,0,0.3);
+      z-index:100;
     }
 
-    /* CATEGORY BAR */
+    #sellBox {
+      display:none;
+      position:fixed;
+      top:0;left:0;width:100%;height:100%;
+      background:rgba(0,0,0,0.6);
+      display:flex;justify-content:center;align-items:center;
+      z-index:200;
+    }
+    #sellContent {
+      background:var(--card);
+      padding:20px;
+      width:85%;
+      max-width:350px;
+      border-radius:12px;
+      text-align:center;
+      box-shadow:0 4px 15px rgba(0,0,0,0.25);
+      animation:fadeIn .3s ease;
+    }
+    @keyframes fadeIn { from{opacity:0;} to{opacity:1;} }
+
     .category-bar{
       display:flex;overflow-x:auto;gap:10px;padding:10px;
     }
     .category-bar button{
       padding:8px 14px;border:none;border-radius:20px;
-      background:#e5e7eb;color:#111;cursor:pointer;
-      white-space:nowrap;
+      background:#e5e7eb;color:#111;cursor:pointer;white-space:nowrap;
     }
     .category-bar button.active{
       background:var(--accent);color:white;
     }
-
-    /* Animation */
-    .fade{animation:fadeIn .4s ease;}
-    @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-</style>
+  </style>
 </head>
 <body>
 
@@ -164,7 +171,6 @@
   <button class='theme-toggle' onclick='toggleTheme()'>🌓</button>
 </div>
 
-<!-- CATEGORIES -->
 <div class="section-title">Categories</div>
 <div class="category-bar">
   <button class="active" onclick="filterCategory('all')">All</button>
@@ -174,11 +180,9 @@
   <button onclick="filterCategory('service')">Services</button>
 </div>
 
-<!-- PRODUCTS -->
 <div class="section-title">Products</div>
 <div class="products fade" id="productList">
 
-  <!-- Existing items kept the same -->
   <div class="card" data-name="FLORIDA WOOL" data-cat="clothes">
     <img src="IMG_4715.jpeg" onclick="openModal(this.src)" />
     <div class="name">FLORIDA WOOL</div>
@@ -221,7 +225,6 @@
     <div>Call: 08130530595</div>
   </div>
 
-  <!-- NEW PRODUCT: Fashion Designer -->
   <div class="card" data-name="Fashion Designer" data-cat="clothes">
     <img src="860407a0-5864-4279-82db-564ba294feb6.jpeg" onclick="openModal(this.src)" />
     <div class="name">Fashion Designer</div>
@@ -229,7 +232,6 @@
     <div>Call: 07064180468</div>
   </div>
 
-  <!-- NEW PRODUCT: iPhone XR -->
   <div class="card" data-name="iPhone XR (Used)" data-cat="phones">
     <img src="https://raw.githubusercontent.com/kampuscart/buk/main/388e8773-c5f2-4823-af8d-54ec7bc7e027.jpeg" onclick="openModal(this.src)" />
     <div class="name">iPhone XR (Used)</div>
@@ -242,13 +244,12 @@
 
 <hr style="margin:25px 0;border:none;height:1px;background:#ccc;">
 
-<!-- SERVICES -->
 <div class="section-title">Services</div>
 <div class="services" id="serviceList">
 
   <div class="card service-card" data-cat="service" data-name="Yamarita">
     <span class="badge">Service</span>
-    <img src="IMG_4785.png" onclick="openModal(this.src)" />
+    <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4785.png" onclick="openModal(this.src)" />
     <div class="name">Yamarita / Egg-coated Fried Yam</div>
     <div class="price">₦1000</div>
     <div>Call: 09021683981</div>
@@ -283,15 +284,25 @@
 
 </div>
 
-<!-- SELL SECTION -->
-<div class="section-title">Sell on Kampus Cart</div>
-<div class="card" style="margin:10px;">
-  Want to sell your product or service? Contact us to list it.
-  <br><br>
-  <b>Phone:</b> 07052418840
+<button class='floating-plus' onclick='openSell()'>+</button>
+
+<div id="sellBox">
+  <div id="sellContent">
+    <h2 style="margin-bottom:5px;">Sell on Kampus Cart</h2>
+    <p style="font-size:14px;color:var(--muted);margin-top:0;">
+      Your hustle deserves to shine ✨  
+      List your item today!
+    </p>
+    <div style="background:#e5e7eb;padding:10px;border-radius:8px;margin-top:10px;">
+      <b>Contact Admin:</b><br>
+      07052418840
+    </div>
+    <button onclick="closeSell()" style="margin-top:15px;padding:8px 15px;background:var(--accent);border:none;border-radius:8px;color:white;">
+      Close
+    </button>
+  </div>
 </div>
 
-<!-- MODAL -->
 <div class="modal" id="modal" onclick="closeModal()">
   <img id="modalImg" />
 </div>
@@ -309,7 +320,6 @@ function openModal(src) {
   document.getElementById('modalImg').src = src;
   document.getElementById('modal').style.display = 'flex';
 }
-
 function closeModal() {
   document.getElementById('modal').style.display = 'none';
 }
@@ -335,19 +345,13 @@ function filterCategory(cat){
     let type=c.getAttribute('data-cat');
     c.style.display = (cat==='all' || cat===type) ? 'block' : 'none';
   });
-
   document.querySelectorAll('#serviceList .card').forEach(c=>{
     c.style.display = (cat==='all' || cat==='service') ? 'block' : 'none';
   });
 }
-</script>
 
-<button class='floating-plus' onclick='openSell()'>+</button>
-
-<script>
-function openSell(){
-  alert('To sell your product or service, contact 07052418840');
-}
+function openSell(){ document.getElementById('sellBox').style.display='flex'; }
+function closeSell(){ document.getElementById('sellBox').style.display='none'; }
 </script>
 
 <footer style="margin-top:30px;background:white;padding:20px;text-align:center;color:var(--muted);font-size:14px;">
