@@ -1,297 +1,360 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>KAMPUS CART BUK</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kampus Cart BUK</title>
+  <style>
+    :root {
+      --bg: #f5f6f8;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --accent: #05984a;
+      --text: #0b1221;
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: Arial, sans-serif;
+      color: var(--text);
+    }
+    header {
+      background: var(--accent);
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
 
-<style>
-:root{
-  --bg:#f5f6f8;
-  --card:#ffffff;
-  --text:#0b1220;
-  --accent:#05984a;
-}
+    /* SEARCH + THEME */
+    .search-bar {
+      padding: 10px;
+      margin: 10px;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
 
-.dark{
-  --bg:#0b1220;
-  --card:#1a1f2b;
-  --text:#e4e7ec;
-  --accent:#4ade80;
-}
+    /* TITLES */
+    .section-title {
+      margin: 20px 10px 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
 
-body{
-  margin:0;
-  padding:0;
-  font-family:sans-serif;
-  background:var(--bg);
-  color:var(--text);
-}
+    /* GRID */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      padding: 10px;
+    }
+    .services {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 10px;
+    }
 
-header{
-  padding:15px;
-  font-size:22px;
-  font-weight:700;
-  text-align:center;
-  background:var(--card);
-  position:sticky;
-  top:0;
-  z-index:10;
-  border-bottom:1px solid #ccc;
-}
+    /* CARDS */
+    .card {
+      background: var(--card);
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+    }
 
-/* Search + theme container */
-.top-actions{
-  width:100%;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:10px;
-  background:var(--bg);
-  position:sticky;
-  top:60px;
-  z-index:10;
-}
+    .name {
+      margin: 8px 0 4px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+    .price {
+      color: var(--accent);
+      font-weight: bold;
+    }
 
-#search{
-  flex:1;
-  padding:10px;
-  border-radius:25px;
-  border:1px solid #ccc;
-  font-size:14px;
-}
+    /* SERVICE CARD DIFFERENCE */
+    .service-card {
+      border-left: 4px solid var(--accent);
+      padding: 10px;
+    }
+    .badge {
+      background: var(--accent);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
 
-.theme-btn{
-  width:40px;
-  height:40px;
-  border-radius:50%;
-  background:var(--accent);
-  border:none;
-  color:#fff;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:18px;
-}
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal img {
+      width: 85%;
+      max-width: 350px;
+      border-radius: 10px;
+    }
 
-/* Categories */
-.categories{
-  display:flex;
-  overflow-x:auto;
-  gap:10px;
-  padding:10px;
-}
+    /* THEME SWITCH */
+    .theme-toggle{
+      position:fixed;top:20px;right:20px;
+      background:var(--accent);color:white;border:none;
+      width:45px;height:45px;border-radius:50%;
+      font-size:20px;cursor:pointer;
+      display:flex;justify-content:center;align-items:center;
+      box-shadow:0 2px 6px rgba(0,0,0,0.25);
+    }
 
-.categories button{
-  padding:8px 15px;
-  border:none;
-  background:var(--card);
-  border-radius:20px;
-  font-size:14px;
-}
+    /* FLOATING PLUS */
+    .floating-plus{
+      position:fixed;bottom:20px;right:20px;
+      background:var(--accent);color:white;border:none;
+      width:55px;height:55px;border-radius:50%;
+      font-size:32px;cursor:pointer;
+      display:flex;justify-content:center;align-items:center;
+      box-shadow:0 3px 10px rgba(0,0,0,0.3);
+    }
 
-/* Products */
-.products{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
-  padding:10px;
-}
+    /* CATEGORY BAR */
+    .category-bar{
+      display:flex;overflow-x:auto;gap:10px;padding:10px;
+    }
+    .category-bar button{
+      padding:8px 14px;border:none;border-radius:20px;
+      background:#e5e7eb;color:#111;cursor:pointer;
+      white-space:nowrap;
+    }
+    .category-bar button.active{
+      background:var(--accent);color:white;
+    }
 
-.card{
-  background:var(--card);
-  border-radius:10px;
-  padding:10px;
-  box-shadow:0 0 4px rgba(0,0,0,0.1);
-}
-
-.card img{
-  width:100%;
-  border-radius:10px;
-}
-
-.name{
-  font-weight:700;
-  margin-top:5px;
-}
-
-.price{
-  font-size:14px;
-  color:var(--accent);
-}
-
-/* Services */
-.services{
-  display:block;
-  padding:10px;
-}
-
-.service-card{
-  background:var(--card);
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:12px;
-  box-shadow:0 0 4px rgba(0,0,0,0.1);
-}
-
-/* Floating + button */
-.add-btn{
-  position:fixed;
-  bottom:20px;
-  right:20px;
-  width:55px;
-  height:55px;
-  background:var(--accent);
-  border-radius:50%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  color:#fff;
-  font-size:32px;
-  border:none;
-  z-index:20;
-}
-
-/* Modal */
-.modal{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.5);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:30;
-}
-
-.modal-content{
-  background:var(--card);
-  padding:20px;
-  width:80%;
-  border-radius:15px;
-  text-align:center;
-}
-
-footer{
-  margin-top:30px;
-  padding:15px;
-  text-align:center;
-  background:var(--card);
-  border-top:1px solid #ccc;
-}
+    /* Animation */
+    .fade{animation:fadeIn .4s ease;}
+    @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 </style>
-
 </head>
 <body>
 
-<header>KAMPUS CART BUK</header>
+<header>
+  Kampus Cart BUK
+  <div style='font-size:13px;margin-top:3px;'>Your Campus Marketplace — Fast & Reliable</div>
+</header>
 
-<div class="top-actions">
-  <input type="text" id="search" placeholder="Search..." onkeyup="searchItems()" />
-  <button class="theme-btn" onclick="toggleTheme()">☀️</button>
+<div class="search-bar" style="display:flex;align-items:center;gap:10px;padding:10px;position:sticky;top:0;background:var(--bg);z-index:50;">
+  <input type="text" id="search" placeholder="Search..." oninput="filterItems()" style="flex:1;padding:10px;border-radius:10px;border:1px solid #ccc;" />
+  <button class='theme-toggle' onclick='toggleTheme()'>🌓</button>
 </div>
 
-<div class="categories">
-  <button onclick="filterCategory('all')">All</button>
+<!-- CATEGORIES -->
+<div class="section-title">Categories</div>
+<div class="category-bar">
+  <button class="active" onclick="filterCategory('all')">All</button>
   <button onclick="filterCategory('clothes')">Clothes</button>
-  <button onclick="filterCategory('electronics')">Electronics</button>
-  <button onclick="filterCategory('perfume')">Perfume</button>
-  <button onclick="filterCategory('abaya')">Abaya</button>
+  <button onclick="filterCategory('perfume')">Perfumes</button>
+  <button onclick="filterCategory('phones')">Phones</button>
+  <button onclick="filterCategory('service')">Services</button>
 </div>
 
-<!-- PRODUCT LIST -->
-<div class="products" id="productList">
+<!-- PRODUCTS -->
+<div class="section-title">Products</div>
+<div class="products fade" id="productList">
 
-  <!-- Existing products here (your original ones) -->
-
-  <!-- Dubai Yard -->
-  <div class="card" data-name="Dubai Yard" data-cat="clothes">
-    <img src="https://raw.githubusercontent.com/kampuscart/buk/main/dubai-yard.jpeg" />
-    <div class="name">Dubai Yard</div>
-    <div class="price">₦10,000 / yard</div>
-    <div class="contact">08128371576</div>
+  <!-- Existing items kept the same -->
+  <div class="card" data-name="FLORIDA WOOL" data-cat="clothes">
+    <img src="IMG_4715.jpeg" onclick="openModal(this.src)" />
+    <div class="name">FLORIDA WOOL</div>
+    <div class="price">₦5000 / yard</div>
+    <div>Call: 08128371576</div>
   </div>
 
-  <!-- Egyptian Yard -->
-  <div class="card" data-name="Egyptian Yard" data-cat="clothes">
-    <img src="https://raw.githubusercontent.com/kampuscart/buk/main/egyptian-yard.jpeg" />
-    <div class="name">Egyptian Yard</div>
-    <div class="price">₦10,000 / yard</div>
-    <div class="contact">08128371576</div>
+  <div class="card" data-name="Victorian Yard" data-cat="clothes">
+    <img src="574a45b8-279f-42eb-8deb-215707340bf0.jpeg" onclick="openModal(this.src)" />
+    <div class="name">Victorian Yard</div>
+    <div class="price">₦10000 / yard</div>
+    <div>Call: 08128371576</div>
   </div>
 
-  <!-- iPhone XR -->
-  <div class="card" data-name="iPhone XR" data-cat="electronics">
-    <img src="https://raw.githubusercontent.com/kampuscart/buk/main/iphone-xr.jpeg" />
-    <div class="name">iPhone XR</div>
+  <div class="card" data-name="GK Plain" data-cat="clothes">
+    <img src="d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg" onclick="openModal(this.src)" />
+    <div class="name">GK Plain</div>
+    <div class="price">₦3000 / yard</div>
+    <div>Call: 09169517156</div>
+  </div>
+
+  <div class="card" data-name="Natural Body Perfume Spray" data-cat="perfume">
+    <img src="96354c82-38dc-483e-b580-576825d2e2c5.jpeg" onclick="openModal(this.src)" />
+    <div class="name">Natural Body Perfume Spray</div>
+    <div class="price">₦5000</div>
+    <div>Call: 08130530595</div>
+  </div>
+
+  <div class="card" data-name="Amber Oud Oil Perfume" data-cat="perfume">
+    <img src="7f0d0760-7750-4a44-b496-99d6467fe0d0.jpeg" onclick="openModal(this.src)" />
+    <div class="name">Amber Oud Oil Perfume</div>
+    <div class="price">₦7000</div>
+    <div>Call: 08130530595</div>
+  </div>
+
+  <div class="card" data-name="Abaya" data-cat="clothes">
+    <img src="a2e2ff91-3959-42f4-9374-a6bbe3de3b2a.jpeg" onclick="openModal(this.src)" />
+    <div class="name">Abaya</div>
+    <div class="price">₦30000</div>
+    <div>Call: 08130530595</div>
+  </div>
+
+  <!-- NEW PRODUCT: Fashion Designer -->
+  <div class="card" data-name="Fashion Designer" data-cat="clothes">
+    <img src="860407a0-5864-4279-82db-564ba294feb6.jpeg" onclick="openModal(this.src)" />
+    <div class="name">Fashion Designer</div>
+    <div class="price">Custom Sewing</div>
+    <div>Call: 07064180468</div>
+  </div>
+
+  <!-- NEW PRODUCT: iPhone XR -->
+  <div class="card" data-name="iPhone XR (Used)" data-cat="phones">
+    <img src="https://raw.githubusercontent.com/kampuscart/buk/main/388e8773-c5f2-4823-af8d-54ec7bc7e027.jpeg" onclick="openModal(this.src)" />
+    <div class="name">iPhone XR (Used)</div>
     <div class="price">₦195,000</div>
-    <div class="contact">07052418840</div>
-    <div class="location">Newsite / Oldsite</div>
+    <div>Location: Old Site / New Site</div>
+    <div>Call: 07052418840</div>
   </div>
 
 </div>
 
-<!-- SERVICES LIST -->
+<hr style="margin:25px 0;border:none;height:1px;background:#ccc;">
+
+<!-- SERVICES -->
+<div class="section-title">Services</div>
 <div class="services" id="serviceList">
 
-  <!-- Yamarita -->
-  <div class="service-card" data-name="Yamarita" data-cat="food">
-    <div class="name">Yamarita (Egg-coated Fried Yam)</div>
-    <div class="price">₦1,000</div>
-    <div class="contact">09021683981</div>
+  <div class="card service-card" data-cat="service" data-name="Yamarita">
+    <span class="badge">Service</span>
+    <img src="IMG_4785.png" onclick="openModal(this.src)" />
+    <div class="name">Yamarita / Egg-coated Fried Yam</div>
+    <div class="price">₦1000</div>
+    <div>Call: 09021683981</div>
   </div>
 
-  <!-- BUK Bookshop -->
-  <div class="service-card" data-name="BUK Bookshop" data-cat="books">
-    <div class="name">BUK Bookshop</div>
-    <div class="desc">Textbooks & Reference Books</div>
-    <div class="contact">07066460111</div>
+  <div class="card service-card" data-cat="service" data-name="Campus Shopper">
+    <span class="badge">Service</span>
+    <img src="IMG_4786.jpeg" onclick="openModal(this.src)" />
+    <div class="name">Campus Shopper</div>
+    <div class="price">Personal Shopping</div>
+    <div>Call: 07052418840</div>
+  </div>
+
+  <div class="card service-card" data-cat="service" data-name="Delivery Support">
+    <span class="badge">Coming Soon</span>
+    <img src="IMG_4793.png" onclick="openModal(this.src)" />
+    <div class="name">Delivery Support</div>
+  </div>
+
+  <div class="card service-card" data-cat="service" data-name="Phone Repair">
+    <span class="badge">Coming Soon</span>
+    <img src="IMG_4791.avif" onclick="openModal(this.src)" />
+    <div class="name">Phone Repair</div>
+  </div>
+
+  <div class="card service-card" data-cat="service" data-name="Bookshop">
+    <span class="badge">Service</span>
+    <img src="IMG_4717.jpeg" onclick="openModal(this.src)" />
+    <div class="name">Textbooks & Reference Books</div>
+    <div>Call: 07066460111</div>
   </div>
 
 </div>
 
-<!-- PLUS BUTTON -->
-<button class="add-btn" onclick="openModal()">+</button>
+<!-- SELL SECTION -->
+<div class="section-title">Sell on Kampus Cart</div>
+<div class="card" style="margin:10px;">
+  Want to sell your product or service? Contact us to list it.
+  <br><br>
+  <b>Phone:</b> 07052418840
+</div>
 
 <!-- MODAL -->
-<div class="modal" id="sellModal">
-  <div class="modal-content">
-    <h3>Sell on Kampus Cart</h3>
-    <p>Manage your items, add new ones, or update information.</p>
-    <button onclick="closeModal()">Close</button>
-  </div>
+<div class="modal" id="modal" onclick="closeModal()">
+  <img id="modalImg" />
 </div>
 
-<footer>© 2025 Kampus Cart BUK</footer>
-
 <script>
-function toggleTheme(){
-  document.body.classList.toggle("dark");
-}
-
-function openModal(){
-  document.getElementById("sellModal").style.display="flex";
-}
-
-function closeModal(){
-  document.getElementById("sellModal").style.display="none";
-}
-
-function searchItems(){
-  let q = document.getElementById("search").value.toLowerCase();
-  document.querySelectorAll(".card,.service-card").forEach(i=>{
-    i.style.display = i.dataset.name.toLowerCase().includes(q) ? "block" : "none";
+function filterItems() {
+  let text = document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('#productList .card, #serviceList .card').forEach(card => {
+    let name = card.getAttribute('data-name').toLowerCase();
+    card.style.display = name.includes(text) ? 'block' : 'none';
   });
+}
+
+function openModal(src) {
+  document.getElementById('modalImg').src = src;
+  document.getElementById('modal').style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('modal').style.display = 'none';
+}
+
+let dark=false;
+function toggleTheme(){
+  dark=!dark;
+  if(dark){
+    document.documentElement.style.setProperty('--bg','#0f172a');
+    document.documentElement.style.setProperty('--card','#1e293b');
+    document.documentElement.style.setProperty('--text','#f8fafc');
+  } else {
+    document.documentElement.style.setProperty('--bg','#f5f6f8');
+    document.documentElement.style.setProperty('--card','#ffffff');
+    document.documentElement.style.setProperty('--text','#0b1221');
+  }
 }
 
 function filterCategory(cat){
-  document.querySelectorAll(".card,.service-card").forEach(i=>{
-    i.style.display = (cat==="all" || i.dataset.cat===cat) ? "block" : "none";
+  document.querySelectorAll('.category-bar button').forEach(btn=>btn.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('#productList .card').forEach(c=>{
+    let type=c.getAttribute('data-cat');
+    c.style.display = (cat==='all' || cat===type) ? 'block' : 'none';
+  });
+
+  document.querySelectorAll('#serviceList .card').forEach(c=>{
+    c.style.display = (cat==='all' || cat==='service') ? 'block' : 'none';
   });
 }
 </script>
+
+<button class='floating-plus' onclick='openSell()'>+</button>
+
+<script>
+function openSell(){
+  alert('To sell your product or service, contact 07052418840');
+}
+</script>
+
+<footer style="margin-top:30px;background:white;padding:20px;text-align:center;color:var(--muted);font-size:14px;">
+  <b>Kampus Cart BUK</b><br>
+  The smartest way to buy & sell on campus.
+  <div style='margin-top:6px;font-size:12px;'>© 2025 All Rights Reserved</div>
+</footer>
 
 </body>
 </html>
