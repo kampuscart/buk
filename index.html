@@ -97,7 +97,10 @@
 </head>
 <body>
 
-<header>Kampus Cart BUK</header>
+<header style="display:flex;justify-content:space-between;align-items:center;padding:15px;background:var(--accent);color:white;">
+  <span style="font-size:20px;font-weight:bold;">Kampus Cart BUK</span>
+  <button onclick="openSell()" style="background:white;color:var(--accent);border:none;font-size:20px;width:32px;height:32px;border-radius:50%;cursor:pointer;">+</button>
+</header>
 
 <div class="search-bar">
   <input type="text" id="search" placeholder="Search..." oninput="filterItems()" style="width:78%;padding:8px;border-radius:8px;border:1px solid #ccc;display:inline-block;" />
@@ -151,6 +154,7 @@
 </div>
 
 <!-- SERVICES SECTION -->
+<hr style="margin:20px 0;border:none;height:1px;background:#ccc;">
 <div class="section-title">Services</div>
 <div class="services" id="serviceList">
   <div class="card" data-name="Yamarita">
@@ -187,6 +191,16 @@ function openModal(src) {
 }
 function closeModal() {
   document.getElementById('modal').style.display = 'none';
+}
+</script>
+
+<footer style="background:#fff;padding:15px;text-align:center;margin-top:20px;color:var(--muted);font-size:14px;">
+  © 2025 Kampus Cart BUK — Powered by Students
+</footer>
+
+<script>
+function openSell(){
+  alert('To sell your product or service, contact 07052418840');
 }
 </script>
 
