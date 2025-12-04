@@ -45,44 +45,53 @@
     }
 
     .products {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
       padding: 10px;
     }
     .services {
-      display: grid;
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 10px;
       padding: 10px;
     }
 
     .card {
       background: var(--card);
-      padding: 10px;
+      padding: 8px;
       border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-sizing: border-box;
     }
     .card img {
       width: 100%;
+      height: auto;
       border-radius: 8px;
       cursor: pointer;
     }
 
     .name {
-      margin: 8px 0 4px;
+      margin: 6px 0 4px;
       font-weight: bold;
       font-size: 15px;
     }
     .price {
       color: var(--accent);
       font-weight: bold;
+      margin-bottom: 4px;
     }
 
     .service-card {
       border-left: 4px solid var(--accent);
-      padding: 10px;
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
     }
+    .service-card img { max-height: 120px; object-fit: contain; }
+
     .badge {
       background: var(--accent);
       color: white;
@@ -90,7 +99,7 @@
       border-radius: 6px;
       font-size: 11px;
       display: inline-block;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .modal {
@@ -183,6 +192,47 @@
 <div class="section-title">Products</div>
 <div class="products fade" id="productList">
 
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="clothes" data-name="A Men'S Spring And Summer Lightweight Breathable Large Mesh Cap">
+    <p class="name"><strong>A Men'S Spring And Summer Lightweight Breathable Large Mesh Cap</strong></p>
+    <div class="price">🎉 ₦3,459</div>
+    <a href="https://temu.to/k/es5wfhwe27g" target="_blank">Item Link</a>
+    <img src="IMG_4846.jpeg" alt="Men's Mesh Cap" onclick="openModal(this.src)">
+  </div>
+
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="phones" data-name="Latest Smart Watch">
+    <p class="name"><strong>Latest Smart Watch, High-End, 1.83 Touch Screen</strong></p>
+    <div class="price">🎉 ₦11,435</div>
+    <a href="https://temu.to/k/eru2ezezgaq" target="_blank">Item Link</a>
+    <img src="IMG_4847.jpeg" alt="Smart Watch" onclick="openModal(this.src)">
+  </div>
+
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="clothes" data-name="Embroidered Letter Unisex Casual Baseball Cap">
+    <p class="name"><strong>Embroidered Letter Unisex Casual Baseball Cap</strong></p>
+    <div class="price">🎉 ₦6,088</div>
+    <a href="https://temu.to/k/exg1n5vobm0" target="_blank">Item Link</a>
+    <img src="IMG_4848.jpeg" alt="Baseball Cap" onclick="openModal(this.src)">
+  </div>
+
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="phones" data-name="Android Unlock Smart Phone 4G">
+    <p class="name"><strong>Android Unlock Smart Phone 4G</strong></p>
+    <div class="price">🎉 ₦92,561</div>
+    <a href="https://temu.to/k/eka2041feos" target="_blank">Item Link</a>
+    <img src="IMG_4870.jpeg" alt="Android Smartphone" onclick="openModal(this.src)">
+  </div>
+
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="phones" data-name="ZACHARYER Smartwatch">
+    <p class="name"><strong>ZACHARYER 4.65cm Smartwatch for Men & Women</strong></p>
+    <div class="price">🎉 ₦10,865</div>
+    <a href="https://temu.to/k/eppacp5rreq" target="_blank">Item Link</a>
+    <img src="IMG_4866.jpeg" alt="Smartwatch" onclick="openModal(this.src)">
+  </div>
+
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="phones" data-name="Over-Ear Wireless Headphones">
+    <p class="name"><strong>Over-Ear Wireless Headphones</strong></p>
+    <div class="price">🎉 ₦10,777</div>
+    <img src="IMG_4868.jpeg" alt="Wireless Headphones" onclick="openModal(this.src)">
+  </div>
+
   <div class="card" data-name="FLORIDA WOOL" data-cat="clothes">
     <img src="IMG_4715.jpeg" onclick="openModal(this.src)" />
     <div class="name">FLORIDA WOOL</div>
@@ -204,64 +254,7 @@
     <div class="price">₦10000 / yard</div>
     <div>Call: 08128371576</div>
   </div>
-<div style="display: flex; flex-wrap: wrap; gap: 20px;">
 
-  <!-- Product 1 -->
-  <div style="flex: 1 1 calc(50% - 20px); background:#fff; padding:10px; box-sizing:border-box;">
-    <p><strong>A Men'S Spring And Summer Lightweight Breathable Large Mesh Cap</strong><br>
-    🎉 Coupon price[₦3,459]<br>
-    <a href="https://temu.to/k/es5wfhwe27g" target="_blank">Item Link</a></p>
-    <img src="IMG_4846.jpeg" alt="Men's Mesh Cap" style="width:100%; height:auto;">
-  </div>
-
-  <!-- Product 2 -->
-  <div style="flex: 1 1 calc(50% - 20px); background:#fff; padding:10px; box-sizing:border-box;">
-    <p><strong>Latest Smart Watch, High-End, 1.83 Touch Screen</strong><br>
-    🎉 Coupon price[₦11,435]<br>
-    <a href="https://temu.to/k/eru2ezezgaq" target="_blank">Item Link</a></p>
-    <img src="IMG_4847.jpeg" alt="Smart Watch" style="width:100%; height:auto;">
-  </div>
-
-  <!-- Product 3 -->
-  <div style="flex: 1 1 calc(50% - 20px); background:#fff; padding:10px; box-sizing:border-box;">
-    <p><strong>Embroidered Letter Unisex Casual Baseball Cap</strong><br>
-    🎉 Coupon price[₦6,088]<br>
-    <a href="https://temu.to/k/exg1n5vobm0" target="_blank">Item Link</a></p>
-    <img src="IMG_4848.jpeg" alt="Baseball Cap" style="width:100%; height:auto;">
-  </div>
-
-  <!-- Product 4 -->
-  <div style="flex: 1 1 calc(50% - 20px); background:#fff; padding:10px; box-sizing:border-box;">
-    <p><strong>Android Unlock Smart Phone 4G</strong><br>
-    🎉 Coupon price[₦92,561]<br>
-    <a href="https://temu.to/k/eka2041feos" target="_blank">Item Link</a></p>
-    <img src="IMG_4870.jpeg" alt="Android Smartphone" style="width:100%; height:auto;">
-  </div>
-
-  <!-- Product 5 -->
-  <div style="flex: 1 1 calc(50% - 20px); background:#fff; padding:10px; box-sizing:border-box;">
-    <p><strong>ZACHARYER 4.65cm Smartwatch for Men & Women</strong><br>
-    🎉 Coupon price[₦10,865]<br>
-    <a href="https://temu.to/k/eppacp5rreq" target="_blank">Item Link</a></p>
-    <img src="IMG_4866.jpeg" alt="Smartwatch" style="width:100%; height:auto;">
-  </div>
-
-  <!-- Product 6 -->
-  <div style="flex: 1 1 calc(50% - 20px); background:#fff; padding:10px; box-sizing:border-box;">
-    <p><strong>Over-Ear Wireless Headphones</strong><br>
-    🎉 Coupon price[₦10,777]</p>
-    <img src="IMG_4868.jpeg" alt="Wireless Headphones" style="width:100%; height:auto;">
-  </div>
-
-  <!-- Product 7 -->
-  <div style="flex: 1 1 calc(50% - 20px); background:#fff; padding:10px; box-sizing:border-box;">
-    <p><strong>5G Smartphone - Unlocked, Dual SIM/ Standby, 8GB RAM</strong><br>
-    🎉 Coupon price[₦101,583]<br>
-    <a href="https://temu.to/k/eyae6kcxtge" target="_blank">Item Link</a></p>
-    <img src="IMG_4867.jpeg" alt="5G Smartphone" style="width:100%; height:auto;">
-  </div>
-
-</div>
   <div class="card" data-name="GK Plain" data-cat="clothes">
     <img src="d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg" onclick="openModal(this.src)" />
     <div class="name">GK Plain</div>
@@ -319,8 +312,87 @@
     <div>Call: 07048543238</div>
   </div>
 
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="phones" data-name="5G Smartphone - Unlocked">
+    <p class="name"><strong>5G Smartphone - Unlocked, Dual SIM/ Standby, 8GB RAM</strong></p>
+    <div class="price">🎉 ₦101,583</div>
+    <a href="https://temu.to/k/eyae6kcxtge" target="_blank">Item Link</a>
+    <img src="IMG_4867.jpeg" alt="5G Smartphone" onclick="openModal(this.src)">
+  </div>
+
+  <!-- Temu Products Batch 2 -->
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="clothes" data-name="1pc Women'S Sweet & Romantic Pink Baseball Cap">
+    <p class="name"><strong>1pc Women'S Sweet & Romantic Pink Baseball Cap</strong></p>
+    <div class="price">🎉 ₦3,790</div>
+    <a href="https://temu.to/k/e5tuaoed7y5" target="_blank">Item Link</a>
+    <img src="IMG_4865.jpeg" alt="Women Pink Cap" onclick="openModal(this.src)">
+  </div>
+
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="phones" data-name="TWS Wireless Earphones">
+    <p class="name"><strong>TWS Wireless Earphones with LED Display & Touch Control</strong></p>
+    <div class="price">🎉 ₦5,306</div>
+    <a href="https://temu.to/k/e7cmg4xbc90" target="_blank">Item Link</a>
+    <img src="IMG_4862.jpeg" alt="TWS Earphones" onclick="openModal(this.src)">
+  </div>
+
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="clothes" data-name="4pcs Unisex Watch Set">
+    <p class="name"><strong>4pcs Unisex Watch Set - Modern Minimalist Black Quartz Watches</strong></p>
+    <div class="price">🎉 ₦9,832</div>
+    <a href="https://temu.to/k/eetq1ppr5h7" target="_blank">Item Link</a>
+    <img src="IMG_4863.jpeg" alt="Watch Set" onclick="openModal(this.src)">
+  </div>
+
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="perfume" data-name="24-Hour Long-Lasting Body & Deodorant Spray">
+    <p class="name"><strong>24-Hour Long-Lasting Body & Deodorant Spray</strong></p>
+    <div class="price">🎉 ₦10,354</div>
+    <a href="https://temu.to/k/eg74d9ere0z" target="_blank">Item Link</a>
+    <img src="IMG_4871.png" alt="Body Spray" onclick="openModal(this.src)">
+  </div>
+
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="phones" data-name="1pc Metal USB 2.0 Flash Drive">
+    <p class="name"><strong>1pc Metal USB 2.0 Flash Drive 100GB with Key Ring</strong></p>
+    <div class="price">🎉 ₦3,671</div>
+    <a href="https://temu.to/k/eqprvbus6fc" target="_blank">Item Link</a>
+    <img src="IMG_4872.jpeg" alt="USB Flash Drive" onclick="openModal(this.src)">
+  </div>
+
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="phones" data-name="Auusda T156A Laptop">
+    <p class="name"><strong>Auusda T156A Laptop, 15.6 Inch | AMD Athlon Silver 3050e</strong></p>
+    <div class="price">🎉 ₦353,504</div>
+    <a href="https://temu.to/k/eflqp6xp305" target="_blank">Item Link</a>
+    <img src="IMG_4873.jpeg" alt="Auusda Laptop" onclick="openModal(this.src)">
+  </div>
+
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="phones" data-name="2pcs 14-inch Laptop Screen Protector">
+    <p class="name"><strong>2pcs 14-inch Laptop Screen Protector</strong></p>
+    <div class="price">🎉 ₦18,805</div>
+    <a href="https://temu.to/k/e67z5hy5h5p" target="_blank">Item Link</a>
+    <img src="IMG_4874.jpeg" alt="Laptop Screen Protector" onclick="openModal(this.src)">
+  </div>
+
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="phones" data-name="F524 Wireless Speaker">
+    <p class="name"><strong>F524 Wireless Speaker Dual Channel Subwoofer</strong></p>
+    <div class="price">🎉 ₦17,685</div>
+    <a href="https://temu.to/k/erhim0bhug6" target="_blank">Item Link</a>
+    <img src="IMG_4875.jpeg" alt="Wireless Speaker" onclick="openModal(this.src)">
+  </div>
+
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="phones" data-name="True Wireless Over-Ear Headphones">
+    <p class="name"><strong>True Wireless Over-Ear Headphones</strong></p>
+    <div class="price">🎉 ₦14,257</div>
+    <a href="https://temu.to/k/efiklz4sdap" target="_blank">Item Link</a>
+    <img src="IMG_4877.jpeg" alt="Over-Ear Headphones" onclick="openModal(this.src)">
+  </div>
+
+  <div style="flex:1 1 calc(50% - 15px);" class="card" data-cat="phones" data-name="15W Fast Magnetic Wireless Charger Stand">
+    <p class="name"><strong>15W Fast Magnetic Wireless Charger Stand</strong></p>
+    <div class="price">🎉 ₦6,435</div>
+    <a href="https://temu.to/k/ebgx9u0vyy6" target="_blank">Item Link</a>
+    <img src="IMG_4878.jpeg" alt="Wireless Charger" onclick="openModal(this.src)">
+  </div>
+
 </div>
 
+<!-- Services Section -->
 <hr style="margin:25px 0;border:none;height:1px;background:#ccc;">
 
 <div class="section-title">Services</div>
@@ -337,107 +409,64 @@
   <div class="card service-card" data-cat="service" data-name="Campus Shopper">
     <span class="badge">Service</span>
     <img src="IMG_4786.jpeg" onclick="openModal(this.src)" />
-    <div class="name">Campus Shopper</div>
-    <div class="price">Personal Shopping</div>
-    <div>Call: 07052418840</div>
-  </div>
-
-  <div class="card service-card" data-cat="service" data-name="Delivery Support">
-    <span class="badge">Coming Soon</span>
-    <img src="IMG_4793.png" onclick="openModal(this.src)" />
-    <div class="name">Delivery Support</div>
-  </div>
-
-  <div class="card service-card" data-cat="service" data-name="Phone Repair">
-    <span class="badge">Coming Soon</span>
-    <img src="IMG_4791.avif" onclick="openModal(this.src)" />
-    <div class="name">Phone Repair</div>
-  </div>
-
-  <div class="card service-card" data-cat="service" data-name="Bookshop">
-    <span class="badge">Service</span>
-    <img src="IMG_4717.jpeg" onclick="openModal(this.src)" />
-    <div class="name">Textbooks & Reference Books</div>
-    <div>Call: 07066460111</div>
+    <div class="name">Campus Shopper / Delivery Service</div>
+    <div class="price">Charges apply</div>
+    <div>Call: 08130530595</div>
   </div>
 
 </div>
 
-<button class='floating-plus' onclick='openSell()'>+</button>
+<!-- Image Modal -->
+<div class="modal" id="imgModal" onclick="closeModal()">
+  <img id="modalImg" src="">
+</div>
+
+<button class="floating-plus" onclick="openSellBox()">+</button>
 
 <div id="sellBox">
   <div id="sellContent">
-    <h2 style="margin-bottom:5px;">Sell on Kampus Cart</h2>
-    <p style="font-size:14px;color:var(--muted);margin-top:0;">
-      Your hustle deserves to shine ✨  
-      List your item today!
-    </p>
-    <div style="background:#e5e7eb;padding:10px;border-radius:8px;margin-top:10px;">
-      <b>Contact Admin:</b><br>
-      07052418840
-    </div>
-    <button onclick="closeSell()" style="margin-top:15px;padding:8px 15px;background:var(--accent);border:none;border-radius:8px;color:white;">
-      Close
-    </button>
+    <h3>Want to Sell?</h3>
+    <p>Contact us and add your products to Kampus Cart</p>
+    <button onclick="closeSellBox()" style="margin-top:10px;padding:8px 15px;border:none;border-radius:8px;background:var(--accent);color:white;">Close</button>
   </div>
 </div>
 
-<div class="modal" id="modal" onclick="closeModal()">
-  <img id="modalImg" />
-</div>
-
 <script>
-function filterItems() {
-  let text = document.getElementById('search').value.toLowerCase();
-  document.querySelectorAll('#productList .card, #serviceList .card').forEach(card => {
-    let name = card.getAttribute('data-name').toLowerCase();
-    card.style.display = name.includes(text) ? 'block' : 'none';
-  });
-}
-
-function openModal(src) {
-  document.getElementById('modalImg').src = src;
-  document.getElementById('modal').style.display = 'flex';
-}
-function closeModal() {
-  document.getElementById('modal').style.display = 'none';
-}
-
-let dark=false;
-function toggleTheme(){
-  dark=!dark;
-  if(dark){
-    document.documentElement.style.setProperty('--bg','#0f172a');
-    document.documentElement.style.setProperty('--card','#1e293b');
-    document.documentElement.style.setProperty('--text','#f8fafc');
-  } else {
-    document.documentElement.style.setProperty('--bg','#f5f6f8');
-    document.documentElement.style.setProperty('--card','#ffffff');
-    document.documentElement.style.setProperty('--text','#0b1221');
+  function openModal(src){
+    document.getElementById('imgModal').style.display='flex';
+    document.getElementById('modalImg').src=src;
   }
-}
+  function closeModal(){
+    document.getElementById('imgModal').style.display='none';
+  }
 
-function filterCategory(cat){
-  document.querySelectorAll('.category-bar button').forEach(btn=>btn.classList.remove('active'));
-  event.target.classList.add('active');
-  document.querySelectorAll('#productList .card').forEach(c=>{
-    let type=c.getAttribute('data-cat');
-    c.style.display = (cat==='all' || cat===type) ? 'block' : 'none';
-  });
-  document.querySelectorAll('#serviceList .card').forEach(c=>{
-    c.style.display = (cat==='all' || cat==='service') ? 'block' : 'none';
-  });
-}
+  function openSellBox(){ document.getElementById('sellBox').style.display='flex'; }
+  function closeSellBox(){ document.getElementById('sellBox').style.display='none'; }
 
-function openSell(){ document.getElementById('sellBox').style.display='flex'; }
-function closeSell(){ document.getElementById('sellBox').style.display='none'; }
+  function toggleTheme(){
+    if(document.body.style.background=='var(--bg)'||document.body.style.background==''){
+      document.body.style.background='#111'; document.body.style.color='#f5f5f5';
+    } else { document.body.style.background='var(--bg)'; document.body.style.color='var(--text)'; }
+  }
+
+  function filterCategory(cat){
+    let cards = document.querySelectorAll('#productList .card, #serviceList .card');
+    cards.forEach(c=>{
+      if(cat=='all') c.style.display='flex';
+      else if(c.dataset.cat==cat) c.style.display='flex';
+      else c.style.display='none';
+    });
+  }
+
+  function filterItems(){
+    let val = document.getElementById('search').value.toLowerCase();
+    let cards = document.querySelectorAll('#productList .card, #serviceList .card');
+    cards.forEach(c=>{
+      if(c.dataset.name.toLowerCase().includes(val)) c.style.display='flex';
+      else c.style.display='none';
+    });
+  }
 </script>
-
-<footer style="margin-top:30px;background:white;padding:20px;text-align:center;color:var(--muted);font-size:14px;">
-  <b>Kampus Cart BUK</b><br>
-  The smartest way to buy & sell on campus.
-  <div style='margin-top:6px;font-size:12px;'>© 2025 All Rights Reserved</div>
-</footer>
 
 </body>
 </html>
