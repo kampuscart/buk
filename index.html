@@ -76,7 +76,7 @@
 
   .products {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
     padding: 0 15px 50px;
   }
@@ -170,109 +170,115 @@
 
 <div class="products" id="productList">
 
-<!-- Shuffled Products: Temu + AliExpress + Your Products -->
+  <!-- Shuffled Products: Temu + AliExpress + Your Products -->
 
-<div class="card" data-cat="clothes" data-name="FLORIDA WOOL" onclick="openModal(this.querySelector('img').src)">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4715.jpeg" alt="FLORIDA WOOL">
-  <div class="info">
-    <div class="name">FLORIDA WOOL</div>
-    <div class="price">₦5,000 / yard</div>
-    <div>Call: 08128371576</div>
+  <div class="card" data-cat="phones" data-name="Over-Ear Wireless Headphones" onclick="openModal(this.querySelector('img').src)">
+    <img src="IMG_4875.jpeg" alt="Over-Ear Wireless Headphones">
+    <div class="info">
+      <div class="name">Over-Ear Wireless Headphones</div>
+      <div class="price">₦6,340</div>
+      <a href="https://temu.to/k/e518dratuk2" target="_blank">View Product</a>
+    </div>
   </div>
-</div>
 
-<div class="card" data-cat="clothes" data-name="Women's Summer Shoes" onclick="openModal(this.querySelector('img').src)">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4880.jpeg" alt="Women's Summer Shoes">
-  <div class="info">
-    <div class="name">Women's Summer Shoes Plus Size Casual</div>
-    <div class="price">₦19,212</div>
-    <a href="#">View Product</a>
+  <div class="card" data-cat="clothes" data-name="FLORIDA WOOL" onclick="openModal(this.querySelector('img').src)">
+    <img src="IMG_4715.jpeg" alt="FLORIDA WOOL">
+    <div class="info">
+      <div class="name">FLORIDA WOOL</div>
+      <div class="price">₦5,000 / yard</div>
+      <div>Call: 08128371576</div>
+    </div>
   </div>
-</div>
 
-<div class="card" data-cat="clothes" data-name="Victorian Yard" onclick="openModal(this.querySelector('img').src)">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg" alt="Victorian Yard">
-  <div class="info">
-    <div class="name">Victorian Yard</div>
-    <div class="price">₦10,000 / yard</div>
-    <div>Call: 08128371576</div>
+  <div class="card" data-cat="clothes" data-name="Victorian Yard" onclick="openModal(this.querySelector('img').src)">
+    <img src="IMG_574.jpeg" alt="Victorian Yard">
+    <div class="info">
+      <div class="name">Victorian Yard</div>
+      <div class="price">₦10,000 / yard</div>
+      <div>Call: 08128371576</div>
+    </div>
   </div>
-</div>
 
-<div class="card" data-cat="clothes" data-name="Men's Canvas Sneakers" onclick="openModal(this.querySelector('img').src)">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4879.jpeg" alt="Men's Canvas Sneakers">
-  <div class="info">
-    <div class="name">Men's Canvas Sneakers Casual Slip-On</div>
-    <div class="price">₦12,808</div>
-    <a href="#">View Product</a>
+  <div class="card" data-cat="clothes" data-name="Study Desk" onclick="openModal(this.querySelector('img').src)">
+    <img src="IMG_4885.jpeg" alt="Study Desk">
+    <div class="info">
+      <div class="name">Study Desk</div>
+      <div class="price">₦12,000</div>
+      <div>Call: 08130530595</div>
+    </div>
   </div>
-</div>
 
-<div class="card" data-cat="perfume" data-name="Natural Body Perfume Spray" onclick="openModal(this.querySelector('img').src)">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg" alt="Natural Body Perfume Spray">
-  <div class="info">
-    <div class="name">Natural Body Perfume Spray</div>
-    <div class="price">₦5,000</div>
-    <a href="#">View Product</a>
+  <div class="card" data-cat="clothes" data-name="Men's Canvas Sneakers" onclick="openModal(this.querySelector('img').src)">
+    <img src="IMG_4879.jpeg" alt="Men's Canvas Sneakers">
+    <div class="info">
+      <div class="name">Men's Canvas Sneakers Casual Slip-On</div>
+      <div class="price">₦12,808.08</div>
+      <a href="#" target="_blank">View Product</a>
+    </div>
   </div>
-</div>
 
-<div class="card" data-cat="phones" data-name="iPhone XR (Used)" onclick="openModal(this.querySelector('img').src)">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/388e8773-c5f2-4823-af8d-54ec7bc7e027.jpeg" alt="iPhone XR Used">
-  <div class="info">
-    <div class="name">iPhone XR (Used)</div>
-    <div class="price">₦195,000</div>
-    <div>Call: 07052418840</div>
+  <div class="card" data-cat="clothes" data-name="Women's Summer Shoes" onclick="openModal(this.querySelector('img').src)">
+    <img src="IMG_4880.jpeg" alt="Women's Summer Shoes">
+    <div class="info">
+      <div class="name">Women's Summer Shoes Plus Size Casual</div>
+      <div class="price">₦19,212.14</div>
+      <a href="#" target="_blank">View Product</a>
+    </div>
   </div>
-</div>
 
-<div class="card" data-cat="clothes" data-name="Abaya" onclick="openModal(this.querySelector('img').src)">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/a2e2ff91-3959-42f4-9374-a6bbe3de3b2a.jpeg" alt="Abaya">
-  <div class="info">
-    <div class="name">Abaya</div>
-    <div class="price">₦30,000</div>
-    <div>Call: 08130530595</div>
+  <div class="card" data-cat="clothes" data-name="Men's Canvas Shoes" onclick="openModal(this.querySelector('img').src)">
+    <img src="IMG_4881.jpeg" alt="Men's Canvas Shoes">
+    <div class="info">
+      <div class="name">Men's Canvas Shoes with Soft Soles</div>
+      <div class="price">₦23,194.57</div>
+      <a href="#" target="_blank">View Product</a>
+    </div>
   </div>
-</div>
 
-<div class="card" data-cat="clothes" data-name="Men's Canvas Shoes" onclick="openModal(this.querySelector('img').src)">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4881.jpeg" alt="Men's Canvas Shoes">
-  <div class="info">
-    <div class="name">Men's Canvas Shoes with Soft Soles</div>
-    <div class="price">₦23,194</div>
-    <a href="#">View Product</a>
+  <div class="card" data-cat="clothes" data-name="Wedding Rings" onclick="openModal(this.querySelector('img').src)">
+    <img src="IMG_4882.jpeg" alt="Wedding Rings">
+    <div class="info">
+      <div class="name">Luxury Wedding Rings for Women</div>
+      <div class="price">₦1,579.29</div>
+      <a href="#" target="_blank">View Product</a>
+    </div>
   </div>
-</div>
 
-<div class="card" data-cat="clothes" data-name="CAOSHI Rings" onclick="openModal(this.querySelector('img').src)">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4882.jpeg" alt="CAOSHI Rings">
-  <div class="info">
-    <div class="name">CAOSHI 2Pcs/Set Luxury Wedding Rings</div>
-    <div class="price">₦1,579</div>
-    <a href="#">View Product</a>
+  <div class="card" data-cat="clothes" data-name="Men's Summer Shoes Mesh" onclick="openModal(this.querySelector('img').src)">
+    <img src="IMG_4883.jpeg" alt="Men's Summer Shoes Mesh">
+    <div class="info">
+      <div class="name">Men's Summer Lightweight Breathable Sneakers</div>
+      <div class="price">₦15,312.05</div>
+      <a href="#" target="_blank">View Product</a>
+    </div>
   </div>
-</div>
 
-<div class="card" data-cat="clothes" data-name="Men's Shoes Summer" onclick="openModal(this.querySelector('img').src)">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4883.jpeg" alt="Men's Shoes Summer">
-  <div class="info">
-    <div class="name">Men's Shoes Summer Lightweight Breathable</div>
-    <div class="price">₦15,312</div>
-    <a href="#">View Product</a>
+  <div class="card" data-cat="clothes" data-name="Women's Breathable Shoes" onclick="openModal(this.querySelector('img').src)">
+    <img src="IMG_4884.jpeg" alt="Women's Breathable Shoes">
+    <div class="info">
+      <div class="name">Women's Shoes Summer Breathable Cloth</div>
+      <div class="price">₦13,184.99</div>
+      <a href="#" target="_blank">View Product</a>
+    </div>
   </div>
-</div>
 
-<div class="card" data-cat="clothes" data-name="Women's Shoes Summer" onclick="openModal(this.querySelector('img').src)">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_4883.jpeg" alt="Women's Shoes Summer">
-  <div class="info">
-    <div class="name">Women's Shoes Summer Breathable</div>
-    <div class="price">₦13,184</div>
-    <a href="#">View Product</a>
+  <div class="card" data-cat="perfume" data-name="Natural Body Perfume Spray" onclick="openModal(this.querySelector('img').src)">
+    <img src="IMG_9635.jpeg" alt="Natural Body Perfume Spray">
+    <div class="info">
+      <div class="name">Natural Body Perfume Spray</div>
+      <div class="price">₦5,000</div>
+      <a href="https://temu.to/k/e29kumyge4u" target="_blank">View Product</a>
+    </div>
   </div>
-</div>
 
-<!-- Add rest of products here similarly -->
-<!-- You can continue pasting the remaining Temu and your products in this same format -->
+  <div class="card" data-cat="perfume" data-name="Amber Oud Oil Perfume" onclick="openModal(this.querySelector('img').src)">
+    <img src="IMG_7f0d.jpeg" alt="Amber Oud Oil Perfume">
+    <div class="info">
+      <div class="name">Amber Oud Oil Perfume</div>
+      <div class="price">₦7,000</div>
+      <a href="https://temu.to/k/e29kumyge4u" target="_blank">View Product</a>
+    </div>
+  </div>
 
 </div>
 
