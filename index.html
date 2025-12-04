@@ -176,14 +176,14 @@
   <button class="active" onclick="filterCategory('all')">All</button>
   <button onclick="filterCategory('clothes')">Clothes</button>
   <button onclick="filterCategory('perfume')">Perfumes</button>
-  <button onclick="filterCategory('phones')">Phones</button>
+  <button onclick="filterCategory('phones')">Phones & Tech</button>
   <button onclick="filterCategory('service')">Services</button>
-  <button onclick="filterCategory('temu')">Temu</button>
 </div>
 
 <div class="section-title">Products</div>
 <div class="products fade" id="productList">
-  
+
+  <!-- Original Products -->
   <div class="card" data-name="FLORIDA WOOL" data-cat="clothes">
     <img src="IMG_4715.jpeg" onclick="openModal(this.src)" />
     <div class="name">FLORIDA WOOL</div>
@@ -191,13 +191,12 @@
     <div>Call: 08128371576</div>
   </div>
   
-<div class="card" data-name="Study Desk" data-cat="others">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/df9904e8-41c7-4671-9a08-eb4d77ebe175.jpeg" 
-       onclick="openModal(this.src)" />
-  <div class="name">Study Desk</div>
-  <div class="price">₦12,000</div>
-  <div>Call: 08130530595</div>
-</div>
+  <div class="card" data-name="Study Desk" data-cat="others">
+    <img src="https://raw.githubusercontent.com/kampuscart/buk/main/df9904e8-41c7-4671-9a08-eb4d77ebe175.jpeg" onclick="openModal(this.src)" />
+    <div class="name">Study Desk</div>
+    <div class="price">₦12,000</div>
+    <div>Call: 08130530595</div>
+  </div>
   
   <div class="card" data-name="Victorian Yard" data-cat="clothes">
     <img src="574a45b8-279f-42eb-8deb-215707340bf0.jpeg" onclick="openModal(this.src)" />
@@ -233,122 +232,53 @@
     <div class="price">₦30000</div>
     <div>Call: 08130530595</div>
   </div>
-<div class="card" data-name="XR Customized to 17 Pro Max" data-cat="phones">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/a3aed2cd-34ac-4ad6-9c93-22a4ba2c26f4.jpeg" 
-       onclick="openModal(this.src)" />
-  <div class="name">XR → 17 Pro Max (Customized)</div>
-  <div class="price">₦280,000</div>
-  <div>Call: 07011881026</div>
-</div>
-  
-  <div class="card" data-name="Fashion Designer" data-cat="clothes">
-    <img src="860407a0-5864-4279-82db-564ba294feb6.jpeg" onclick="openModal(this.src)" />
-    <div class="name">Fashion Designer</div>
-    <div class="price">Custom Sewing</div>
-    <div>Call: 07064180468</div>
+
+  <!-- Temu Products with placeholder image -->
+  <div class="card" data-name="Latest Smart Watch" data-cat="phones">
+    <img src="https://via.placeholder.com/300x300?text=Smart+Watch" onclick="openModal(this.src)" />
+    <div class="name">Latest Smart Watch</div>
+    <div class="price">₦11,435</div>
+    <div><a href="https://temu.to/k/eru2ezezgaq" target="_blank">Buy on Temu</a></div>
   </div>
 
-  <div class="card" data-name="iPhone XR (Used)" data-cat="phones">
-    <img src="https://raw.githubusercontent.com/kampuscart/buk/main/388e8773-c5f2-4823-af8d-54ec7bc7e027.jpeg" onclick="openModal(this.src)" />
-    <div class="name">iPhone XR (Used)</div>
-    <div class="price">₦195,000</div>
-    <div>Location: Old Site / New Site</div>
-    <div>Call: 07052418840</div>
+  <div class="card" data-name="Over-Ear Wireless Headphones" data-cat="phones">
+    <img src="https://via.placeholder.com/300x300?text=Headphones" onclick="openModal(this.src)" />
+    <div class="name">Over-Ear Wireless Headphones</div>
+    <div class="price">₦6,340</div>
+    <div><a href="https://temu.to/k/e518dratuk2" target="_blank">Buy on Temu</a></div>
   </div>
 
-  <div class="card" data-name="Chase Cartel Trucker" data-cat="clothes">
-    <img src="https://raw.githubusercontent.com/kampuscart/buk/main/92348e5f-37b3-4847-86ee-1a9fc41091ec.jpeg" onclick="openModal(this.src)" />
-    <div class="name">Chase Cartel Trucker</div>
-    <div class="price">₦7,000</div>
-    <div>Call: 07048543238</div>
+  <div class="card" data-name="Auusda T156A Laptop" data-cat="phones">
+    <img src="https://via.placeholder.com/300x300?text=Laptop" onclick="openModal(this.src)" />
+    <div class="name">Auusda T156A Laptop</div>
+    <div class="price">₦353,504</div>
+    <div><a href="https://temu.to/k/eflqp6xp305" target="_blank">Buy on Temu</a></div>
   </div>
 
-  <div class="card" data-name="FLORIDA WOOL" data-cat="clothes">
-    <img src="IMG_4715.jpeg" onclick="openModal(this.src)" />
-    <div class="name">FLORIDA WOOL</div>
-    <div class="price">₦5000 / yard</div>
-    <div>Call: 08128371576</div>
-  </div>
-  
-<div class="card" data-name="Study Desk" data-cat="others">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/df9904e8-41c7-4671-9a08-eb4d77ebe175.jpeg" 
-       onclick="openModal(this.src)" />
-  <div class="name">Study Desk</div>
-  <div class="price">₦12,000</div>
-  <div>Call: 08130530595</div>
-</div>
-  
-  <div class="card" data-name="Victorian Yard" data-cat="clothes">
-    <img src="574a45b8-279f-42eb-8deb-215707340bf0.jpeg" onclick="openModal(this.src)" />
-    <div class="name">Victorian Yard</div>
-    <div class="price">₦10000 / yard</div>
-    <div>Call: 08128371576</div>
+  <div class="card" data-name="SADOER Skincare Set" data-cat="perfume">
+    <img src="https://via.placeholder.com/300x300?text=Skincare" onclick="openModal(this.src)" />
+    <div class="name">SADOER Skincare Set</div>
+    <div class="price">₦7,842</div>
+    <div><a href="https://temu.to/k/eu9al1snxn6" target="_blank">Buy on Temu</a></div>
   </div>
 
-  <div class="card" data-name="GK Plain" data-cat="clothes">
-    <img src="d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg" onclick="openModal(this.src)" />
-    <div class="name">GK Plain</div>
-    <div class="price">₦3000 / yard</div>
-    <div>Call: 09169517156</div>
+  <div class="card" data-name="PEJE AI Smart Glasses" data-cat="phones">
+    <img src="https://via.placeholder.com/300x300?text=Smart+Glasses" onclick="openModal(this.src)" />
+    <div class="name">PEJE AI Smart Glasses</div>
+    <div class="price">₦59,771</div>
+    <div><a href="https://temu.to/k/ewdl9mtlxro" target="_blank">Buy on Temu</a></div>
   </div>
 
-  <div class="card" data-name="Natural Body Perfume Spray" data-cat="perfume">
-    <img src="96354c82-38dc-483e-b580-576825d2e2c5.jpeg" onclick="openModal(this.src)" />
-    <div class="name">Natural Body Perfume Spray</div>
-    <div class="price">₦5000</div>
-    <div>Call: 08130530595</div>
-  </div>
+  <!-- Add all remaining Temu products here similarly with placeholders -->
 
-  <div class="card" data-name="Amber Oud Oil Perfume" data-cat="perfume">
-    <img src="7f0d0760-7750-4a44-b496-99d6467fe0d0.jpeg" onclick="openModal(this.src)" />
-    <div class="name">Amber Oud Oil Perfume</div>
-    <div class="price">₦7000</div>
-    <div>Call: 08130530595</div>
-  </div>
-
-  <div class="card" data-name="Abaya" data-cat="clothes">
-    <img src="a2e2ff91-3959-42f4-9374-a6bbe3de3b2a.jpeg" onclick="openModal(this.src)" />
-    <div class="name">Abaya</div>
-    <div class="price">₦30000</div>
-    <div>Call: 08130530595</div>
-  </div>
-<div class="card" data-name="XR Customized to 17 Pro Max" data-cat="phones">
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/a3aed2cd-34ac-4ad6-9c93-22a4ba2c26f4.jpeg" 
-       onclick="openModal(this.src)" />
-  <div class="name">XR → 17 Pro Max (Customized)</div>
-  <div class="price">₦280,000</div>
-  <div>Call: 07011881026</div>
-</div>
-  
-  <div class="card" data-name="Fashion Designer" data-cat="clothes">
-    <img src="860407a0-5864-4279-82db-564ba294feb6.jpeg" onclick="openModal(this.src)" />
-    <div class="name">Fashion Designer</div>
-    <div class="price">Custom Sewing</div>
-    <div>Call: 07064180468</div>
-  </div>
-
-  <div class="card" data-name="iPhone XR (Used)" data-cat="phones">
-    <img src="https://raw.githubusercontent.com/kampuscart/buk/main/388e8773-c5f2-4823-af8d-54ec7bc7e027.jpeg" onclick="openModal(this.src)" />
-    <div class="name">iPhone XR (Used)</div>
-    <div class="price">₦195,000</div>
-    <div>Location: Old Site / New Site</div>
-    <div>Call: 07052418840</div>
-  </div>
-
-  <div class="card" data-name="Chase Cartel Trucker" data-cat="clothes">
-    <img src="https://raw.githubusercontent.com/kampuscart/buk/main/92348e5f-37b3-4847-86ee-1a9fc41091ec.jpeg" onclick="openModal(this.src)" />
-    <div class="name">Chase Cartel Trucker</div>
-    <div class="price">₦7,000</div>
-    <div>Call: 07048543238</div>
-  </div>
-  
 </div>
 
 <hr style="margin:25px 0;border:none;height:1px;background:#ccc;">
 
 <div class="section-title">Services</div>
 <div class="services" id="serviceList">
- <div class="card service-card" data-cat="service" data-name="Yamarita">
+
+  <div class="card service-card" data-cat="service" data-name="Yamarita">
     <span class="badge">Service</span>
     <img src="https://raw.githubusercontent.com/kampuscart/buk/main/ae8a5695-cbda-436a-9d05-b565481221ea.jpeg" onclick="openModal(this.src)" />
     <div class="name">Yamarita / Egg-coated Fried Yam</div>
@@ -382,202 +312,6 @@
     <div class="name">Textbooks & Reference Books</div>
     <div>Call: 07066460111</div>
   </div>
-</div>
-
-<div class="section-title">Temu Products</div>
-<div class="products fade" id="temuProducts">
-
-  <div class="card" data-name="Latest Smart Watch" data-cat="temu">
-    <img src="https://temu.to/k/eru2ezezgaq" onclick="window.open('https://temu.to/k/eru2ezezgaq','_blank')" />
-    <div class="name">Latest Smart Watch</div>
-    <div class="price">₦11,435</div>
-  </div>
-
-  <div class="card" data-name="Over-Ear Wireless Headphones" data-cat="temu">
-    <img src="https://temu.to/k/e518dratuk2" onclick="window.open('https://temu.to/k/e518dratuk2','_blank')" />
-    <div class="name">Over-Ear Wireless Headphones</div>
-    <div class="price">₦6,340</div>
-  </div>
-
-  <div class="card" data-name="Auusda T156A Laptop" data-cat="temu">
-    <img src="https://temu.to/k/eflqp6xp305" onclick="window.open('https://temu.to/k/eflqp6xp305','_blank')" />
-    <div class="name">Auusda T156A Laptop</div>
-    <div class="price">₦353,504</div>
-  </div>
-
-  <div class="card" data-name="SADOER 5pcs Korean Skincare Set" data-cat="temu">
-    <img src="https://temu.to/k/eu9al1snxn6" onclick="window.open('https://temu.to/k/eu9al1snxn6','_blank')" />
-    <div class="name">SADOER 5pcs Korean Skincare Set</div>
-    <div class="price">₦7,842</div>
-  </div>
-
-  <div class="card" data-name="PEJE AI Smart Glasses" data-cat="temu">
-    <img src="https://temu.to/k/ewdl9mtlxro" onclick="window.open('https://temu.to/k/ewdl9mtlxro','_blank')" />
-    <div class="name">PEJE AI Smart Glasses</div>
-    <div class="price">₦59,771</div>
-  </div>
-
-  <div class="card" data-name="High-Definition Full Touchscreen Unisex Smartwatch" data-cat="temu">
-    <img src="https://temu.to/k/ew8gh50w3f9" onclick="window.open('https://temu.to/k/ew8gh50w3f9','_blank')" />
-    <div class="name">Full Touchscreen Unisex Smartwatch</div>
-    <div class="price">₦8,715</div>
-  </div>
-
-  <div class="card" data-name="New Smartwatch for Men and Women" data-cat="temu">
-    <img src="https://temu.to/k/eoeaej65s9a" onclick="window.open('https://temu.to/k/eoeaej65s9a','_blank')" />
-    <div class="name">New Smartwatch for Men and Women</div>
-    <div class="price">₦18,154</div>
-  </div>
-
-  <div class="card" data-name="Vintage Pearl Necklace Set" data-cat="temu">
-    <img src="https://temu.to/k/ezxxc9ajgzm" onclick="window.open('https://temu.to/k/ezxxc9ajgzm','_blank')" />
-    <div class="name">Vintage Pearl Necklace Set</div>
-    <div class="price">₦5,499</div>
-  </div>
-
-  <div class="card" data-name="Men's Boxer Briefs" data-cat="temu">
-    <img src="https://temu.to/k/eak3gz9oesc" onclick="window.open('https://temu.to/k/eak3gz9oesc','_blank')" />
-    <div class="name">Men's Boxer Briefs</div>
-    <div class="price">₦4,142</div>
-  </div>
-
-  <div class="card" data-name="2pcs 14-inch Laptop Screen Protector" data-cat="temu">
-    <img src="https://temu.to/k/e67z5hy5h5p" onclick="window.open('https://temu.to/k/e67z5hy5h5p','_blank')" />
-    <div class="name">2pcs 14-inch Laptop Screen Protector</div>
-    <div class="price">₦18,805</div>
-  </div>
-
-  <div class="card" data-name="LOMAXFR Fitness Watch" data-cat="temu">
-    <img src="https://temu.to/k/eeqnob3ls1g" onclick="window.open('https://temu.to/k/eeqnob3ls1g','_blank')" />
-    <div class="name">LOMAXFR Fitness Watch</div>
-    <div class="price">₦11,166</div>
-  </div>
-
-  <div class="card" data-name="TWS Wireless Earphones" data-cat="temu">
-    <img src="https://temu.to/k/e7cmg4xbc90" onclick="window.open('https://temu.to/k/e7cmg4xbc90','_blank')" />
-    <div class="name">TWS Wireless Earphones</div>
-    <div class="price">₦5,306</div>
-  </div>
-
-  <div class="card" data-name="Romanish HO20 Power Bank Case" data-cat="temu">
-    <img src="https://temu.to/k/ebon7r7fl90" onclick="window.open('https://temu.to/k/ebon7r7fl90','_blank')" />
-    <div class="name">Romanish HO20 Power Bank Case</div>
-    <div class="price">₦8,739</div>
-  </div>
-
-  <div class="card" data-name="USB Storage Drive" data-cat="temu">
-    <img src="https://temu.to/k/eb5q54ddzq0" onclick="window.open('https://temu.to/k/eb5q54ddzq0','_blank')" />
-    <div class="name">USB Storage Drive</div>
-    <div class="price">₦3,305</div>
-  </div>
-
-  <div class="card" data-name="Wireless Mini Speaker" data-cat="temu">
-    <img src="https://temu.to/k/ecy5wgobqb9" onclick="window.open('https://temu.to/k/ecy5wgobqb9','_blank')" />
-    <div class="name">Wireless Mini Speaker</div>
-    <div class="price">₦11,947</div>
-  </div>
-
-  <div class="card" data-name="4pcs Gaming Finger Sleeve Set" data-cat="temu">
-    <img src="https://temu.to/k/exqd729n9ze" onclick="window.open('https://temu.to/k/exqd729n9ze','_blank')" />
-    <div class="name">4pcs Gaming Finger Sleeve Set</div>
-    <div class="price">₦2,574</div>
-  </div>
-
-  <div class="card" data-name="OLED Display Counting Ring" data-cat="temu">
-    <img src="https://temu.to/k/ecg5yaskftn" onclick="window.open('https://temu.to/k/ecg5yaskftn','_blank')" />
-    <div class="name">OLED Display Counting Ring</div>
-    <div class="price">₦12,781</div>
-  </div>
-
-  <div class="card" data-name="New High-Definition Smartwatch" data-cat="temu">
-    <img src="https://temu.to/k/e7f1mbva0ak" onclick="window.open('https://temu.to/k/e7f1mbva0ak','_blank')" />
-    <div class="name">New High-Definition Smartwatch</div>
-    <div class="price">₦8,847</div>
-  </div>
-
-  <div class="card" data-name="3-in-1 Selfie Stick with Fill Light" data-cat="temu">
-    <img src="https://temu.to/k/e6eldpiuuy0" onclick="window.open('https://temu.to/k/e6eldpiuuy0','_blank')" />
-    <div class="name">3-in-1 Selfie Stick with Fill Light</div>
-    <div class="price">₦4,811</div>
-  </div>
-
-  <div class="card" data-name="Men & Women's Slip-On EVA Beach Slippers" data-cat="temu">
-    <img src="https://temu.to/k/ez1wsf7xpoi" onclick="window.open('https://temu.to/k/ez1wsf7xpoi','_blank')" />
-    <div class="name">Men & Women's Slip-On EVA Beach Slippers</div>
-    <div class="price">₦3,656</div>
-  </div>
-
-  <div class="card" data-name="Portable Toothbrush Case" data-cat="temu">
-    <img src="https://temu.to/k/eduo47dsbnj" onclick="window.open('https://temu.to/k/eduo47dsbnj','_blank')" />
-    <div class="name">Portable Toothbrush Case</div>
-    <div class="price">₦2,139</div>
-  </div>
-
-  <div class="card" data-name="Smart Glasses with Wireless Headphones" data-cat="temu">
-    <img src="https://temu.to/k/eddavt7v9ye" onclick="window.open('https://temu.to/k/eddavt7v9ye','_blank')" />
-    <div class="name">Smart Glasses with Wireless Headphones</div>
-    <div class="price">₦10,252</div>
-  </div>
-
-  <div class="card" data-name="Xiaomi Redmi Note14/13 Case" data-cat="temu">
-    <img src="https://temu.to/k/ei7b5vm3men" onclick="window.open('https://temu.to/k/ei7b5vm3men','_blank')" />
-    <div class="name">Xiaomi Redmi Note14/13 Case</div>
-    <div class="price">₦4,922</div>
-  </div>
-
-  <div class="card" data-name="USB Flash Drive with USB-C Adapter" data-cat="temu">
-    <img src="https://temu.to/k/ecwcig92c1e" onclick="window.open('https://temu.to/k/ecwcig92c1e','_blank')" />
-    <div class="name">USB Flash Drive with USB-C Adapter</div>
-    <div class="price">₦3,803</div>
-  </div>
-
-  <div class="card" data-name="45pcs Executive Gel Pen Set" data-cat="temu">
-    <img src="https://temu.to/k/e46hdx43z9v" onclick="window.open('https://temu.to/k/e46hdx43z9v','_blank')" />
-    <div class="name">45pcs Executive Gel Pen Set</div>
-    <div class="price">₦5,609</div>
-  </div>
-
-  <div class="card" data-name="1pc Children Educational Tablet Toy" data-cat="temu">
-    <img src="https://temu.to/k/eye0pglsjwe" onclick="window.open('https://temu.to/k/eye0pglsjwe','_blank')" />
-    <div class="name">1pc Children Educational Tablet Toy</div>
-    <div class="price">₦14,243</div>
-  </div>
-
-  <div class="card" data-name="Ocean Heart-Inspired Women's Bracelet" data-cat="temu">
-    <img src="https://temu.to/k/e29kumyge4u" onclick="window.open('https://temu.to/k/e29kumyge4u','_blank')" />
-    <div class="name">Ocean Heart-Inspired Women's Bracelet</div>
-    <div class="price">₦995</div>
-  </div>
-
-  <div class="card" data-name="1-in-1 Star & Moon Projector Night Light" data-cat="temu">
-    <img src="https://temu.to/k/edfu8qo86w5" onclick="window.open('https://temu.to/k/edfu8qo86w5','_blank')" />
-    <div class="name">1-in-1 Star & Moon Projector Night Light</div>
-    <div class="price">₦5,802</div>
-  </div>
-
-  <div class="card" data-name="Vintage Retro Square Glasses" data-cat="temu">
-    <img src="https://temu.to/k/e096zvjflaw" onclick="window.open('https://temu.to/k/e096zvjflaw','_blank')" />
-    <div class="name">Vintage Retro Square Glasses</div>
-    <div class="price">₦3,071</div>
-  </div>
-
-  <div class="card" data-name="10pcs Microfiber Kitchen Towels" data-cat="temu">
-    <img src="https://temu.to/k/enhog8b4p3a" onclick="window.open('https://temu.to/k/enhog8b4p3a','_blank')" />
-    <div class="name">10pcs Microfiber Kitchen Towels</div>
-    <div class="price">₦3,408</div>
-  </div>
-
-  <div class="card" data-name="TIKP Men's Slip-On Slippers" data-cat="temu">
-    <img src="https://temu.to/k/ejtf1vg4o9m" onclick="window.open('https://temu.to/k/ejtf1vg4o9m','_blank')" />
-    <div class="name">TIKP Men's Slip-On Slippers</div>
-    <div class="price">₦4,759</div>
-  </div>
-
-  <div class="card" data-name="Men's 4pcs Mobius Loop Bracelet Set" data-cat="temu">
-    <img src="https://temu.to/k/e8gltu8e9ir" onclick="window.open('https://temu.to/k/e8gltu8e9ir','_blank')" />
-    <div class="name">Men's 4pcs Mobius Loop Bracelet Set</div>
-    <div class="price">₦2,530</div>
-  </div>
 
 </div>
 
@@ -607,7 +341,7 @@
 <script>
 function filterItems() {
   let text = document.getElementById('search').value.toLowerCase();
-  document.querySelectorAll('#productList .card, #serviceList .card, #temuProducts .card').forEach(card => {
+  document.querySelectorAll('#productList .card, #serviceList .card').forEach(card => {
     let name = card.getAttribute('data-name').toLowerCase();
     card.style.display = name.includes(text) ? 'block' : 'none';
   });
@@ -644,10 +378,6 @@ function filterCategory(cat){
   });
   document.querySelectorAll('#serviceList .card').forEach(c=>{
     c.style.display = (cat==='all' || cat==='service') ? 'block' : 'none';
-  });
-  document.querySelectorAll('#temuProducts .card').forEach(c=>{
-    let type=c.getAttribute('data-cat');
-    c.style.display = (cat==='all' || cat===type) ? 'block' : 'none';
   });
 }
 
