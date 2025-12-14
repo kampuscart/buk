@@ -151,6 +151,23 @@
     border-radius: 15px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.5);
   }
+
+  /* Smaller product cards for Top Deals */
+  .card.top-deal {
+    width: 160px;
+    font-size: 13px;
+  }
+  .card.top-deal img {
+    height: 140px;
+  }
+  .card.top-deal .name {
+    height: 34px;
+    font-size: 13px;
+  }
+  .card.top-deal .price {
+    font-size: 14px;
+  }
+
 </style>
 </head>
 <body>
@@ -168,9 +185,68 @@
   <button onclick="filterCategory('perfume')">Perfume</button>
 </div>
 
-<div class="products" id="productList">
+<!-- Top Deals Section -->
+<div class="products" id="topDeals">
+  <h2 style="text-align:center; color:white; font-weight:600; margin:20px 0;">🔥 Top Deals</h2>
 
-  <!-- Temu Products -->
+  <div class="card top-deal" onclick="openModal('IMG_4846.jpeg')">
+    <img src="IMG_4846.jpeg" alt="Men's Mesh Cap">
+    <div class="info">
+      <div class="name">Men's Spring & Summer Mesh Cap</div>
+      <div class="price">
+        <span style="text-decoration:line-through; color:#888;">₦3,900</span> ₦3,459
+      </div>
+      <a href="https://temu.to/k/es5wfhwe27g" target="_blank">View Product</a>
+    </div>
+  </div>
+
+  <div class="card top-deal" onclick="openModal('IMG_4847.jpeg')">
+    <img src="IMG_4847.jpeg" alt="Smart Watch">
+    <div class="info">
+      <div class="name">Latest Smart Watch 1.83" Touch</div>
+      <div class="price">
+        <span style="text-decoration:line-through; color:#888;">₦12,500</span> ₦11,435
+      </div>
+      <a href="https://temu.to/k/eru2ezezgaq" target="_blank">View Product</a>
+    </div>
+  </div>
+
+  <div class="card top-deal" onclick="openModal('IMG_4905.jpeg')">
+    <img src="IMG_4905.jpeg" alt="Smiling Shark Flashlight">
+    <div class="info">
+      <div class="name">Smiling Shark USB Rechargeable LED Flashlight</div>
+      <div class="price">
+        <span style="text-decoration:line-through; color:#888;">₦5,900</span> ₦5,250
+      </div>
+      <a href="https://temu.to/k/e2fmg9dia8h" target="_blank">Buy Now</a>
+    </div>
+  </div>
+
+  <div class="card top-deal" onclick="openModal('IMG_4906.jpeg')">
+    <img src="IMG_4906.jpeg" alt="2-In-1 Smartwatch with TWS Earphones">
+    <div class="info">
+      <div class="name">2-In-1 Smartwatch with Built-In TWS Earphones</div>
+      <div class="price">
+        <span style="text-decoration:line-through; color:#888;">₦35,000</span> ₦33,530
+      </div>
+      <a href="https://temu.to/k/ezzyq64kdw3" target="_blank">Buy Now</a>
+    </div>
+  </div>
+
+  <div class="card top-deal" onclick="openModal('IMG_4848.jpeg')">
+    <img src="IMG_4848.jpeg" alt="Baseball Cap">
+    <div class="info">
+      <div class="name">Embroidered Letter Baseball Cap</div>
+      <div class="price">
+        <span style="text-decoration:line-through; color:#888;">₦6,500</span> ₦6,088
+      </div>
+      <a href="https://temu.to/k/exg1n5vobm0" target="_blank">View Product</a>
+    </div>
+  </div>
+</div>
+
+<!-- Main Product List -->
+<div class="products" id="productList">
 
   <div class="card" data-cat="clothes" data-name="Men's Mesh Cap" onclick="openModal(this.querySelector('img').src)">
     <img src="IMG_4846.jpeg" alt="Men's Mesh Cap">
@@ -582,9 +658,7 @@
       <div>Call: 07048543238</div>
     </div>
   </div>
-
-</div>
-
+  
 <div class="modal" id="imgModal" onclick="closeModal()">
   <img id="modalImg" src="">
 </div>
