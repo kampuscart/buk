@@ -1,252 +1,165 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kampus Market 🛒</title>
+
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-  body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #a18cd1, #fbc2eb);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
-    color: #333;
-  }
+body{
+  margin:0;
+  font-family:Poppins,sans-serif;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#a18cd1,#fbc2eb);
+  background-size:400% 400%;
+  animation:bg 15s ease infinite;
+}
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
 
-  @keyframes gradientBG {
-    0% {background-position:0% 50%;}
-    50% {background-position:100% 50%;}
-    100% {background-position:0% 50%;}
-  }
+header{
+  text-align:center;
+  padding:25px;
+  font-size:26px;
+  font-weight:600;
+  color:white;
+}
 
-  header {
-    text-align: center;
-    padding: 25px 10px;
-    font-size: 26px;
-    font-weight: 600;
-    color: white;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  }
+.section-title{
+  text-align:center;
+  color:white;
+  font-size:20px;
+  font-weight:600;
+  margin:25px 0 10px;
+}
 
-  .search-bar {
-    width: 90%;
-    max-width: 500px;
-    margin: 0 auto 20px;
-    display: flex;
-  }
+/* GRID – 2 PRODUCTS PER LINE */
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+  padding:0 15px 35px;
+}
 
-  .search-bar input {
-    width: 100%;
-    padding: 12px 15px;
-    border-radius: 25px;
-    border: none;
-    outline: none;
-    font-size: 14px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-  }
+.card{
+  background:white;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 6px 18px rgba(0,0,0,.15);
+  transition:.3s;
+}
+.card:hover{
+  transform:translateY(-4px);
+}
 
-  .categories {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
+.card img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+}
 
-  .categories button {
-    padding: 8px 18px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    background: rgba(255,255,255,0.3);
-    color: white;
-    font-weight: 600;
-    transition: 0.3s;
-    backdrop-filter: blur(5px);
-  }
+.info{
+  padding:10px;
+  text-align:center;
+}
 
-  .categories button.active,
-  .categories button:hover {
-    background: rgba(255,255,255,0.7);
-    color: #333;
-  }
+.name{
+  font-size:13px;
+  font-weight:600;
+  height:34px;
+  overflow:hidden;
+}
 
-  .products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 20px;
-    padding: 0 15px 50px;
-  }
+.price{
+  font-size:14px;
+  font-weight:700;
+  color:#ff3c78;
+}
 
-  .card {
-    background: rgba(255,255,255,0.95);
-    border-radius: 18px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-  }
+.old{
+  text-decoration:line-through;
+  color:#888;
+  font-size:12px;
+  margin-right:5px;
+}
 
-  .card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
-  }
+a{
+  text-decoration:none;
+  font-size:12px;
+  color:#333;
+  display:inline-block;
+  margin-top:5px;
+}
 
-  .card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    transition: transform 0.3s;
-  }
-
-  .card:hover img {
-    transform: scale(1.05);
-  }
-
-  .card .info {
-    padding: 12px;
-    text-align: center;
-  }
-
-  .card .info .name {
-    font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 6px;
-    height: 38px;
-    overflow: hidden;
-  }
-
-  .card .info .price {
-    color: #ff3c78;
-    font-weight: 700;
-    font-size: 15px;
-    margin-bottom: 6px;
-  }
-
-  .card .info a {
-    text-decoration: none;
-    color: #333;
-    font-size: 13px;
-    display: inline-block;
-    margin-top: 4px;
-  }
-
-  .modal {
-    display: none;
-    position: fixed;
-    top:0; left:0; width:100%; height:100%;
-    background: rgba(0,0,0,0.7);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  .modal img {
-    max-width: 90%;
-    max-height: 80%;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
-  }
-
-  /* Smaller product cards for Top Deals */
-  .card.top-deal {
-    width: 160px;
-    font-size: 13px;
-  }
-  .card.top-deal img {
-    height: 140px;
-  }
-  .card.top-deal .name {
-    height: 34px;
-    font-size: 13px;
-  }
-  .card.top-deal .price {
-    font-size: 14px;
-  }
-
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+.modal img{
+  max-width:90%;
+  max-height:80%;
+  border-radius:15px;
+}
 </style>
 </head>
+
 <body>
 
-<header>Kampus Market</header>
+<header>Kampus Market 🛒</header>
 
-<div class="search-bar">
-  <input type="text" placeholder="Search products..." id="search" oninput="filterProducts()">
-</div>
+<!-- 🔥 TOP DEALS -->
+<div class="section-title">🔥 Top Deals</div>
+<div class="products">
 
-<div class="categories">
-  <button class="active" onclick="filterCategory('all')">All</button>
-  <button onclick="filterCategory('clothes')">Clothes</button>
-  <button onclick="filterCategory('phones')">Electronics</button>
-  <button onclick="filterCategory('perfume')">Perfume</button>
-</div>
-
-<!-- Top Deals Section -->
-<div class="products" id="topDeals">
-  <h2 style="text-align:center; color:white; font-weight:600; margin:20px 0;">🔥 Top Deals</h2>
-
-  <div class="card top-deal" onclick="openModal('IMG_4846.jpeg')">
-    <img src="IMG_4846.jpeg" alt="Men's Mesh Cap">
+  <div class="card" onclick="openModal('IMG_4846.jpeg')">
+    <img src="IMG_4846.jpeg">
     <div class="info">
-      <div class="name">Men's Spring & Summer Mesh Cap</div>
-      <div class="price">
-        <span style="text-decoration:line-through; color:#888;">₦3,900</span> ₦3,459
-      </div>
-      <a href="https://temu.to/k/es5wfhwe27g" target="_blank">View Product</a>
+      <div class="name">Men's Mesh Cap</div>
+      <div class="price"><span class="old">₦3,900</span> ₦3,459</div>
+      <a href="https://temu.to/k/es5wfhwe27g" target="_blank">Buy Now</a>
     </div>
   </div>
 
-  <div class="card top-deal" onclick="openModal('IMG_4847.jpeg')">
-    <img src="IMG_4847.jpeg" alt="Smart Watch">
+  <div class="card" onclick="openModal('IMG_4847.jpeg')">
+    <img src="IMG_4847.jpeg">
     <div class="info">
-      <div class="name">Latest Smart Watch 1.83" Touch</div>
-      <div class="price">
-        <span style="text-decoration:line-through; color:#888;">₦12,500</span> ₦11,435
-      </div>
-      <a href="https://temu.to/k/eru2ezezgaq" target="_blank">View Product</a>
+      <div class="name">Smart Watch 1.83"</div>
+      <div class="price"><span class="old">₦12,500</span> ₦11,435</div>
+      <a href="https://temu.to/k/eru2ezezgaq" target="_blank">Buy Now</a>
     </div>
   </div>
 
-  <div class="card top-deal" onclick="openModal('IMG_4905.jpeg')">
-    <img src="IMG_4905.jpeg" alt="Smiling Shark Flashlight">
+  <div class="card" onclick="openModal('IMG_4905.jpeg')">
+    <img src="IMG_4905.jpeg">
     <div class="info">
-      <div class="name">Smiling Shark USB Rechargeable LED Flashlight</div>
-      <div class="price">
-        <span style="text-decoration:line-through; color:#888;">₦5,900</span> ₦5,250
-      </div>
+      <div class="name">Smiling Shark Flashlight</div>
+      <div class="price"><span class="old">₦5,900</span> ₦5,250</div>
       <a href="https://temu.to/k/e2fmg9dia8h" target="_blank">Buy Now</a>
     </div>
   </div>
 
-  <div class="card top-deal" onclick="openModal('IMG_4906.jpeg')">
-    <img src="IMG_4906.jpeg" alt="2-In-1 Smartwatch with TWS Earphones">
+  <div class="card" onclick="openModal('IMG_4906.jpeg')">
+    <img src="IMG_4906.jpeg">
     <div class="info">
-      <div class="name">2-In-1 Smartwatch with Built-In TWS Earphones</div>
-      <div class="price">
-        <span style="text-decoration:line-through; color:#888;">₦35,000</span> ₦33,530
-      </div>
+      <div class="name">2-In-1 Smartwatch + Earbuds</div>
+      <div class="price"><span class="old">₦35,000</span> ₦33,530</div>
       <a href="https://temu.to/k/ezzyq64kdw3" target="_blank">Buy Now</a>
     </div>
   </div>
 
-  <div class="card top-deal" onclick="openModal('IMG_4848.jpeg')">
-    <img src="IMG_4848.jpeg" alt="Baseball Cap">
-    <div class="info">
-      <div class="name">Embroidered Letter Baseball Cap</div>
-      <div class="price">
-        <span style="text-decoration:line-through; color:#888;">₦6,500</span> ₦6,088
-      </div>
-      <a href="https://temu.to/k/exg1n5vobm0" target="_blank">View Product</a>
-    </div>
-  </div>
 </div>
 
-<!-- Main Product List -->
-<div class="products" id="productList">
+<!-- 🛒 ALL PRODUCTS -->
 
   <div class="card" data-cat="clothes" data-name="Men's Mesh Cap" onclick="openModal(this.querySelector('img').src)">
     <img src="IMG_4846.jpeg" alt="Men's Mesh Cap">
@@ -658,37 +571,21 @@
       <div>Call: 07048543238</div>
     </div>
   </div>
-  
-<div class="modal" id="imgModal" onclick="closeModal()">
-  <img id="modalImg" src="">
+
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal" onclick="closeModal()">
+  <img id="modalImg">
 </div>
 
 <script>
 function openModal(src){
-  document.getElementById('imgModal').style.display='flex';
-  document.getElementById('modalImg').src = src;
+  modal.style.display="flex";
+  modalImg.src=src;
 }
 function closeModal(){
-  document.getElementById('imgModal').style.display='none';
-}
-
-function filterCategory(cat){
-  let cards = document.querySelectorAll('#productList .card');
-  cards.forEach(c=>{
-    if(cat==='all' || c.dataset.cat===cat) c.style.display='block';
-    else c.style.display='none';
-  });
-  document.querySelectorAll('.categories button').forEach(b=>b.classList.remove('active'));
-  event.target.classList.add('active');
-}
-
-function filterProducts(){
-  let val = document.getElementById('search').value.toLowerCase();
-  let cards = document.querySelectorAll('#productList .card');
-  cards.forEach(c=>{
-    if(c.dataset.name.toLowerCase().includes(val)) c.style.display='block';
-    else c.style.display='none';
-  });
+  modal.style.display="none";
 }
 </script>
 
