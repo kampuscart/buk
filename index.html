@@ -29,15 +29,31 @@ header{
   color:white;
 }
 
+/* SEARCH + FILTER */
+.controls{
+  display:flex;
+  gap:10px;
+  padding:0 15px 15px;
+}
+.controls input,
+.controls select{
+  flex:1;
+  padding:10px;
+  border-radius:10px;
+  border:none;
+  font-family:Poppins;
+}
+
+/* HEADERS */
 .section-title{
   text-align:center;
   color:white;
   font-size:20px;
   font-weight:600;
-  margin:25px 0 10px;
+  margin:20px 0 10px;
 }
 
-/* GRID – 2 PRODUCTS PER LINE */
+/* GRID */
 .products{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -50,10 +66,6 @@ header{
   border-radius:16px;
   overflow:hidden;
   box-shadow:0 6px 18px rgba(0,0,0,.15);
-  transition:.3s;
-}
-.card:hover{
-  transform:translateY(-4px);
 }
 
 .card img{
@@ -88,11 +100,11 @@ header{
 }
 
 a{
-  text-decoration:none;
-  font-size:12px;
-  color:#333;
   display:inline-block;
+  font-size:12px;
   margin-top:5px;
+  text-decoration:none;
+  color:#333;
 }
 
 /* MODAL */
@@ -117,11 +129,23 @@ a{
 
 <header>Kampus Market 🛒</header>
 
+<div class="controls">
+  <input type="text" id="search" placeholder="Search products...">
+  <select id="category">
+    <option value="all">All</option>
+    <option value="electronics">Electronics</option>
+    <option value="phones">Phones</option>
+    <option value="clothes">Clothes</option>
+    <option value="perfume">Perfume</option>
+    <option value="food">Food</option>
+    <option value="others">Others</option>
+  </select>
+</div>
+
 <!-- 🔥 TOP DEALS -->
 <div class="section-title">🔥 Top Deals</div>
 <div class="products">
-
-  <div class="card" onclick="openModal('IMG_4846.jpeg')">
+  <div class="card" data-cat="clothes" data-name="mesh cap">
     <img src="IMG_4846.jpeg">
     <div class="info">
       <div class="name">Men's Mesh Cap</div>
@@ -130,7 +154,7 @@ a{
     </div>
   </div>
 
-  <div class="card" onclick="openModal('IMG_4847.jpeg')">
+  <div class="card" data-cat="electronics" data-name="smart watch">
     <img src="IMG_4847.jpeg">
     <div class="info">
       <div class="name">Smart Watch 1.83"</div>
@@ -138,455 +162,196 @@ a{
       <a href="https://temu.to/k/eru2ezezgaq" target="_blank">Buy Now</a>
     </div>
   </div>
-
-  <div class="card" onclick="openModal('IMG_4905.jpeg')">
-    <img src="IMG_4905.jpeg">
-    <div class="info">
-      <div class="name">Smiling Shark Flashlight</div>
-      <div class="price"><span class="old">₦5,900</span> ₦5,250</div>
-      <a href="https://temu.to/k/e2fmg9dia8h" target="_blank">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card" onclick="openModal('IMG_4906.jpeg')">
-    <img src="IMG_4906.jpeg">
-    <div class="info">
-      <div class="name">2-In-1 Smartwatch + Earbuds</div>
-      <div class="price"><span class="old">₦35,000</span> ₦33,530</div>
-      <a href="https://temu.to/k/ezzyq64kdw3" target="_blank">Buy Now</a>
-    </div>
-  </div>
-
 </div>
 
 <!-- 🛒 ALL PRODUCTS -->
+<div class="section-title">🛒 All Products</div>
+<div class="products" id="allProducts">
 
-  <div class="card" data-cat="clothes" data-name="Men's Mesh Cap" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4846.jpeg" alt="Men's Mesh Cap">
-    <div class="info">
-      <div class="name">Men's Spring & Summer Mesh Cap</div>
-      <div class="price">₦3,459</div>
-      <a href="https://temu.to/k/es5wfhwe27g" target="_blank">View Product</a>
-    </div>
-  </div>
-
-  <div class="card" data-cat="phones" data-name="Smart Watch" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4847.jpeg" alt="Smart Watch">
-    <div class="info">
-      <div class="name">Latest Smart Watch 1.83" Touch</div>
-      <div class="price">₦11,435</div>
-      <a href="https://temu.to/k/eru2ezezgaq" target="_blank">View Product</a>
-    </div>
-  </div>
-
-  <div class="card" data-cat="clothes" data-name="Baseball Cap" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4848.jpeg" alt="Baseball Cap">
-    <div class="info">
-      <div class="name">Embroidered Letter Baseball Cap</div>
-      <div class="price">₦6,088</div>
-      <a href="https://temu.to/k/exg1n5vobm0" target="_blank">View Product</a>
-    </div>
-  </div>
-  
-<div class="card" data-cat="electronics" data-name="Smiling Shark Flashlight" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4905.jpeg" alt="Smiling Shark Flashlight">
+<!-- Men’s Mesh Cap -->
+<div class="card" data-cat="clothes" data-name="men mesh cap">
+  <img src="IMG_4846.jpeg">
   <div class="info">
-    <div class="name">Smiling Shark USB Rechargeable LED Flashlight</div>
+    <div class="name">Men's Spring & Summer Mesh Cap</div>
+    <div class="price">₦3,459</div>
+    <a href="https://temu.to/k/es5wfhwe27g" target="_blank">Buy Now</a>
+  </div>
+</div>
+
+<!-- Smart Watch 1.83 -->
+<div class="card" data-cat="phones" data-name="smart watch">
+  <img src="IMG_4847.jpeg">
+  <div class="info">
+    <div class="name">Smart Watch 1.83"</div>
+    <div class="price">₦11,435</div>
+    <a href="https://temu.to/k/eru2ezezgaq" target="_blank">Buy Now</a>
+  </div>
+</div>
+
+<!-- Baseball Cap -->
+<div class="card" data-cat="clothes" data-name="baseball cap">
+  <img src="IMG_4848.jpeg">
+  <div class="info">
+    <div class="name">Embroidered Letter Baseball Cap</div>
+    <div class="price">₦6,088</div>
+    <a href="https://temu.to/k/exg1n5vobm0" target="_blank">Buy Now</a>
+  </div>
+</div>
+
+<!-- Smiling Shark Flashlight -->
+<div class="card" data-cat="electronics" data-name="smiling shark flashlight">
+  <img src="IMG_4905.jpeg">
+  <div class="info">
+    <div class="name">Smiling Shark USB Rechargeable Flashlight</div>
     <div class="price">₦5,250</div>
     <a href="https://temu.to/k/e2fmg9dia8h" target="_blank">Buy Now</a>
   </div>
 </div>
 
-<div class="card" data-cat="electronics" data-name="2-In-1 Smartwatch with TWS Earphones" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4906.jpeg" alt="2-In-1 Smartwatch with TWS Earphones">
+<!-- 2-in-1 Smartwatch -->
+<div class="card" data-cat="electronics" data-name="2 in 1 smartwatch">
+  <img src="IMG_4906.jpeg">
   <div class="info">
-    <div class="name">2-In-1 Smartwatch with Built-In TWS Earphones</div>
+    <div class="name">2-In-1 Smartwatch + Earbuds</div>
     <div class="price">₦33,530</div>
     <a href="https://temu.to/k/ezzyq64kdw3" target="_blank">Buy Now</a>
   </div>
 </div>
 
-<div class="card" data-cat="electronics" data-name="SinG-e ZQS1328S Mini Wireless Speaker" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4907.jpeg" alt="SinG-e ZQS1328S Mini Wireless Speaker">
+<!-- Mini Wireless Speaker -->
+<div class="card" data-cat="electronics" data-name="mini speaker">
+  <img src="IMG_4907.jpeg">
   <div class="info">
-    <div class="name">SinG-e ZQS1328S Portable Wireless Speaker</div>
+    <div class="name">Portable Wireless Speaker</div>
     <div class="price">₦15,966</div>
     <a href="https://temu.to/k/eymo8r03vfh" target="_blank">Buy Now</a>
   </div>
 </div>
 
-<div class="card" data-cat="electronics" data-name="EVA Charging Power Bank Storage Case" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4908.jpeg" alt="EVA Charging Power Bank Storage Case">
+<!-- Power Bank Storage Case -->
+<div class="card" data-cat="electronics" data-name="power bank case">
+  <img src="IMG_4908.jpeg">
   <div class="info">
-    <div class="name">EVA Charging Power Bank Storage Case</div>
+    <div class="name">EVA Power Bank Storage Case</div>
     <div class="price">₦7,793</div>
     <a href="https://temu.to/k/e8h7ehrcb5v" target="_blank">Buy Now</a>
   </div>
 </div>
 
-<div class="card" data-cat="electronics" data-name="30.48 cm Phone Amplifier" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4909.jpeg" alt="30.48 cm Phone Amplifier">
+<!-- Phone Screen Amplifier -->
+<div class="card" data-cat="electronics" data-name="phone screen amplifier">
+  <img src="IMG_4909.jpeg">
   <div class="info">
-    <div class="name">30.48 cm Phone Amplifier / 3D Screen Extender</div>
+    <div class="name">Phone Screen Amplifier</div>
     <div class="price">₦6,171</div>
     <a href="https://temu.to/k/esvtzgxkah9" target="_blank">Buy Now</a>
   </div>
 </div>
 
-<div class="card" data-cat="phones" data-name="Global Android Smartphone" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4910.jpeg" alt="Global Android Smartphone">
+<!-- Android Smartphone -->
+<div class="card" data-cat="phones" data-name="android smartphone">
+  <img src="IMG_4910.jpeg">
   <div class="info">
-    <div class="name">2025 Global Android Smartphone 8GB+256GB</div>
+    <div class="name">Android Smartphone 8GB/256GB</div>
     <div class="price">₦91,771</div>
     <a href="https://temu.to/k/eyw8niwnaxn" target="_blank">Buy Now</a>
   </div>
 </div>
 
-<div class="card" data-cat="electronics" data-name="30W Wireless Subwoofer" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4911.jpeg" alt="30W Wireless Subwoofer">
+<!-- Sports Smartwatch -->
+<div class="card" data-cat="phones" data-name="sports smartwatch">
+  <img src="IMG_4912.jpeg">
   <div class="info">
-    <div class="name">30W Wireless Subwoofer with Built-in Microphone</div>
-    <div class="price">₦86,346</div>
-    <a href="https://temu.to/k/elmqdu71lkq" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<div class="card" data-cat="electronics" data-name="Multifunctional Sports Smart Watch" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4912.jpeg" alt="Multifunctional Sports Smart Watch">
-  <div class="info">
-    <div class="name">Multifunctional Sports Smart Watch 1.83"</div>
+    <div class="name">Sports Smartwatch 1.83"</div>
     <div class="price">₦8,651</div>
     <a href="https://temu.to/k/eagluolayax" target="_blank">Buy Now</a>
   </div>
 </div>
 
-<div class="card" data-cat="phones" data-name="Samsung Galaxy A35 5G" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4913.jpeg" alt="Samsung Galaxy A35 5G">
-  <div class="info">
-    <div class="name">Samsung Galaxy A35 5G, 8+256GB, Navy Blue</div>
-    <div class="price">₦423,558</div>
-    <a href="https://temu.to/k/eo5mo19nt4n" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<div class="card" data-cat="electronics" data-name="Super Fast Dual Port USB C Charger" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4915.jpeg" alt="Super Fast Dual Port USB C Charger">
-  <div class="info">
-    <div class="name">Super Fast Dual Port USB C Charger Block</div>
-    <div class="price">₦6,230</div>
-    <a href="https://temu.to/k/egmk0k75zx6" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<div class="card" data-cat="phones" data-name="NANNEE C40Pro Smartphone" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4916.jpeg" alt="NANNEE C40Pro Smartphone">
-  <div class="info">
-    <div class="name">2025 New Smart Unlock Smartphone NANNEE C40Pro</div>
-    <div class="price">₦118,901</div>
-    <a href="https://temu.to/k/eka847d7jtb" target="_blank">Buy Now</a>
-  </div>
-</div>
-  
-<div class="card" data-cat="electronics" data-name="RGB Speaker" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4895.jpeg" alt="RGB Speaker">
-  <div class="info">
-    <div class="name">RGB Speaker</div>
-    <div class="price">₦10,805</div>
-    <a href="https://temu.to/k/ezrb5lyh3u2" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<div class="card" data-cat="accessories" data-name="Women Watch Set" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4897.jpeg" alt="Women Watch Set">
-  <div class="info">
-    <div class="name">Women Watch Set</div>
-    <div class="price">₦5,523</div>
-    <a href="https://temu.to/k/ebp1032tpbt" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<div class="card" data-cat="electronics" data-name="Lavalier Microphone" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4898.jpeg" alt="Lavalier Microphone">
-  <div class="info">
-    <div class="name">Lavalier Microphone</div>
-    <div class="price">₦4,417</div>
-    <a href="https://temu.to/k/e0njgvrwrp4" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<div class="card" data-cat="electronics" data-name="Men's Hair Clipper" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4899.jpeg" alt="Men's Hair Clipper">
-  <div class="info">
-    <div class="name">Men's Hair Clipper</div>
-    <div class="price">₦19,210</div>
-    <a href="https://temu.to/k/e7dht0al746" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<div class="card" data-cat="accessories" data-name="Men's Glasses" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4900.jpeg" alt="Men's Glasses">
-  <div class="info">
-    <div class="name">Men's Glasses</div>
-    <div class="price">₦2,154</div>
-    <a href="https://temu.to/k/e2yv1h1m190" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<div class="card" data-cat="electronics" data-name="Spark20 Pro Smartphone" onclick="openModal(this.querySelector('img').src)">
-  <img src="IMG_4901.jpeg" alt="Spark20 Pro Smartphone">
-  <div class="info">
-    <div class="name">Spark20 Pro Smartphone</div>
-    <div class="price">₦72,475</div>
-    <a href="https://temu.to/k/esw5q8dslo3" target="_blank">Buy Now</a>
-  </div>
-</div>
-  
-  <div class="card" data-cat="phones" data-name="Android Smartphone" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4870.jpeg" alt="Android Smartphone">
-    <div class="info">
-      <div class="name">Android Unlock Smartphone 4G</div>
-      <div class="price">₦92,561</div>
-      <a href="https://temu.to/k/eka2041feos" target="_blank">View Product</a>
-    </div>
-  </div>
-
-  <div class="card" data-cat="phones" data-name="Zacharyer Smartwatch" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4866.jpeg" alt="Zacharyer Smartwatch">
-    <div class="info">
-      <div class="name">ZACHARYER Smartwatch</div>
-      <div class="price">₦10,865</div>
-      <a href="https://temu.to/k/eppacp5rreq" target="_blank">View Product</a>
-    </div>
-  </div>
-
-  <div class="card" data-cat="phones" data-name="Wireless Headphones" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4868.jpeg" alt="Wireless Headphones">
-    <div class="info">
-      <div class="name">Over-Ear Wireless Headphones</div>
-      <div class="price">₦10,777</div>
-    </div>
-  </div>
-
-  <div class="card" data-cat="phones" data-name="5G Smartphone" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4867.jpeg" alt="5G Smartphone">
-    <div class="info">
-      <div class="name">5G Smartphone 8GB/256GB</div>
-      <div class="price">₦101,583</div>
-      <a href="https://temu.to/k/eyae6kcxtge" target="_blank">View Product</a>
-    </div>
-  </div>
-
-  <div class="card" data-cat="clothes" data-name="Pink Baseball Cap" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4865.jpeg" alt="Pink Baseball Cap">
-    <div class="info">
-      <div class="name">Women's Pink Baseball Cap</div>
-      <div class="price">₦3,790</div>
-      <a href="https://temu.to/k/e5tuaoed7y5" target="_blank">View Product</a>
-    </div>
-  </div>
-
-  <div class="card" data-cat="phones" data-name="TWS Earphones" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4862.jpeg" alt="TWS Earphones">
-    <div class="info">
-      <div class="name">TWS Wireless Earphones</div>
-      <div class="price">₦5,306</div>
-      <a href="https://temu.to/k/e7cmg4xbc90" target="_blank">View Product</a>
-    </div>
-  </div>
-  
-  <div class="card" data-cat="phones" data-name="4pcs Watch Set" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4863.jpeg" alt="4pcs Watch Set">
-    <div class="info">
-      <div class="name">4pcs Unisex Watch Set</div>
-      <div class="price">₦9,832</div>
-      <a href="https://temu.to/k/eetq1ppr5h7" target="_blank">View Product</a>
-    </div>
-  </div>
-
-  <div class="card" data-cat="phones" data-name="USB Flash Drive" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4872.jpeg" alt="USB Flash Drive">
-    <div class="info">
-      <div class="name">Metal USB 2.0 Flash Drive 100GB</div>
-      <div class="price">₦3,671</div>
-      <a href="https://temu.to/k/eqprvbus6fc" target="_blank">View Product</a>
-    </div>
-  </div>
-
-  <div class="card" data-cat="phones" data-name="Laptop Auusda" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4873.jpeg" alt="Laptop Auusda">
-    <div class="info">
-      <div class="name">Auusda T156A Laptop 15.6"</div>
-      <div class="price">₦353,504</div>
-      <a href="https://temu.to/k/eflqp6xp305" target="_blank">View Product</a>
-    </div>
-  </div>
-
-  <div class="card" data-cat="phones" data-name="Laptop Screen Protector" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4874.jpeg" alt="Laptop Screen Protector">
-    <div class="info">
-      <div class="name">2pcs Laptop Screen Protector 14"</div>
-      <div class="price">₦18,805</div>
-      <a href="https://temu.to/k/e67z5hy5h5p" target="_blank">View Product</a>
-    </div>
-  </div>
-
-  <div class="card" data-cat="phones" data-name="Wireless Speaker" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4875.jpeg" alt="Wireless Speaker">
-    <div class="info">
-      <div class="name">F524 Wireless Speaker</div>
-      <div class="price">₦17,685</div>
-      <a href="https://temu.to/k/erhim0bhug6" target="_blank">View Product</a>
-    </div>
-  </div>
-
-  <div class="card" data-cat="phones" data-name="Over-Ear TWS Headphones" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4877.jpeg" alt="Over-Ear TWS Headphones">
-    <div class="info">
-      <div class="name">True Wireless Over-Ear Headphones</div>
-      <div class="price">₦14,257</div>
-      <a href="https://temu.to/k/efiklz4sdap" target="_blank">View Product</a>
-    </div>
-  </div>
-
-  <div class="card" data-cat="phones" data-name="Magnetic Wireless Charger" onclick="openModal(this.querySelector('img').src)">
-    <img src="IMG_4878.jpeg" alt="Magnetic Wireless Charger">
-    <div class="info">
-      <div class="name">15W Fast Magnetic Wireless Charger</div>
-      <div class="price">₦6,435</div>
-      <a href="https://temu.to/k/ebgx9u0vyy6" target="_blank">View Product</a>
-    </div>
-  </div>
-  
-  <div class="card" data-cat="food" data-name="Tom Brown" onclick="openModal(this.querySelector('img').src)">
-  <img src="https://github.com/kampuscart/buk/blob/main/bdf64a4e-ac48-47de-aa46-90d4df7247a0.jpeg?raw=true" alt="Tom Brown">
+<!-- Tom Brown -->
+<div class="card" data-cat="food" data-name="tom brown">
+  <img src="https://github.com/kampuscart/buk/blob/main/bdf64a4e-ac48-47de-aa46-90d4df7247a0.jpeg?raw=true">
   <div class="info">
     <div class="name">Tom Brown</div>
     <div class="price">₦2,000</div>
-    <div style="font-size:12px;">CREDENCE AGRO ALLIED</div>
-    <div style="font-size:12px;">📞 08129743936</div>
-    <div style="font-size:12px;">📞 +234 803 451 7465</div>
-    <div style="font-size:11px;">
-      1258 Kadawa, Doraya Babba,<br>
-      Gwale LGA, Kano State, Nigeria
-    </div>
+    <div style="font-size:11px">📞 08129743936</div>
   </div>
-    
-  </div>
-  <div class="card" data-cat="clothes" data-name="FLORIDA WOOL" onclick="openModal(this.querySelector('img').src)">
-    <img src="https://github.com/kampuscart/buk/blob/main/IMG_4715.jpeg?raw=true" alt="FLORIDA WOOL">
-    <div class="info">
-      <div class="name">FLORIDA WOOL</div>
-      <div class="price">₦5000 / yard</div>
-      <div>Call: 08128371576</div>
-    </div>
-  </div>
+</div>
 
-  <div class="card" data-cat="others" data-name="Study Desk" onclick="openModal(this.querySelector('img').src)">
-    <img src="https://github.com/kampuscart/buk/blob/main/df9904e8-41c7-4671-9a08-eb4d77ebe175.jpeg?raw=true" alt="Study Desk">
-    <div class="info">
-      <div class="name">Study Desk</div>
-      <div class="price">₦12,000</div>
-      <div>Call: 08130530595</div>
-    </div>
+<!-- Florida Wool -->
+<div class="card" data-cat="clothes" data-name="florida wool">
+  <img src="https://github.com/kampuscart/buk/blob/main/IMG_4715.jpeg?raw=true">
+  <div class="info">
+    <div class="name">FLORIDA WOOL</div>
+    <div class="price">₦5,000 / yard</div>
+    <div style="font-size:11px">📞 08128371576</div>
   </div>
+</div>
 
-  <div class="card" data-cat="clothes" data-name="Victorian Yard" onclick="openModal(this.querySelector('img').src)">
-    <img src="https://github.com/kampuscart/buk/blob/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg?raw=true" alt="Victorian Yard">
-    <div class="info">
-      <div class="name">Victorian Yard</div>
-      <div class="price">₦10000 / yard</div>
-      <div>Call: 08128371576</div>
-    </div>
+<!-- Victorian Yard -->
+<div class="card" data-cat="clothes" data-name="victorian yard">
+  <img src="https://github.com/kampuscart/buk/blob/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg?raw=true">
+  <div class="info">
+    <div class="name">Victorian Yard</div>
+    <div class="price">₦10,000 / yard</div>
+    <div style="font-size:11px">📞 08128371576</div>
   </div>
+</div>
 
-  <div class="card" data-cat="clothes" data-name="GK Plain" onclick="openModal(this.querySelector('img').src)">
-    <img src="https://github.com/kampuscart/buk/blob/main/d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg?raw=true" alt="GK Plain">
-    <div class="info">
-      <div class="name">GK Plain</div>
-      <div class="price">₦3000 / yard</div>
-      <div>Call: 09169517156</div>
-    </div>
+<!-- GK Plain -->
+<div class="card" data-cat="clothes" data-name="gk plain">
+  <img src="https://github.com/kampuscart/buk/blob/main/d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg?raw=true">
+  <div class="info">
+    <div class="name">GK Plain</div>
+    <div class="price">₦3,000 / yard</div>
+    <div style="font-size:11px">📞 09169517156</div>
   </div>
+</div>
 
-  <div class="card" data-cat="perfume" data-name="Natural Body Perfume Spray" onclick="openModal(this.querySelector('img').src)">
-    <img src="https://github.com/kampuscart/buk/blob/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg?raw=true" alt="Natural Body Perfume Spray">
-    <div class="info">
-      <div class="name">Natural Body Perfume Spray</div>
-      <div class="price">₦5000</div>
-      <div>Call: 08130530595</div>
-    </div>
+<!-- Natural Body Perfume -->
+<div class="card" data-cat="perfume" data-name="natural body perfume">
+  <img src="https://github.com/kampuscart/buk/blob/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg?raw=true">
+  <div class="info">
+    <div class="name">Natural Body Perfume</div>
+    <div class="price">₦5,000</div>
+    <div style="font-size:11px">📞 08130530595</div>
   </div>
+</div>
 
-  <div class="card" data-cat="perfume" data-name="Amber Oud Oil Perfume" onclick="openModal(this.querySelector('img').src)">
-    <img src="https://github.com/kampuscart/buk/blob/main/7f0d0760-7750-4a44-b496-99d6467fe0d0.jpeg?raw=true" alt="Amber Oud Oil Perfume">
-    <div class="info">
-      <div class="name">Amber Oud Oil Perfume</div>
-      <div class="price">₦7000</div>
-      <div>Call: 08130530595</div>
-    </div>
+<!-- Amber Oud -->
+<div class="card" data-cat="perfume" data-name="amber oud">
+  <img src="https://github.com/kampuscart/buk/blob/main/7f0d0760-7750-4a44-b496-99d6467fe0d0.jpeg?raw=true">
+  <div class="info">
+    <div class="name">Amber Oud Oil Perfume</div>
+    <div class="price">₦7,000</div>
+    <div style="font-size:11px">📞 08130530595</div>
   </div>
-
-  <div class="card" data-cat="clothes" data-name="Abaya" onclick="openModal(this.querySelector('img').src)">
-    <img src="https://github.com/kampuscart/buk/blob/main/a2e2ff91-3959-42f4-9374-a6bbe3de3b2a.jpeg?raw=true" alt="Abaya">
-    <div class="info">
-      <div class="name">Abaya</div>
-      <div class="price">₦30,000</div>
-      <div>Call: 08130530595</div>
-    </div>
-  </div>
-
-  <div class="card" data-cat="phones" data-name="XR Customized to 17 Pro Max" onclick="openModal(this.querySelector('img').src)">
-    <img src="https://github.com/kampuscart/buk/blob/main/a3aed2cd-34ac-4ad6-9c93-22a4ba2c26f4.jpeg?raw=true" alt="XR Customized to 17 Pro Max">
-    <div class="info">
-      <div class="name">XR → 17 Pro Max (Customized)</div>
-      <div class="price">₦280,000</div>
-      <div>Call: 07011881026</div>
-    </div>
-  </div>
-
-  <div class="card" data-cat="clothes" data-name="Fashion Designer" onclick="openModal(this.querySelector('img').src)">
-    <img src="https://github.com/kampuscart/buk/blob/main/860407a0-5864-4279-82db-564ba294feb6.jpeg?raw=true" alt="Fashion Designer">
-    <div class="info">
-      <div class="name">Fashion Designer</div>
-      <div class="price">Custom Sewing</div>
-      <div>Call: 07064180468</div>
-    </div>
-  </div>
-
-  <div class="card" data-cat="phones" data-name="iPhone XR (Used)" onclick="openModal(this.querySelector('img').src)">
-    <img src="https://github.com/kampuscart/buk/blob/main/388e8773-c5f2-4823-af8d-54ec7bc7e027.jpeg?raw=true" alt="iPhone XR (Used)">
-    <div class="info">
-      <div class="name">iPhone XR (Used)</div>
-      <div class="price">₦195,000</div>
-      <div>Location: Old Site / New Site</div>
-      <div>Call: 07052418840</div>
-    </div>
-  </div>
-
-  <div class="card" data-cat="clothes" data-name="Chase Cartel Trucker" onclick="openModal(this.querySelector('img').src)">
-    <img src="https://github.com/kampuscart/buk/blob/main/92348e5f-37b3-4847-86ee-1a9fc41091ec.jpeg?raw=true" alt="Chase Cartel Trucker">
-    <div class="info">
-      <div class="name">Chase Cartel Trucker</div>
-      <div class="price">₦7,000</div>
-      <div>Call: 07048543238</div>
-    </div>
-  </div>
-
+</div>
+  
 </div>
 
 <!-- MODAL -->
-<div class="modal" id="modal" onclick="closeModal()">
+<div class="modal" id="modal" onclick="this.style.display='none'">
   <img id="modalImg">
 </div>
 
 <script>
-function openModal(src){
-  modal.style.display="flex";
-  modalImg.src=src;
+const search = document.getElementById("search");
+const category = document.getElementById("category");
+const cards = document.querySelectorAll(".card");
+
+function filter(){
+  const s = search.value.toLowerCase();
+  const c = category.value;
+  cards.forEach(card=>{
+    const name = card.dataset.name || "";
+    const cat = card.dataset.cat || "";
+    card.style.display =
+      (name.includes(s) && (c==="all" || c===cat)) ? "block" : "none";
+  });
 }
-function closeModal(){
-  modal.style.display="none";
-}
+search.oninput = filter;
+category.onchange = filter;
 </script>
 
 </body>
