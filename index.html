@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plane Crash Simulator</title>
+<title>Football Crash Simulator</title>
 <style>
   body {
     margin: 0;
@@ -14,26 +14,17 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: hidden;
   }
 
   #game-container {
     position: relative;
     width: 400px;
-    height: 700px; /* portrait layout */
-    border: 2px solid #fff;
-    overflow: hidden;
+    height: 700px; /* portrait */
     border-radius: 10px;
+    overflow: hidden;
     background: url('https://raw.githubusercontent.com/kampuscart/buk/main/IMG_0062.jpeg') no-repeat center/cover;
-  }
-
-  #plane {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    transition: bottom 0.05s linear, transform 0.05s linear;
+    border: 2px solid #fff;
+    box-shadow: 0 0 20px #000;
   }
 
   #multiplier {
@@ -44,7 +35,18 @@
     font-size: 36px;
     font-weight: bold;
     color: #fff;
-    text-shadow: 0 0 10px #000;
+    text-shadow: 2px 2px 5px #000;
+    z-index: 10;
+  }
+
+  #ball {
+    position: absolute;
+    bottom: 40px; /* starting point */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    transition: bottom 0.05s linear;
+    z-index: 5;
   }
 
   #start {
@@ -53,16 +55,18 @@
     left: 50%;
     transform: translateX(-50%);
     padding: 12px 25px;
-    font-size: 18px;
-    background: #273c75;
+    font-size: 20px;
+    background: #1e90ff;
     border: none;
     color: #fff;
     cursor: pointer;
     border-radius: 5px;
+    z-index: 10;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.5);
   }
 
   #start:hover {
-    background: #487eb0;
+    background: #3498db;
   }
 </style>
 </head>
@@ -70,53 +74,48 @@
 
 <div id="game-container">
   <div id="multiplier">1.00x</div>
-  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_0061.jpeg" id="plane" alt="Plane">
+  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_0061.jpeg" id="ball" alt="Ball">
   <button id="start">START ROUND</button>
 </div>
-
-<audio id="flySound" src="fly.mp3" preload="auto"></audio>
-<audio id="crashSound" src="crash.mp3" preload="auto"></audio>
 
 <script>
 const startBtn = document.getElementById("start");
 const multiplierText = document.getElementById("multiplier");
-const plane = document.getElementById("plane");
-const flySound = document.getElementById("flySound");
-const crashSound = document.getElementById("crashSound");
+const ball = document.getElementById("ball");
 
 startBtn.addEventListener("click", () => {
-  runPlaneCrash();
+  runBallCrash();
 });
 
-function runPlaneCrash() {
-  // Reset
+function runBallCrash() {
+  // Reset positions
   multiplierText.textContent = "1.00x";
-  plane.style.bottom = "20px";
-
-  // Optional: start flying sound
-  // flySound.play();
+  ball.style.bottom = "40px";
+  ball.style.transform = "translateX(-50%) rotate(0deg)";
 
   let random = Math.random();
   let crashPoint = (1 / (random + 0.01));
-  crashPoint = Math.min(crashPoint, 100); // max for demo
+  crashPoint = Math.min(crashPoint, 20); // max multiplier visually reasonable
 
   let multiplier = 1.0;
   const intervalTime = 50;
+
   const interval = setInterval(() => {
-    multiplier += 0.02;
+    multiplier += 0.05;
     multiplierText.textContent = multiplier.toFixed(2) + "x";
 
-    // Move plane up
-    let maxBottom = 20 + (multiplier / crashPoint) * 600; // scale to container height
-    if (maxBottom > 600) maxBottom = 600;
-    plane.style.bottom = maxBottom + "px";
+    // Move ball up inside the container
+    let maxBottom = 40 + (multiplier / crashPoint) * 500; // scale to container height
+    if (maxBottom > 500) maxBottom = 500;
+    ball.style.bottom = maxBottom + "px";
+
+    // Slight rotation for effect
+    ball.style.transform = `translateX(-50%) rotate(${multiplier*5}deg)`;
 
     if (multiplier >= crashPoint) {
       clearInterval(interval);
       multiplierText.textContent = "💥 CRASHED at " + crashPoint.toFixed(2) + "x";
-      plane.style.transform = "rotate(45deg) scale(1.2)"; // crash effect
-      // Optional: play crash sound
-      // crashSound.play();
+      ball.style.transform = "translateX(-50%) rotate(720deg) scale(1.3)";
     }
   }, intervalTime);
 }
