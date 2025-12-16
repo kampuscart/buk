@@ -1,599 +1,115 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kampus Market 🛒</title>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crash Game Simulator</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  body {
+    font-family: Arial, sans-serif;
+    background: #0a0a23;
+    color: #fff;
+    text-align: center;
+    margin-top: 50px;
+  }
 
-body{
-  margin:0;
-  font-family:Poppins,sans-serif;
-  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#a18cd1,#fbc2eb);
-  background-size:400% 400%;
-  animation:bg 15s ease infinite;
-}
-@keyframes bg{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
+  #game {
+    position: relative;
+    width: 400px;
+    height: 30px;
+    border: 2px solid #fff;
+    margin: 0 auto 20px;
+    overflow: hidden;
+    background: #111;
+    border-radius: 5px;
+  }
 
-header{
-  text-align:center;
-  padding:25px;
-  font-size:26px;
-  font-weight:600;
-  color:white;
-}
+  #progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #4cd137, #fbc531);
+    transition: width 0.05s ease-out;
+  }
 
-/* SEARCH + FILTER */
-.controls{
-  display:flex;
-  gap:10px;
-  padding:0 15px 15px;
-}
-.controls input,
-.controls select{
-  flex:1;
-  padding:10px;
-  border-radius:10px;
-  border:none;
-  font-family:Poppins;
-}
+  #multiplier {
+    font-size: 36px;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
 
-/* HEADERS */
-.section-title{
-  text-align:center;
-  color:white;
-  font-size:20px;
-  font-weight:600;
-  margin:20px 0 10px;
-}
+  button {
+    padding: 12px 25px;
+    font-size: 18px;
+    background: #273c75;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+  }
 
-/* GRID */
-.products{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:15px;
-  padding:0 15px 35px;
-}
-
-.card{
-  background:white;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 6px 18px rgba(0,0,0,.15);
-}
-
-.card img{
-  width:100%;
-  height:140px;
-  object-fit:cover;
-}
-
-.info{
-  padding:10px;
-  text-align:center;
-}
-
-.name{
-  font-size:13px;
-  font-weight:600;
-  height:34px;
-  overflow:hidden;
-}
-
-.price{
-  font-size:14px;
-  font-weight:700;
-  color:#ff3c78;
-}
-
-.old{
-  text-decoration:line-through;
-  color:#888;
-  font-size:12px;
-  margin-right:5px;
-}
-
-a{
-  display:inline-block;
-  font-size:12px;
-  margin-top:5px;
-  text-decoration:none;
-  color:#333;
-}
-
-/* MODAL */
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.7);
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
-.modal img{
-  max-width:90%;
-  max-height:80%;
-  border-radius:15px;
-}
+  button:hover {
+    background: #487eb0;
+  }
 </style>
 </head>
-
 <body>
 
-<header>Kampus Market 🛒</header>
-
-<div class="controls">
-  <input type="text" id="search" placeholder="Search products...">
-  <select id="category">
-    <option value="all">All</option>
-    <option value="electronics">Electronics</option>
-    <option value="phones">Phones</option>
-    <option value="clothes">Clothes</option>
-    <option value="perfume">Perfume</option>
-    <option value="food">Food</option>
-    <option value="others">Others</option>
-  </select>
+<div id="game">
+  <div id="progress"></div>
 </div>
-
-<!-- 🔥 TOP DEALS -->
-<div class="section-title">🔥 Top Deals</div>
-<div class="products">
-  <div class="card" data-cat="clothes" data-name="mesh cap">
-    <img src="IMG_4846.jpeg">
-    <div class="info">
-      <div class="name">Men's Mesh Cap</div>
-      <div class="price"><span class="old">₦3,900</span> ₦3,459</div>
-      <a href="https://temu.to/k/es5wfhwe27g" target="_blank">Buy Now</a>
-    </div>
-  </div>
-
-  <div class="card" data-cat="electronics" data-name="smart watch">
-    <img src="IMG_4847.jpeg">
-    <div class="info">
-      <div class="name">Smart Watch 1.83"</div>
-      <div class="price"><span class="old">₦12,500</span> ₦11,435</div>
-      <a href="https://temu.to/k/eru2ezezgaq" target="_blank">Buy Now</a>
-    </div>
-  </div>
-
-<!-- Top Deal 1 -->
-<div class="card top-deal" data-cat="electronics" data-name="phone screen amplifier">
-  <img src="IMG_4909.jpeg">
-  <div class="info">
-    <div class="name">Phone Screen Amplifier</div>
-    <div class="price">
-      <span class="old">₦8,000</span> ₦6,171
-    </div>
-    <a href="https://temu.to/k/esvtzgxkah9" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<div class="card top-deal" data-cat="electronics" data-name="portable speaker">
-  <img src="IMG_4907.jpeg">
-  <div class="info">
-    <div class="name">Portable Wireless Speaker</div>
-    <div class="price">
-      <span class="old">₦20,000</span> ₦15,966
-    </div>
-    <a href="https://temu.to/k/eymo8r03vfh" target="_blank">Buy Now</a>
-  </div>
-</div>
-</div>
-
-<!-- 🛒 ALL PRODUCTS -->
-<div class="section-title">🛒 All Products</div>
-<div class="products" id="allProducts">
-
-<!-- Men’s Spring & Summer Mesh Cap -->
-<div class="card" data-cat="clothes" data-name="Men's Mesh Cap">
-  <img src="IMG_4846.jpeg">
-  <div class="info">
-    <div class="name">Men's Spring & Summer Mesh Cap</div>
-    <div class="price">₦3,459</div>
-    <a href="https://temu.to/k/es5wfhwe27g" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- Latest Smart Watch 1.83" Touch -->
-<div class="card" data-cat="phones" data-name="Smart Watch">
-  <img src="IMG_4847.jpeg">
-  <div class="info">
-    <div class="name">Latest Smart Watch 1.83" Touch</div>
-    <div class="price">₦11,435</div>
-    <a href="https://temu.to/k/eru2ezezgaq" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- Embroidered Letter Baseball Cap -->
-<div class="card" data-cat="clothes" data-name="Baseball Cap">
-  <img src="IMG_4848.jpeg">
-  <div class="info">
-    <div class="name">Embroidered Letter Baseball Cap</div>
-    <div class="price">₦6,088</div>
-    <a href="https://temu.to/k/exg1n5vobm0" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- Smiling Shark USB Rechargeable LED Flashlight -->
-<div class="card" data-cat="electronics" data-name="Smiling Shark Flashlight">
-  <img src="IMG_4905.jpeg">
-  <div class="info">
-    <div class="name">Smiling Shark USB Rechargeable LED Flashlight</div>
-    <div class="price">₦5,250</div>
-    <a href="https://temu.to/k/e2fmg9dia8h" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- 2-In-1 Smartwatch with TWS Earphones -->
-<div class="card" data-cat="electronics" data-name="2-In-1 Smartwatch with TWS Earphones">
-  <img src="IMG_4906.jpeg">
-  <div class="info">
-    <div class="name">2-In-1 Smartwatch with Built-In TWS Earphones</div>
-    <div class="price">₦33,530</div>
-    <a href="https://temu.to/k/ezzyq64kdw3" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- SinG-e ZQS1328S Portable Wireless Speaker -->
-<div class="card" data-cat="electronics" data-name="SinG-e ZQS1328S Mini Wireless Speaker">
-  <img src="IMG_4907.jpeg">
-  <div class="info">
-    <div class="name">SinG-e ZQS1328S Portable Wireless Speaker</div>
-    <div class="price">₦15,966</div>
-    <a href="https://temu.to/k/eymo8r03vfh" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- EVA Charging Power Bank Storage Case -->
-<div class="card" data-cat="electronics" data-name="EVA Charging Power Bank Storage Case">
-  <img src="IMG_4908.jpeg">
-  <div class="info">
-    <div class="name">EVA Charging Power Bank Storage Case</div>
-    <div class="price">₦7,793</div>
-    <a href="https://temu.to/k/e8h7ehrcb5v" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- 30.48 cm Phone Amplifier / 3D Screen Extender -->
-<div class="card" data-cat="electronics" data-name="30.48 cm Phone Amplifier">
-  <img src="IMG_4909.jpeg">
-  <div class="info">
-    <div class="name">30.48 cm Phone Amplifier / 3D Screen Extender</div>
-    <div class="price">₦6,171</div>
-    <a href="https://temu.to/k/esvtzgxkah9" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- 2025 Global Android Smartphone 8GB+256GB -->
-<div class="card" data-cat="phones" data-name="Global Android Smartphone">
-  <img src="IMG_4910.jpeg">
-  <div class="info">
-    <div class="name">2025 Global Android Smartphone 8GB+256GB</div>
-    <div class="price">₦91,771</div>
-    <a href="https://temu.to/k/eyw8niwnaxn" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- 30W Wireless Subwoofer with Built-in Microphone -->
-<div class="card" data-cat="electronics" data-name="30W Wireless Subwoofer">
-  <img src="IMG_4911.jpeg">
-  <div class="info">
-    <div class="name">30W Wireless Subwoofer with Built-in Microphone</div>
-    <div class="price">₦86,346</div>
-    <a href="https://temu.to/k/elmqdu71lkq" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- Multifunctional Sports Smart Watch 1.83" -->
-<div class="card" data-cat="electronics" data-name="Multifunctional Sports Smart Watch">
-  <img src="IMG_4912.jpeg">
-  <div class="info">
-    <div class="name">Multifunctional Sports Smart Watch 1.83"</div>
-    <div class="price">₦8,651</div>
-    <a href="https://temu.to/k/eagluolayax" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- Samsung Galaxy A35 5G -->
-<div class="card" data-cat="phones" data-name="Samsung Galaxy A35 5G">
-  <img src="IMG_4913.jpeg">
-  <div class="info">
-    <div class="name">Samsung Galaxy A35 5G, 8+256GB, Navy Blue</div>
-    <div class="price">₦423,558</div>
-    <a href="https://temu.to/k/eo5mo19nt4n" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- Super Fast Dual Port USB C Charger Block -->
-<div class="card" data-cat="electronics" data-name="Super Fast Dual Port USB C Charger">
-  <img src="IMG_4915.jpeg">
-  <div class="info">
-    <div class="name">Super Fast Dual Port USB C Charger Block</div>
-    <div class="price">₦6,230</div>
-    <a href="https://temu.to/k/egmk0k75zx6" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- NANNEE C40Pro Smartphone -->
-<div class="card" data-cat="phones" data-name="NANNEE C40Pro Smartphone">
-  <img src="IMG_4916.jpeg">
-  <div class="info">
-    <div class="name">2025 New Smart Unlock Smartphone NANNEE C40Pro</div>
-    <div class="price">₦118,901</div>
-    <a href="https://temu.to/k/eka847d7jtb" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- RGB Speaker -->
-<div class="card" data-cat="electronics" data-name="RGB Speaker">
-  <img src="IMG_4895.jpeg">
-  <div class="info">
-    <div class="name">RGB Speaker</div>
-    <div class="price">₦10,805</div>
-    <a href="https://temu.to/k/ezrb5lyh3u2" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- Women Watch Set -->
-<div class="card" data-cat="accessories" data-name="Women Watch Set">
-  <img src="IMG_4897.jpeg">
-  <div class="info">
-    <div class="name">Women Watch Set</div>
-    <div class="price">₦5,523</div>
-    <a href="https://temu.to/k/ebp1032tpbt" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- Lavalier Microphone -->
-<div class="card" data-cat="electronics" data-name="Lavalier Microphone">
-  <img src="IMG_4898.jpeg">
-  <div class="info">
-    <div class="name">Lavalier Microphone</div>
-    <div class="price">₦4,417</div>
-    <a href="https://temu.to/k/e0njgvrwrp4" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- Men’s Hair Clipper -->
-<div class="card" data-cat="electronics" data-name="Men's Hair Clipper">
-  <img src="IMG_4899.jpeg">
-  <div class="info">
-    <div class="name">Men's Hair Clipper</div>
-    <div class="price">₦19,210</div>
-    <a href="https://temu.to/k/e7dht0al746" target="_blank">Buy Now</a>
-  </div>
-</div>
-
-<!-- Men’s Glasses -->
-<div class="card" data-cat="accessories" data-name="Men's Glasses">
-  <img src="IMG_4900.jpeg">
-  <div class="info">
-    <div class="name">Men's Glasses</div>
-    <div class="price">₦2,154</div>
-    <a href="https://temu.to/k/e2yv1h1m190" target="_blank">Buy Now</a>
-</div>
-</div>
-
-<!-- Android Unlock Smartphone 4G -->
-<div class="card" data-cat="phones" data-name="Android Smartphone">
-  <img src="IMG_4870.jpeg">
-  <div class="info">
-    <div class="name">Android Unlock Smartphone 4G</div>
-    <div class="price">₦92,561</div>
-    <a href="https://temu.to/k/eka2041feos" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- ZACHARYER Smartwatch -->
-<div class="card" data-cat="phones" data-name="Zacharyer Smartwatch">
-  <img src="IMG_4866.jpeg">
-  <div class="info">
-    <div class="name">ZACHARYER Smartwatch</div>
-    <div class="price">₦10,865</div>
-    <a href="https://temu.to/k/eppacp5rreq" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- Over‑Ear Wireless Headphones -->
-<div class="card" data-cat="phones" data-name="Wireless Headphones">
-  <img src="IMG_4868.jpeg">
-  <div class="info">
-    <div class="name">Over‑Ear Wireless Headphones</div>
-    <div class="price">₦10,777</div>
-  </div>
-</div>
-
-<!-- 5G Smartphone 8GB/256GB -->
-<div class="card" data-cat="phones" data-name="5G Smartphone">
-  <img src="IMG_4867.jpeg">
-  <div class="info">
-    <div class="name">5G Smartphone 8GB/256GB</div>
-    <div class="price">₦101,583</div>
-    <a href="https://temu.to/k/eyae6kcxtge" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- Pink Baseball Cap -->
-<div class="card" data-cat="clothes" data-name="Pink Baseball Cap">
-  <img src="IMG_4865.jpeg">
-  <div class="info">
-    <div class="name">Women's Pink Baseball Cap</div>
-    <div class="price">₦3,790</div>
-    <a href="https://temu.to/k/e5tuaoed7y5" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- TWS Wireless Earphones -->
-<div class="card" data-cat="phones" data-name="TWS Earphones">
-  <img src="IMG_4862.jpeg">
-  <div class="info">
-    <div class="name">TWS Wireless Earphones</div>
-    <div class="price">₦5,306</div>
-    <a href="https://temu.to/k/e7cmg4xbc90" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- 4pcs Unisex Watch Set -->
-<div class="card" data-cat="phones" data-name="4pcs Watch Set">
-  <img src="IMG_4863.jpeg">
-  <div class="info">
-    <div class="name">4pcs Unisex Watch Set</div>
-    <div class="price">₦9,832</div>
-    <a href="https://temu.to/k/eetq1ppr5h7" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- USB 2.0 Flash Drive 100GB -->
-<div class="card" data-cat="phones" data-name="USB Flash Drive">
-  <img src="IMG_4872.jpeg">
-  <div class="info">
-    <div class="name">Metal USB 2.0 Flash Drive 100GB</div>
-    <div class="price">₦3,671</div>
-    <a href="https://temu.to/k/eqprvbus6fc" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- Auusda T156A Laptop 15.6" -->
-<div class="card" data-cat="phones" data-name="Laptop Auusda">
-  <img src="IMG_4873.jpeg">
-  <div class="info">
-    <div class="name">Auusda T156A Laptop 15.6"</div>
-    <div class="price">₦353,504</div>
-    <a href="https://temu.to/k/eflqp6xp305" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- 2pcs Laptop Screen Protector -->
-<div class="card" data-cat="phones" data-name="Laptop Screen Protector">
-  <img src="IMG_4874.jpeg">
-  <div class="info">
-    <div class="name">2pcs Laptop Screen Protector 14"</div>
-    <div class="price">₦18,805</div>
-    <a href="https://temu.to/k/e67z5hy5h5p" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- F524 Wireless Speaker -->
-<div class="card" data-cat="phones" data-name="Wireless Speaker">
-  <img src="IMG_4875.jpeg">
-  <div class="info">
-    <div class="name">F524 Wireless Speaker</div>
-    <div class="price">₦17,685</div>
-    <a href="https://temu.to/k/erhim0bhug6" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- True Wireless Over‑Ear Headphones -->
-<div class="card" data-cat="phones" data-name="Over‑Ear TWS Headphones">
-  <img src="IMG_4877.jpeg">
-  <div class="info">
-    <div class="name">True Wireless Over‑Ear Headphones</div>
-    <div class="price">₦14,257</div>
-    <a href="https://temu.to/k/efiklz4sdap" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- 15W Fast Magnetic Wireless Charger -->
-<div class="card" data-cat="phones" data-name="Magnetic Wireless Charger">
-  <img src="IMG_4878.jpeg">
-  <div class="info">
-    <div class="name">15W Fast Magnetic Wireless Charger</div>
-    <div class="price">₦6,435</div>
-    <a href="https://temu.to/k/ebgx9u0vyy6" target="_blank">View Product</a>
-  </div>
-</div>
-
-<!-- Tom Brown -->
-<div class="card" data-cat="food" data-name="tom brown">
-  <img src="https://github.com/kampuscart/buk/blob/main/bdf64a4e-ac48-47de-aa46-90d4df7247a0.jpeg?raw=true">
-  <div class="info">
-    <div class="name">Tom Brown</div>
-    <div class="price">₦2,000</div>
-    <div style="font-size:11px">📞 08129743936</div>
-  </div>
-</div>
-
-<!-- Florida Wool -->
-<div class="card" data-cat="clothes" data-name="florida wool">
-  <img src="https://github.com/kampuscart/buk/blob/main/IMG_4715.jpeg?raw=true">
-  <div class="info">
-    <div class="name">FLORIDA WOOL</div>
-    <div class="price">₦5,000 / yard</div>
-    <div style="font-size:11px">📞 08128371576</div>
-  </div>
-</div>
-
-<!-- Victorian Yard -->
-<div class="card" data-cat="clothes" data-name="victorian yard">
-  <img src="https://github.com/kampuscart/buk/blob/main/574a45b8-279f-42eb-8deb-215707340bf0.jpeg?raw=true">
-  <div class="info">
-    <div class="name">Victorian Yard</div>
-    <div class="price">₦10,000 / yard</div>
-    <div style="font-size:11px">📞 08128371576</div>
-  </div>
-</div>
-
-<!-- GK Plain -->
-<div class="card" data-cat="clothes" data-name="gk plain">
-  <img src="https://github.com/kampuscart/buk/blob/main/d88f5282-4769-4f74-9155-0b6b1d25c34d.jpeg?raw=true">
-  <div class="info">
-    <div class="name">GK Plain</div>
-    <div class="price">₦3,000 / yard</div>
-    <div style="font-size:11px">📞 09169517156</div>
-  </div>
-</div>
-
-<!-- Natural Body Perfume -->
-<div class="card" data-cat="perfume" data-name="natural body perfume">
-  <img src="https://github.com/kampuscart/buk/blob/main/96354c82-38dc-483e-b580-576825d2e2c5.jpeg?raw=true">
-  <div class="info">
-    <div class="name">Natural Body Perfume</div>
-    <div class="price">₦5,000</div>
-    <div style="font-size:11px">📞 08130530595</div>
-  </div>
-</div>
-
-<!-- Amber Oud -->
-<div class="card" data-cat="perfume" data-name="amber oud">
-  <img src="https://github.com/kampuscart/buk/blob/main/7f0d0760-7750-4a44-b496-99d6467fe0d0.jpeg?raw=true">
-  <div class="info">
-    <div class="name">Amber Oud Oil Perfume</div>
-    <div class="price">₦7,000</div>
-    <div style="font-size:11px">📞 08130530595</div>
-  </div>
-</div>
-  
-</div>
-
-<!-- MODAL -->
-<div class="modal" id="modal" onclick="this.style.display='none'">
-  <img id="modalImg">
-</div>
+<div id="multiplier">1.00x</div>
+<button id="start">START ROUND</button>
 
 <script>
-const search = document.getElementById("search");
-const category = document.getElementById("category");
-const cards = document.querySelectorAll(".card");
+const startBtn = document.getElementById("start");
+const multiplierText = document.getElementById("multiplier");
+const progressBar = document.getElementById("progress");
 
-function filter(){
-  const s = search.value.toLowerCase();
-  const c = category.value;
-  cards.forEach(card=>{
-    const name = card.dataset.name || "";
-    const cat = card.dataset.cat || "";
-    card.style.display =
-      (name.includes(s) && (c==="all" || c===cat)) ? "block" : "none";
-  });
+startBtn.addEventListener("click", () => {
+  runAnimatedCrash();
+});
+
+function runAnimatedCrash() {
+  // reset
+  progressBar.style.width = "0%";
+  multiplierText.textContent = "1.00x";
+
+  // generate random crash point
+  let random = Math.random();
+  let crashPoint = (1 / (random + 0.01));
+  crashPoint = Math.min(crashPoint, 100); // max limit for demo
+
+  let multiplier = 1.0;
+  let intervalTime = 50;
+
+  const interval = setInterval(() => {
+    multiplier += 0.05;
+    multiplierText.textContent = multiplier.toFixed(2) + "x";
+
+    // progress bar percentage
+    let progressPercent = Math.min((multiplier / crashPoint) * 100, 100);
+    progressBar.style.width = progressPercent + "%";
+
+    // change color as multiplier grows
+    if (multiplier < crashPoint / 2) {
+      progressBar.style.background = "linear-gradient(90deg, #4cd137, #00ff88)";
+    } else if (multiplier < crashPoint * 0.8) {
+      progressBar.style.background = "linear-gradient(90deg, #fbc531, #ffdd59)";
+    } else {
+      progressBar.style.background = "linear-gradient(90deg, #ff3838, #ff6b6b)";
+    }
+
+    if (multiplier >= crashPoint) {
+      clearInterval(interval);
+      multiplierText.textContent = "💥 CRASHED at " + crashPoint.toFixed(2) + "x";
+      progressBar.style.width = "100%";
+      progressBar.style.background = "linear-gradient(90deg, #ff3838, #ff6b6b)";
+    }
+  }, intervalTime);
 }
-search.oninput = filter;
-category.onchange = filter;
 </script>
 
 </body>
