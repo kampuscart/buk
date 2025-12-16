@@ -3,44 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crash Game Simulator</title>
+<title>Plane Crash Simulator</title>
 <style>
   body {
+    margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
-    background: #0a0a23;
-    color: #fff;
-    text-align: center;
-    margin-top: 50px;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
   }
 
-  #game {
+  #game-container {
     position: relative;
     width: 400px;
-    height: 30px;
+    height: 700px; /* portrait layout */
     border: 2px solid #fff;
-    margin: 0 auto 20px;
     overflow: hidden;
-    background: #111;
-    border-radius: 5px;
+    border-radius: 10px;
+    background: url('https://raw.githubusercontent.com/kampuscart/buk/main/IMG_0062.jpeg') no-repeat center/cover;
   }
 
-  #progress {
+  #plane {
     position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 0;
-    background: linear-gradient(90deg, #4cd137, #fbc531);
-    transition: width 0.05s ease-out;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    transition: bottom 0.05s linear, transform 0.05s linear;
   }
 
   #multiplier {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    text-align: center;
     font-size: 36px;
-    margin-bottom: 20px;
     font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 10px #000;
   }
 
-  button {
+  #start {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     padding: 12px 25px;
     font-size: 18px;
     background: #273c75;
@@ -50,63 +61,62 @@
     border-radius: 5px;
   }
 
-  button:hover {
+  #start:hover {
     background: #487eb0;
   }
 </style>
 </head>
 <body>
 
-<div id="game">
-  <div id="progress"></div>
+<div id="game-container">
+  <div id="multiplier">1.00x</div>
+  <img src="https://raw.githubusercontent.com/kampuscart/buk/main/IMG_0061.jpeg" id="plane" alt="Plane">
+  <button id="start">START ROUND</button>
 </div>
-<div id="multiplier">1.00x</div>
-<button id="start">START ROUND</button>
+
+<audio id="flySound" src="fly.mp3" preload="auto"></audio>
+<audio id="crashSound" src="crash.mp3" preload="auto"></audio>
 
 <script>
 const startBtn = document.getElementById("start");
 const multiplierText = document.getElementById("multiplier");
-const progressBar = document.getElementById("progress");
+const plane = document.getElementById("plane");
+const flySound = document.getElementById("flySound");
+const crashSound = document.getElementById("crashSound");
 
 startBtn.addEventListener("click", () => {
-  runAnimatedCrash();
+  runPlaneCrash();
 });
 
-function runAnimatedCrash() {
-  // reset
-  progressBar.style.width = "0%";
+function runPlaneCrash() {
+  // Reset
   multiplierText.textContent = "1.00x";
+  plane.style.bottom = "20px";
 
-  // generate random crash point
+  // Optional: start flying sound
+  // flySound.play();
+
   let random = Math.random();
   let crashPoint = (1 / (random + 0.01));
-  crashPoint = Math.min(crashPoint, 100); // max limit for demo
+  crashPoint = Math.min(crashPoint, 100); // max for demo
 
   let multiplier = 1.0;
-  let intervalTime = 50;
-
+  const intervalTime = 50;
   const interval = setInterval(() => {
     multiplier += 0.05;
     multiplierText.textContent = multiplier.toFixed(2) + "x";
 
-    // progress bar percentage
-    let progressPercent = Math.min((multiplier / crashPoint) * 100, 100);
-    progressBar.style.width = progressPercent + "%";
-
-    // change color as multiplier grows
-    if (multiplier < crashPoint / 2) {
-      progressBar.style.background = "linear-gradient(90deg, #4cd137, #00ff88)";
-    } else if (multiplier < crashPoint * 0.8) {
-      progressBar.style.background = "linear-gradient(90deg, #fbc531, #ffdd59)";
-    } else {
-      progressBar.style.background = "linear-gradient(90deg, #ff3838, #ff6b6b)";
-    }
+    // Move plane up
+    let maxBottom = 20 + (multiplier / crashPoint) * 600; // scale to container height
+    if (maxBottom > 600) maxBottom = 600;
+    plane.style.bottom = maxBottom + "px";
 
     if (multiplier >= crashPoint) {
       clearInterval(interval);
       multiplierText.textContent = "💥 CRASHED at " + crashPoint.toFixed(2) + "x";
-      progressBar.style.width = "100%";
-      progressBar.style.background = "linear-gradient(90deg, #ff3838, #ff6b6b)";
+      plane.style.transform = "rotate(45deg) scale(1.2)"; // crash effect
+      // Optional: play crash sound
+      // crashSound.play();
     }
   }, intervalTime);
 }
